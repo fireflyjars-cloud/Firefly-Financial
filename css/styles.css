@@ -1,8 +1,81 @@
 /* Firefly Financial — Main Stylesheet */
-/* Brand colors: Teal, Pink, Gold */
+/* Bold, energizing, faith-based financial freedom */
 
+/* ── Brand Colors ── */
 :root {
-  --teal: #008080;
+  --teal: #00B4A6;
   --pink: #FF6B9D;
   --gold: #FFD700;
+  --dark: #0D0D0D;
+  --dark-card: #1A1A2E;
+  --white: #FFFFFF;
+  --light-gray: #F5F5F5;
+}
+
+/* ── Reset & Base ── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--dark);
+  color: var(--white);
+  font-family: 'Georgia', serif;
+  line-height: 1.6;
+}
+
+/* ── Header ── */
+header {
+  background: linear-gradient(135deg, var(--dark-card), var(--dark));
+  border-bottom: 3px solid var(--gold);
+  padding: 60px 20px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 3rem;
+  color: var(--gold);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+header p {
+  font-size: 1.2rem;
+  color: var(--teal);
+  font-style: italic;
+}
+
+/* ── Main Content ── */
+main {
+  max-width: 800px;
+  margin: 60px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+main h2 {
+  font-size: 2rem;
+  color: var(--pink);
+  margin-bottom: 20px;
+}
+
+main p {
+  font-size: 1.1rem;
+  color: var(--light-gray);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ── Footer ── */
+footer {
+  background-color: var(--dark-card);
+  border-top: 2px solid var(--teal);
+  text-align: center;
+  padding: 20px;
+  font-size: 0.85rem;
+  color: var(--teal);
+  margin-top: 80px;
 }
