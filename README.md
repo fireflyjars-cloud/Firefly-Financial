@@ -1,6 +1,6 @@
 # Firefly-Financial
-Firefly Financial — a faith-based personal finance app built on a proprietary Jarring Framework.
-# 🔥 Firefly Financial
+Firefly Financial™ — a faith-based personal finance app built on a proprietary Torah inspired Jarring Framework.
+# 🔥 Firefly Financial - the small, steady light of every disciplined choice - the same light fireflies carry through the dark.
 
 > *Real freedom lives inside discipline. Inside a system. When you submit to a plan, you don’t lose your freedom — you finally find it.*
 
@@ -32,7 +32,7 @@ The Lamp is not a jar. It is the user’s **main account** — where income is r
 
 ## 🎯 The Under-50% Goal — The Transformation Milestone
 
-Most people have no idea how much of their income is being consumed by living expenses. Rent, utilities, subscriptions, car payments — it quietly adds up to 70%, 80%, sometimes more. And they wonder why there’s nothing left at the end of the month.
+Most people have no idea how much of their income is being consumed by living expenses. Rent, utilities, subscriptions, car payments — it quietly adds up to 70%, 80%, oftentimes more. And they wonder why there’s nothing left at the end of the month.
 
 The Firefly system draws a clear line: **your fixed living expenses must be 50% or less of your net income.**
 
@@ -92,7 +92,7 @@ This repository is the starting point. Documentation, structure, and features wi
 
 ## 👤 Founder
 
-**Delyce** — Founder of **Firefly Jars Financial Success Systems, LLC DBA Firefly Financial** and creator of the Jarring Framework. Personal finance educator with lived experience in financial hardship, recovery, and rebuilding. Everything taught here has been walked out in real life.
+**Delyce** — Founder of **Firefly Jars Financial Success Systems, LLC DBA Firefly Financial** and creator of the Firefly Jars™ Framework. Personal finance educator with lived experience in financial hardship, recovery, and rebuilding. Everything taught here has been walked out in real life.
 
 -----
 
