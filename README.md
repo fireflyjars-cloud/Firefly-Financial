@@ -76,8 +76,8 @@ Phase 1 is a **web app** (browser-based, built with HTML, CSS, and JavaScript). 
 
 ## 🏛️ The Three Pillars
 
-1. **The Jarring System** — the framework that allocates your money with intention
 1. **The Under-50% Goal** — the transformation milestone that changes everything
+1. **The Jarring System** — the framework that allocates your money with intention
 1. **The Support Community** — people don’t fail at budgeting because of math. They fail for three reasons: they’re alone with no accountability, instant gratification wins before the habit is built, and they’re staring at dollar amounts instead of *seeing* their money. Watching liquid fill a jar rewires how you relate to your finances in a way that numbers on a screen never will. Community keeps you in the game long enough for the system to work.
 
 -----
