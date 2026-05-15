@@ -1,15 +1,17 @@
 /* Firefly Financial — Main Stylesheet */
-/* Bold, energizing, faith-based financial freedom */
+/* Mythical night forest — dark, warm, glowing */
 
 /* ── Brand Colors ── */
 :root {
   --teal: #00B4A6;
   --pink: #FF6B9D;
   --gold: #FFD700;
-  --dark: #0D0D0D;
-  --dark-card: #1A1A2E;
+  --amber: #FFA500;
+  --dark: #0A0A0A;
+  --dark-green: #0D1F0F;
+  --dark-card: #111827;
   --white: #FFFFFF;
-  --light-gray: #F5F5F5;
+  --light-gray: #E5E7EB;
 }
 
 /* ── Reset & Base ── */
@@ -20,39 +22,152 @@
 }
 
 body {
-  background-color: var(--dark);
+  background: radial-gradient(ellipse at center, 
+    #0D1F0F 0%, 
+    #080F08 50%, 
+    #020402 100%);
+  background-attachment: fixed;
   color: var(--white);
   font-family: 'Georgia', serif;
   line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Firefly Canvas ── */
+#fireflyCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Mason Jar ── */
+.jar-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px 20px;
+  z-index: 1;
+}
+
+.jar {
+  width: 120px;
+  height: 160px;
+  border: 3px solid var(--gold);
+  border-radius: 8px 8px 20px 20px;
+  position: relative;
+  background: radial-gradient(ellipse at center,
+    rgba(255, 165, 0, 0.3) 0%,
+    rgba(255, 200, 0, 0.1) 50%,
+    transparent 100%);
+  box-shadow:
+    0 0 30px rgba(255, 165, 0, 0.4),
+    0 0 60px rgba(255, 165, 0, 0.2),
+    0 0 100px rgba(255, 165, 0, 0.1),
+    inset 0 0 30px rgba(255, 200, 0, 0.2);
+  animation: jarPulse 3s ease-in-out infinite;
+}
+
+.jar::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: -8px;
+  right: -8px;
+  height: 14px;
+  background: var(--gold);
+  border-radius: 4px 4px 0 0;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+}
+
+.jar-glow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px 8px 20px 20px;
+  background: radial-gradient(ellipse at 50% 60%,
+    rgba(255, 180, 0, 0.5) 0%,
+    rgba(255, 140, 0, 0.2) 40%,
+    transparent 70%);
+  animation: glowPulse 2s ease-in-out infinite alternate;
+}
+
+.jar-light {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse,
+    rgba(255, 165, 0, 0.15) 0%,
+    transparent 70%);
+  animation: jarPulse 3s ease-in-out infinite;
+}
+
+@keyframes jarPulse {
+  0%, 100% { box-shadow:
+    0 0 30px rgba(255, 165, 0, 0.4),
+    0 0 60px rgba(255, 165, 0, 0.2),
+    inset 0 0 30px rgba(255, 200, 0, 0.2); }
+  50% { box-shadow:
+    0 0 50px rgba(255, 165, 0, 0.6),
+    0 0 100px rgba(255, 165, 0, 0.3),
+    inset 0 0 50px rgba(255, 200, 0, 0.3); }
+}
+
+@keyframes glowPulse {
+  from { opacity: 0.6; }
+  to { opacity: 1; }
 }
 
 /* ── Header ── */
 header {
-  background: linear-gradient(135deg, var(--dark-card), var(--dark));
-  border-bottom: 3px solid var(--gold);
-  padding: 60px 20px;
+  position: relative;
+  z-index: 1;
   text-align: center;
+  padding: 20px 20px 60px;
 }
 
 header h1 {
-  font-size: 3rem;
+  font-size: 3.5rem;
   color: var(--gold);
-  letter-spacing: 3px;
+  letter-spacing: 4px;
   text-transform: uppercase;
-  margin-bottom: 10px;
+  text-shadow:
+    0 0 20px rgba(255, 215, 0, 0.8),
+    0 0 40px rgba(255, 215, 0, 0.4);
+  margin-bottom: 16px;
 }
 
-header p {
+.tagline {
   font-size: 1.2rem;
   color: var(--teal);
   font-style: italic;
+  margin-bottom: 30px;
+  text-shadow: 0 0 10px rgba(0, 180, 166, 0.6);
+}
+
+.divider {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  color: var(--gold);
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  opacity: 0.8;
 }
 
 /* ── Main Content ── */
 main {
-  max-width: 800px;
-  margin: 60px auto;
-  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
   text-align: center;
 }
 
@@ -60,22 +175,125 @@ main h2 {
   font-size: 2rem;
   color: var(--pink);
   margin-bottom: 20px;
+  text-shadow: 0 0 20px rgba(255, 107, 157, 0.5);
 }
 
-main p {
+.intro {
   font-size: 1.1rem;
   color: var(--light-gray);
   max-width: 600px;
+  margin: 0 auto 60px;
+  line-height: 1.8;
+}
+
+/* ── Jars Section ── */
+.jars-section {
+  margin-bottom: 60px;
+}
+
+.jars-section h3 {
+  font-size: 1.5rem;
+  color: var(--gold);
+  margin-bottom: 30px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.jars-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.jar-card {
+  background: rgba(255, 165, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 16px;
+  padding: 24px 20px;
+  width: 160px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(255, 165, 0, 0.05);
+}
+
+.jar-card:hover {
+  background: rgba(255, 165, 0, 0.1);
+  border-color: var(--gold);
+  box-shadow: 0 0 30px rgba(255, 165, 0, 0.2);
+  transform: translateY(-4px);
+}
+
+.jar-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.jar-card h4 {
+  color: var(--gold);
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.jar-card p {
+  color: var(--light-gray);
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+}
+
+.percent {
+  color: var(--teal);
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(0, 180, 166, 0.6);
+}
+
+/* ── Lamp Section ── */
+.lamp-section {
+  margin-bottom: 60px;
+}
+
+.lamp-card {
+  background: rgba(0, 180, 166, 0.05);
+  border: 1px solid rgba(0, 180, 166, 0.3);
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 600px;
   margin: 0 auto;
+  box-shadow: 0 0 30px rgba(0, 180, 166, 0.1);
+}
+
+.lamp-card h3 {
+  color: var(--teal);
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+  text-shadow: 0 0 10px rgba(0, 180, 166, 0.6);
+}
+
+.lamp-card p {
+  color: var(--light-gray);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.lamp-card strong {
+  color: var(--gold);
 }
 
 /* ── Footer ── */
 footer {
-  background-color: var(--dark-card);
-  border-top: 2px solid var(--teal);
+  position: relative;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.6);
+  border-top: 1px solid rgba(0, 180, 166, 0.3);
   text-align: center;
-  padding: 20px;
-  font-size: 0.85rem;
+  padding: 24px;
+  font-size: 0.8rem;
   color: var(--teal);
-  margin-top: 80px;
+}
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+  header h1 { font-size: 2.2rem; }
+  main h2 { font-size: 1.5rem; }
+  .jar-card { width: 140px; }
 }
