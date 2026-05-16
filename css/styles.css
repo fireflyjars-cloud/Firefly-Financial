@@ -131,12 +131,19 @@ body {
 }
 
 .hero-tagline {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
   font-size: 1.2rem;
   color: var(--teal);
   font-style: italic;
   text-shadow: 0 0 14px rgba(0, 180, 166, 0.7);
   max-width: 460px;
-  margin-bottom: 4px;
+  text-align: center;
+  white-space: nowrap;
+  padding: 20px 0;
 }
 
 .hero-divider {
