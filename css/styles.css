@@ -49,6 +49,37 @@ body {
   z-index: 0;
 }
 
+/* ── Hero Fireflies ── */
+.hero-ff {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 215, 0, 0.9);
+  box-shadow:
+    0 0 5px  2px rgba(255, 215, 0, 0.45),
+    0 0 12px 4px rgba(255, 165, 0, 0.18);
+  pointer-events: none;
+  opacity: 0;
+  animation: hffDrift linear infinite, hffBlink ease-in-out infinite;
+}
+
+@keyframes hffDrift {
+  0%   { transform: translate(  0px,   0px); }
+  14%  { transform: translate( 22px, -30px); }
+  28%  { transform: translate(-10px, -50px); }
+  42%  { transform: translate( 32px, -22px); }
+  57%  { transform: translate( -5px, -55px); }
+  71%  { transform: translate( 18px, -35px); }
+  85%  { transform: translate(-15px, -18px); }
+  100% { transform: translate(  0px,   0px); }
+}
+
+@keyframes hffBlink {
+  0%, 100%  { opacity: 0;    }
+  20%, 40%  { opacity: 1;    }
+  30%       { opacity: 0.07; }
+  65%       { opacity: 0;    }
+}
+
 /* ── Hero Section ── */
 .hero {
   position: relative;
@@ -259,9 +290,16 @@ main h2 {
   transform: translateY(-4px);
 }
 
+.jar-illustration {
+  display: block;
+  width: 64px;
+  height: auto;
+  margin: 0 auto 14px;
+}
+
 .jar-icon {
-  font-size: 2rem;
-  margin-bottom: 10px;
+  font-size: 1.4rem;
+  margin-top: 10px;
 }
 
 .jar-card h4 {
@@ -298,6 +336,14 @@ main h2 {
   box-shadow: 0 0 30px rgba(0, 180, 166, 0.1);
 }
 
+.lamp-card[data-modal]:hover {
+  background: rgba(0, 180, 166, 0.1);
+  border-color: var(--teal);
+  box-shadow: 0 0 40px rgba(0, 180, 166, 0.18);
+  transform: translateY(-3px);
+  transition: all 0.3s ease;
+}
+
 .lamp-card h3 {
   color: var(--teal);
   font-size: 1.4rem;
@@ -313,6 +359,97 @@ main h2 {
 
 .lamp-card strong {
   color: var(--gold);
+}
+
+/* ── Modal ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal {
+  background: var(--dark-card);
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  border-radius: 20px;
+  padding: 44px 40px 40px;
+  max-width: 540px;
+  width: 100%;
+  position: relative;
+  box-shadow:
+    0 0 40px rgba(255, 215, 0, 0.08),
+    0 0 80px rgba(0, 0, 0, 0.6);
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 22px;
+  background: none;
+  border: none;
+  color: rgba(255, 215, 0, 0.5);
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.modal-close:hover {
+  color: var(--gold);
+}
+
+.modal-headline {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: var(--gold);
+  margin-bottom: 24px;
+  line-height: 1.25;
+  text-shadow:
+    0 0 20px rgba(255, 215, 0, 0.55),
+    0 0 45px rgba(255, 215, 0, 0.2);
+}
+
+.modal-title-verse {
+  font-style: italic;
+  font-size: 0.82rem;
+  color: var(--gold);
+  opacity: 0.85;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.modal-body p {
+  color: var(--light-gray);
+  font-size: 1rem;
+  line-height: 1.85;
+  margin-bottom: 16px;
+}
+
+.modal-body p:last-child {
+  margin-bottom: 0;
+}
+
+.modal-verse {
+  font-style: italic;
+  font-size: 0.78rem;
+  color: var(--gold);
+  opacity: 0.7;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 215, 0, 0.15);
+}
+
+[data-modal] {
+  cursor: pointer;
 }
 
 /* ── Footer ── */

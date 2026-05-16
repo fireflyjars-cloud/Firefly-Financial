@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 100">
+
+  <!-- Lid cap -->
+  <rect x="24" y="2" width="32" height="9" rx="3" fill="#FFD700"/>
+  <rect x="28" y="3.5" width="13" height="2.5" rx="1.2" fill="rgba(255,255,255,0.32)"/>
+
+  <!-- Lid band -->
+  <rect x="19" y="10" width="42" height="9" rx="2" fill="#B8860B" stroke="#FFD700" stroke-width="0.8"/>
+  <line x1="20" y1="13.5" x2="60" y2="13.5" stroke="rgba(255,215,0,0.28)" stroke-width="0.6"/>
+  <line x1="20" y1="16.5" x2="60" y2="16.5" stroke="rgba(255,215,0,0.28)" stroke-width="0.6"/>
+
+  <!-- Neck -->
+  <rect x="22" y="18" width="36" height="9" rx="1"
+        fill="rgba(180,220,255,0.06)"
+        stroke="rgba(255,215,0,0.45)" stroke-width="1.2"/>
+
+  <!-- Shoulder -->
+  <path d="M13 28 C12 30 12 32 12 34 L68 34 C68 32 68 30 67 28 Z"
+        fill="rgba(180,220,255,0.05)"
+        stroke="rgba(255,215,0,0.45)" stroke-width="1.2"/>
+
+  <!-- Body -->
+  <path d="M12 34 L12 82 Q12 93 23 93 L57 93 Q68 93 68 82 L68 34 Z"
+        fill="rgba(180,220,255,0.07)"
+        stroke="rgba(255,215,0,0.62)" stroke-width="1.5"/>
+
+  <!-- Amber interior glow -->
+  <ellipse cx="40" cy="66" rx="20" ry="22" fill="rgba(255,140,0,0.13)"/>
+
+  <!-- Glass highlights -->
+  <path d="M16 40 Q15 62 16 80" stroke="rgba(255,255,255,0.13)" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M21 36 Q20 52 21 64" stroke="rgba(255,255,255,0.07)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Firefly 1 — wanders centre-left zone (base 36,62) -->
+  <g>
+    <animateTransform attributeName="transform" type="translate"
+      values="0,0; 6,-8; -4,9; 8,-5; -2,11; 0,0"
+      keyTimes="0;0.2;0.4;0.6;0.8;1"
+      keySplines="0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1"
+      calcMode="spline" dur="10s" repeatCount="indefinite"/>
+    <circle cx="36" cy="62" r="5" fill="rgba(255,215,0,0.18)">
+      <animate attributeName="opacity"
+        values="0;0;0.18;0.02;0.18;0;0"
+        keyTimes="0;0.25;0.35;0.5;0.6;0.7;1"
+        dur="2.8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="36" cy="62" r="2" fill="rgba(255,215,0,0.9)">
+      <animate attributeName="opacity"
+        values="0;0;0.9;0.06;0.9;0;0"
+        keyTimes="0;0.25;0.35;0.5;0.6;0.7;1"
+        dur="2.8s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Firefly 2 — wanders upper-right zone (base 50,52) -->
+  <g>
+    <animateTransform attributeName="transform" type="translate"
+      values="0,0; -6,9; 4,-10; -8,7; 3,10; 0,0"
+      keyTimes="0;0.2;0.4;0.6;0.8;1"
+      keySplines="0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1"
+      calcMode="spline" dur="7s" repeatCount="indefinite"/>
+    <circle cx="50" cy="52" r="3.5" fill="rgba(255,200,0,0.15)">
+      <animate attributeName="opacity"
+        values="0;0;0.15;0.02;0.15;0;0"
+        keyTimes="0;0.3;0.4;0.55;0.65;0.75;1"
+        dur="3.5s" repeatCount="indefinite" begin="1.2s"/>
+    </circle>
+    <circle cx="50" cy="52" r="1.5" fill="rgba(255,200,0,0.75)">
+      <animate attributeName="opacity"
+        values="0;0;0.75;0.04;0.75;0;0"
+        keyTimes="0;0.3;0.4;0.55;0.65;0.75;1"
+        dur="3.5s" repeatCount="indefinite" begin="1.2s"/>
+    </circle>
+  </g>
+
+  <!-- Firefly 3 — wanders lower zone (base 43,76) -->
+  <g>
+    <animateTransform attributeName="transform" type="translate"
+      values="0,0; -7,-8; 5,6; -3,-9; 7,5; 0,0"
+      keyTimes="0;0.2;0.4;0.6;0.8;1"
+      keySplines="0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1"
+      calcMode="spline" dur="12s" repeatCount="indefinite"/>
+    <circle cx="43" cy="76" r="3" fill="rgba(255,180,0,0.12)">
+      <animate attributeName="opacity"
+        values="0;0;0.12;0.01;0.12;0;0"
+        keyTimes="0;0.2;0.32;0.48;0.6;0.72;1"
+        dur="4.2s" repeatCount="indefinite" begin="0.6s"/>
+    </circle>
+    <circle cx="43" cy="76" r="1.2" fill="rgba(255,180,0,0.65)">
+      <animate attributeName="opacity"
+        values="0;0;0.65;0.04;0.65;0;0"
+        keyTimes="0;0.2;0.32;0.48;0.6;0.72;1"
+        dur="4.2s" repeatCount="indefinite" begin="0.6s"/>
+    </circle>
+  </g>
+
+  <!-- Firefly 4 — wanders mid-right zone (base 53,67) -->
+  <g>
+    <animateTransform attributeName="transform" type="translate"
+      values="0,0; -7,-7; 4,7; -5,-8; 6,5; 0,0"
+      keyTimes="0;0.2;0.4;0.6;0.8;1"
+      keySplines="0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1"
+      calcMode="spline" dur="8.5s" repeatCount="indefinite"/>
+    <circle cx="53" cy="67" r="2.5" fill="rgba(255,215,0,0.09)">
+      <animate attributeName="opacity"
+        values="0;0;0.09;0.01;0.09;0;0"
+        keyTimes="0;0.35;0.45;0.58;0.68;0.78;1"
+        dur="2.2s" repeatCount="indefinite" begin="1.8s"/>
+    </circle>
+    <circle cx="53" cy="67" r="0.9" fill="rgba(255,215,0,0.5)">
+      <animate attributeName="opacity"
+        values="0;0;0.5;0.03;0.5;0;0"
+        keyTimes="0;0.35;0.45;0.58;0.68;0.78;1"
+        dur="2.2s" repeatCount="indefinite" begin="1.8s"/>
+    </circle>
+  </g>
+
+</svg>

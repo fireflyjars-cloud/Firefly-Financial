@@ -45,42 +45,47 @@
       <section class="jars-section">
         <h3>The Five Jars</h3>
         <div class="jars-grid">
-          <div class="jar-card">
-            <div class="jar-icon">🌱</div>
+          <div class="jar-card" data-modal="genesis" role="button" tabindex="0" aria-label="Learn about the Genesis Jar">
+            <img src="assets/images/mason-jar.svg" alt="" class="jar-illustration" aria-hidden="true" />
             <h4>Genesis Jar™</h4>
             <p>Investing & Multiplication</p>
             <span class="percent">10%</span>
+            <div class="jar-icon">🌱</div>
           </div>
-          <div class="jar-card">
-            <div class="jar-icon">🚪</div>
+          <div class="jar-card" data-modal="exodus" role="button" tabindex="0" aria-label="Learn about the Exodus Jar">
+            <img src="assets/images/mason-jar.svg" alt="" class="jar-illustration" aria-hidden="true" />
             <h4>Exodus Jar™</h4>
             <p>Playing & Joy</p>
             <span class="percent">10%</span>
+            <div class="jar-icon">🚪</div>
           </div>
-          <div class="jar-card">
-            <div class="jar-icon">📜</div>
+          <div class="jar-card" data-modal="leviticus" role="button" tabindex="0" aria-label="Learn about the Leviticus Jar">
+            <img src="assets/images/mason-jar.svg" alt="" class="jar-illustration" aria-hidden="true" />
             <h4>Leviticus Jar™</h4>
             <p>Learning & Self-Development</p>
             <span class="percent">10%</span>
+            <div class="jar-icon">📜</div>
           </div>
-          <div class="jar-card">
-            <div class="jar-icon">🔢</div>
+          <div class="jar-card" data-modal="numbers" role="button" tabindex="0" aria-label="Learn about the Numbers Jar">
+            <img src="assets/images/mason-jar.svg" alt="" class="jar-illustration" aria-hidden="true" />
             <h4>Numbers Jar™</h4>
             <p>Savings & Discipline</p>
             <span class="percent">10%</span>
+            <div class="jar-icon">🔢</div>
           </div>
-          <div class="jar-card">
-            <div class="jar-icon">📣</div>
+          <div class="jar-card" data-modal="deuteronomy" role="button" tabindex="0" aria-label="Learn about the Deuteronomy Jar">
+            <img src="assets/images/mason-jar.svg" alt="" class="jar-illustration" aria-hidden="true" />
             <h4>Deuteronomy Jar™</h4>
             <p>Giving & Generosity</p>
             <span class="percent">10%</span>
+            <div class="jar-icon">📣</div>
           </div>
         </div>
       </section>
 
       <!-- The Lamp -->
       <section class="lamp-section">
-        <div class="lamp-card">
+        <div class="lamp-card" data-modal="lamp" role="button" tabindex="0" aria-label="Learn about The Lamp">
           <h3>🪔 The Lamp</h3>
           <p>Your main account. Where income lands and fixed expenses are paid. Keep it at <strong>50% or less</strong> of your net income and watch everything change.</p>
         </div>
@@ -92,6 +97,89 @@
     <footer>
       <p>&copy; 2026 Firefly Jars Financial Success Systems, LLC DBA Firefly Financial™</p>
     </footer>
+
+    <!-- Genesis Jar Modal -->
+    <div class="modal-overlay" id="genesisModal" role="dialog" aria-modal="true" aria-labelledby="genesisModalTitle">
+      <div class="modal">
+        <button class="modal-close" aria-label="Close">&times;</button>
+        <p class="modal-headline" id="genesisModalTitle">Become it. Do it. Have it.™</p>
+        <p class="modal-title-verse">Genesis 1:28 — Be fruitful and multiply, fill the earth and subdue it.</p>
+        <div class="modal-body">
+          <p>This is the Firefly way. First, become the person who thinks like an investor. Then do the action — set aside 10% before you spend a single dollar. And watch as having — the wealth, the freedom, the desires of your heart — becomes your natural reality.</p>
+          <p>This is not a new idea. It is an ancient one. Genesis said it first.</p>
+        </div>
+        <p class="modal-verse">Proverbs 13:22 — A good person leaves an inheritance for their grandchildren.</p>
+      </div>
+    </div>
+
+    <!-- Exodus Jar Modal -->
+    <div class="modal-overlay" id="exodusModal" role="dialog" aria-modal="true" aria-labelledby="exodusModalTitle">
+      <div class="modal">
+        <button class="modal-close" aria-label="Close">&times;</button>
+        <p class="modal-headline" id="exodusModalTitle">Play on purpose.™</p>
+        <p class="modal-title-verse">"The Israelites left Egypt loaded with the wealth of their oppressors. God said — enjoy what you have been given." — Exodus 12:35-36</p>
+        <div class="modal-body">
+          <p>Joy is not a reward you earn after the bills are paid — it is a discipline you practice. The Exodus Jar is your permission slip. Ten percent of everything you earn is yours to spend on delight, adventure, and the moments that make life feel like a life.</p>
+          <p>Spend it fully. Guilt-free. That is the instruction.</p>
+        </div>
+        <p class="modal-verse">Ecclesiastes 9:7 — Go, eat your bread with joy and drink your wine with a merry heart, for God has already approved what you do.</p>
+      </div>
+    </div>
+
+    <!-- Leviticus Jar Modal -->
+    <div class="modal-overlay" id="leviticusModal" role="dialog" aria-modal="true" aria-labelledby="leviticusModalTitle">
+      <div class="modal">
+        <button class="modal-close" aria-label="Close">&times;</button>
+        <p class="modal-headline" id="leviticusModalTitle">Invest in the investor.™</p>
+        <p class="modal-title-verse">"Be holy because I, the LORD your God, am holy." — Leviticus 19:2</p>
+        <div class="modal-body">
+          <p>Every course, every book, every mentor, every skill — they all compound. The Leviticus Jar is sacred ground reserved for growing the most important asset you will ever manage: yourself. When you invest in who you are becoming, the return never stops.</p>
+          <p>Wisdom was the law before the law. Get it first.</p>
+        </div>
+        <p class="modal-verse">Proverbs 4:7 — Wisdom is the principal thing; therefore get wisdom: and with all thy getting get understanding.</p>
+      </div>
+    </div>
+
+    <!-- Numbers Jar Modal -->
+    <div class="modal-overlay" id="numbersModal" role="dialog" aria-modal="true" aria-labelledby="numbersModalTitle">
+      <div class="modal">
+        <button class="modal-close" aria-label="Close">&times;</button>
+        <p class="modal-headline" id="numbersModalTitle">Count it. Keep it. Grow it.™</p>
+        <p class="modal-title-verse">"Take a census of the whole Israelite community... counting every man by name, one by one." — Numbers 1:2-3</p>
+        <div class="modal-body">
+          <p>Discipline is the bridge between intention and wealth. The Numbers Jar is where patience lives — ten percent set aside slowly, faithfully, consistently. Not for a rainy day. For a future day you are building on purpose.</p>
+          <p>Numbers do not lie. Let yours tell a better story.</p>
+        </div>
+        <p class="modal-verse">Proverbs 13:11 — Wealth gained hastily will dwindle, but whoever gathers little by little will increase it.</p>
+      </div>
+    </div>
+
+    <!-- Deuteronomy Jar Modal -->
+    <div class="modal-overlay" id="deuteronomyModal" role="dialog" aria-modal="true" aria-labelledby="deuteronomyModalTitle">
+      <div class="modal">
+        <button class="modal-close" aria-label="Close">&times;</button>
+        <p class="modal-headline" id="deuteronomyModalTitle">Give first. Receive more.™</p>
+        <p class="modal-title-verse">"Give generously and do so without a grudging heart; then the LORD your God will bless you in all your work." — Deuteronomy 15:10</p>
+        <div class="modal-body">
+          <p>Generosity is not something you do after you have enough — it is the very thing that opens the flow. The Deuteronomy Jar holds ten percent of everything that comes to you, set apart for others. Give to your community, your faith, the causes that move you.</p>
+          <p>The jar that pours out the most is always the one that gets refilled.</p>
+        </div>
+        <p class="modal-verse">Malachi 3:10 — Bring the whole tithe into the storehouse... Test me in this, says the LORD, and see if I will not throw open the floodgates of heaven and pour out so much blessing that there will not be room enough to store it.</p>
+      </div>
+    </div>
+
+    <!-- Lamp Modal -->
+    <div class="modal-overlay" id="lampModal" role="dialog" aria-modal="true" aria-labelledby="lampModalTitle">
+      <div class="modal">
+        <button class="modal-close" aria-label="Close">&times;</button>
+        <p class="modal-headline" id="lampModalTitle">Where the light begins.™</p>
+        <div class="modal-body">
+          <p>The Lamp is your foundation. It is where your income arrives and your fixed living expenses — rent, utilities, groceries, transportation — are covered. The essentials, paid. The baseline, held.</p>
+          <p>The one rule: keep The Lamp at <strong>50% or less</strong> of your net income. That number is The Transformation Milestone. The moment you cross it, the other 50% is free to multiply, enjoy, learn, save, and give. Everything changes when the lamp is the right size.</p>
+        </div>
+        <p class="modal-verse">Psalm 119:105 — Your word is a lamp to my feet and a light to my path.</p>
+      </div>
+    </div>
 
     <script src="js/app.js"></script>
   </body>
