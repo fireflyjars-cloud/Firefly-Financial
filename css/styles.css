@@ -134,9 +134,6 @@ body {
   width: 300px;
   max-width: 80vw;
   height: auto;
-  mix-blend-mode: screen;
-  -webkit-mix-blend-mode: screen;
-  filter: brightness(1) invert(0);
 }
 
 .hero-tagline {
