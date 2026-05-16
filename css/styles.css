@@ -118,24 +118,26 @@ body {
   gap: 20px;
 }
 
-.hero-logo {
+.hero-top {
   position: absolute;
-  top: 16px;
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 16px;
+}
+
+.hero-logo {
   width: 300px;
   max-width: 80vw;
   height: auto;
   mix-blend-mode: screen;
-  z-index: 1;
 }
 
 .hero-tagline {
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
   font-size: 1.2rem;
   color: var(--teal);
   font-style: italic;
@@ -143,7 +145,8 @@ body {
   max-width: 460px;
   text-align: center;
   white-space: nowrap;
-  padding: 20px 0;
+  padding: 20px 0 28px;
+  margin-top: 4px;
 }
 
 .hero-divider {
