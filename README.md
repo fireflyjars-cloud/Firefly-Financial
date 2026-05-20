@@ -12,9 +12,9 @@ The framework is inspired by the **Torah** — from the Hebrew root word *Yarah*
 
 Your income flows first into **The Lamp** — the Living Account — and from there transfers into five jars, each named after a book of the Torah.
 
-### 🪔 The Lamp (Living Account)
+### 🪔 The Lamp™️ (Living Account)
 
-The Lamp is not a jar. It is the user’s **main account** — where income is received and fixed living expenses are paid from. The goal is to keep The Lamp at **50% or less of your net income**, freeing the remaining 50% to flow into the five jars. Reaching that threshold is the transformation milestone — the moment breathing room and wealth-building begin.
+The Lamp™️ is not a jar. It is the user’s **main account** — where income is received and fixed living expenses are paid from. The goal is to keep The Lamp™️ at **50% or less of your net income**, freeing the remaining 50% to flow into the five jars. Reaching that threshold is the transformation milestone — the moment breathing room and wealth-building begin.
 
 -----
 
