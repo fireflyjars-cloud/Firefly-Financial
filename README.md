@@ -1,20 +1,8 @@
-# Firefly-Financial
-Firefly Financial™ — a faith-based personal finance app built on a proprietary Torah inspired Jarring Framework.
-# 🔥 Firefly Financial - the small, steady light of every disciplined choice - the same light fireflies carry through the dark.
+## 👤 Founder
 
-> *Real freedom lives inside discipline. Inside a system. When you submit to a plan, you don’t lose your freedom — you finally find it.*
+**Delyce** — Founder of **Firefly Jars Financial Success Systems, LLC DBA Firefly Financial** and creator of the Firefly Jars™ Framework.
 
-Firefly Financial is a faith-based personal finance web app built on **The Jarring Framework** — a budgeting system rooted in the Torah and designed to help people stop surviving and start building.
-
------
-
-## ✨ What Is Firefly Financial?
-
-Most budgeting tools tell you what to do with your money. Firefly tells you *why* — and walks with you while you do it.
-
-Built for the faith-based community, Firefly combines a proven allocation framework, a gamified journey, and a support community to help users finally achieve breathing room and start building wealth.
-
-No bank connections. No overwhelm. Just a system that works.
+I didn't know what a portfolio was until I needed one. I didn't trust the stock market — still have complicated feelings about it. For a long time I thought that meant building something real wasn't for me. Most financial content confirmed that feeling — it was written for people who already speak the language. This isn't that. Firefly Financial is for the ones who nod along and Google the words later. Who work hard and still wonder where it all went. You're not bad with money. You just haven't had the right system yet. Neither had I. You're not alone in this.
 
 -----
 
