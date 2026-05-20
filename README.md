@@ -10,7 +10,7 @@ I didn't know what a portfolio was until I needed one. I didn't trust the stock 
 
 The framework is inspired by the **Torah** — from the Hebrew root word *Yarah*, meaning to shoot an arrow straight and hit the mark. Torah means God’s teaching and instruction. The Jarring Framework applies that same principle to your finances: a straight path, clearly marked.
 
-Your income flows first into **The Lamp** — the Living Account — and from there transfers into five jars, each named after a book of the Torah.
+Your income flows first into **The Lamp™️** — the Living Account — and from there transfers into five jars, each named after a book of the Torah.
 
 ### 🪔 The Lamp™️ (Living Account)
 
