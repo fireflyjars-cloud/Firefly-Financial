@@ -2,7 +2,7 @@
 
 **Delyce** — Founder of **Firefly Jars Financial Success Systems, LLC DBA Firefly Financial** and creator of the Firefly Jars™ Framework.
 
-I didn't know what a portfolio was until I needed one. I didn't trust the stock market — still have complicated feelings about it. I knew I was meant to create something that mattered. What I didn’t know was how much of the financial world assumes you already understand the game. Most financial content confirmed that feeling — it was written for people who already speak the language. This isn't that. Firefly Financial is for the ones who nod along and Google the words later. Who work hard and still wonder where it all went. You're not bad with money. You just haven't had the right system yet. Neither had I. You're not alone in this.
+I didn't know what a portfolio was until I needed one. I didn't trust the stock market — still have complicated feelings about it. I have always known I am meant to create something that matters. What I didn’t know was how much of the financial world assumes you already understand the game. Most financial content confirmed that feeling — it was written for people who already speak the language. This isn't that. Firefly Financial is for the ones who nod along and Google the words later. Who work hard and still wonder where it all went. You're not bad with money. You just haven't had the right system yet. Neither had I. You're not alone in this.
 
 -----
 
