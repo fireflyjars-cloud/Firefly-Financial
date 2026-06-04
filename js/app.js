@@ -126,52 +126,72 @@ animate();
 })();
 
 // ── Hero Fireflies (DOM-based, visible over the hero image) ──
+// ── Hero Fireflies (DOM-based, visible over the hero image) ──
 (function () {
   const hero = document.querySelector('.hero');
   if (!hero) return;
 
   const anchor = hero.querySelector('.hero-content');
-  const COLORS = ['255,215,0', '255,190,0', '255,165,0', '255,200,80'];
+  const COLORS = ['255,215,0', '255,190,0', '255,165,0', '255,200,80', '255,255,150'];
+  const dots = [];
 
-  for (let i = 0; i < 26; i++) {
-    const dot      = document.createElement('span');
-    dot.className  = 'hero-ff';
-    const driftDur = 8  + Math.random() * 12;
-    const blinkDur = 2  + Math.random() * 3.5;
+  for (let i = 0; i < 120; i++) {
+    const dot     = document.createElement('span');
+    dot.className = 'hero-ff';
+
+    // Start from edges of the screen
+    const edge = Math.floor(Math.random() * 4);
+    let startX, startY;
+    if (edge === 0) { startX = Math.random() * 100; startY = -2; }
+    else if (edge === 1) { startX = 102; startY = Math.random() * 100; }
+    else if (edge === 2) { startX = Math.random() * 100; startY = 102; }
+    else { startX = -2; startY = Math.random() * 100; }
+
+    const driftDur = 6  + Math.random() * 10;
+    const blinkDur = 1.5 + Math.random() * 3;
 
     dot.style.cssText = [
-      `left:${4 + Math.random() * 92}%`,
-      `top:${4 + Math.random() * 92}%`,
-      `width:${1.5 + Math.random() * 2.5}px`,
-      `height:${1.5 + Math.random() * 2.5}px`,
+      `left:${startX}%`,
+      `top:${startY}%`,
+      `width:${2 + Math.random() * 3.5}px`,
+      `height:${2 + Math.random() * 3.5}px`,
       `--ff-color:${COLORS[Math.floor(Math.random() * COLORS.length)]}`,
       `animation-duration:${driftDur}s,${blinkDur}s`,
       `animation-delay:${-(Math.random() * driftDur)}s,${-(Math.random() * blinkDur)}s`,
     ].join(';');
 
-    // Insert before hero-content so fireflies sit above overlay but below text
-       hero.insertBefore(dot, anchor);
+    hero.insertBefore(dot, anchor);
+    dots.push(dot);
   }
 
-  // After 3 seconds, drift fireflies toward the CTA button
+  // After 3 seconds, swarm into the button rectangle
   setTimeout(() => {
     const btn = hero.querySelector('.hero-cta');
     if (!btn) return;
-    const rect = btn.getBoundingClientRect();
     const heroRect = hero.getBoundingClientRect();
-    const targetX = rect.left - heroRect.left + rect.width / 2;
-    const targetY = rect.top - heroRect.top + rect.height / 2;
+    const btnRect  = btn.getBoundingClientRect();
 
-    document.querySelectorAll('.hero-ff').forEach((dot, i) => {
+    const btnLeft   = btnRect.left   - heroRect.left;
+    const btnTop    = btnRect.top    - heroRect.top;
+    const btnRight  = btnRect.right  - heroRect.left;
+    const btnBottom = btnRect.bottom - heroRect.top;
+
+    dots.forEach((dot, i) => {
       setTimeout(() => {
-        dot.style.transition = `left ${2 + Math.random()}s ease-in, top ${2 + Math.random()}s ease-in, opacity 1.5s ease-in`;
-        dot.style.left = targetX + 'px';
-        dot.style.top  = targetY + 'px';
+        // Land at a random spot inside the button boundaries
+        const targetX = btnLeft + Math.random() * (btnRight - btnLeft);
+        const targetY = btnTop  + Math.random() * (btnBottom - btnTop);
+        const dur     = 1.5 + Math.random() * 2;
+
+        dot.style.transition = `left ${dur}s cubic-bezier(0.4,0,0.2,1), top ${dur}s cubic-bezier(0.4,0,0.2,1), opacity 0.6s ease-in ${dur - 0.4}s`;
+        dot.style.left    = targetX + 'px';
+        dot.style.top     = targetY + 'px';
         dot.style.opacity = '0';
-      }, i * 120);
+      }, i * 40);
     });
   }, 3000);
 })();
+
 
 // ── Jar Glass Click Sound ──
 const clickAudio = new window.Audio('https://assets.mixkit.co/active_storage/sfx/2073/2073-preview.mp3');
