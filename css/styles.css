@@ -504,3 +504,19 @@ footer {
   color: #e0e0e0;
   margin-bottom: 24px;
 }
+.kit-button {
+  display: inline-block;
+  background-color: #f5c842;
+  color: #0a0a0a;
+  padding: 16px 32px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-decoration: none;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.kit-button:hover {
+  background-color: #e0b030;
+}
