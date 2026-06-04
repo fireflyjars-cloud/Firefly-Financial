@@ -150,8 +150,27 @@ animate();
     ].join(';');
 
     // Insert before hero-content so fireflies sit above overlay but below text
-    hero.insertBefore(dot, anchor);
+       hero.insertBefore(dot, anchor);
   }
+
+  // After 3 seconds, drift fireflies toward the CTA button
+  setTimeout(() => {
+    const btn = hero.querySelector('.hero-cta');
+    if (!btn) return;
+    const rect = btn.getBoundingClientRect();
+    const heroRect = hero.getBoundingClientRect();
+    const targetX = rect.left - heroRect.left + rect.width / 2;
+    const targetY = rect.top - heroRect.top + rect.height / 2;
+
+    document.querySelectorAll('.hero-ff').forEach((dot, i) => {
+      setTimeout(() => {
+        dot.style.transition = `left ${2 + Math.random()}s ease-in, top ${2 + Math.random()}s ease-in, opacity 1.5s ease-in`;
+        dot.style.left = targetX + 'px';
+        dot.style.top  = targetY + 'px';
+        dot.style.opacity = '0';
+      }, i * 120);
+    });
+  }, 3000);
 })();
 
 // ── Jar Glass Click Sound ──
