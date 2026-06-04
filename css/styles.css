@@ -480,3 +480,27 @@ footer {
   main h2        { font-size: 1.5rem; }
   .jar-card      { width: 140px; }
 }
+
+/* Email Opt-In Section */
+.optin-section {
+  background-color: #0a0a0a;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.optin-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.optin-content h2 {
+  font-size: 2rem;
+  color: #f5c842;
+  margin-bottom: 12px;
+}
+
+.optin-content p {
+  font-size: 1.1rem;
+  color: #e0e0e0;
+  margin-bottom: 24px;
+}
