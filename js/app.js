@@ -135,7 +135,7 @@ animate();
   const COLORS = ['255,215,0', '255,190,0', '255,165,0', '255,200,80', '255,255,150'];
   const dots = [];
 
-  for (let i = 0; i < 120; i++) {
+   for (let i = 0; i < 1000; i++) {
     const dot     = document.createElement('span');
     dot.className = 'hero-ff';
 
@@ -187,7 +187,7 @@ animate();
         dot.style.left    = targetX + 'px';
         dot.style.top     = targetY + 'px';
         dot.style.opacity = '0';
-      }, i * 40);
+      }, i * 8);
     });
   }, 3000);
 })();
