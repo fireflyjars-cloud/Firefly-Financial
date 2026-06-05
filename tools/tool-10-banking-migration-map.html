@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tool 10 — The Banking Migration Map | Firefly Financial™</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0d0d0f;
+    --deep: #12100e;
+    --char: #1c1915;
+    --ember: #2a2318;
+    --gold: #c9973a;
+    --gold-light: #e8b85a;
+    --gold-dim: #7a5a1e;
+    --amber: #f0a832;
+    --cream: #f5edd8;
+    --cream-dim: #c8b89a;
+    --warm-white: #faf6ee;
+    --smoke: #3a342a;
+    --glass: rgba(201,151,58,0.08);
+    --glass-hover: rgba(201,151,58,0.14);
+    --border: rgba(201,151,58,0.22);
+    --border-bright: rgba(201,151,58,0.5);
+
+    --jar1: #7eb87e; /* Genesis — green, growth */
+    --jar2: #e07b5a; /* Exodus — warm coral, joy */
+    --jar3: #7ab3d4; /* Leviticus — blue, wisdom */
+    --jar4: #c9973a; /* Numbers — gold, discipline */
+    --jar5: #b07cc6; /* Deuteronomy — purple, generosity */
+    --lamp: #f0a832; /* The Lamp — amber */
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.4;
+  }
+
+  .page { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 0 24px 80px; }
+
+  /* ── HEADER ── */
+  header {
+    text-align: center;
+    padding: 64px 0 48px;
+    position: relative;
+  }
+  .tool-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    border: 1px solid var(--border);
+    padding: 6px 18px;
+    border-radius: 2px;
+    margin-bottom: 28px;
+    text-transform: uppercase;
+    background: var(--glass);
+  }
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(26px, 5vw, 42px);
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    margin-bottom: 12px;
+  }
+  .subtitle {
+    font-style: italic;
+    color: var(--cream-dim);
+    font-size: 18px;
+    max-width: 560px;
+    margin: 0 auto 36px;
+  }
+  .flame-divider {
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    margin: 0 auto;
+    color: var(--gold-dim);
+    font-size: 20px;
+  }
+  .flame-divider::before, .flame-divider::after {
+    content: '';
+    display: block; width: 120px; height: 1px;
+    background: linear-gradient(to right, transparent, var(--border-bright), transparent);
+  }
+
+  /* ── NAV TABS ── */
+  .nav-tabs {
+    display: flex; gap: 4px;
+    background: var(--char);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 4px;
+    margin: 40px 0 0;
+    flex-wrap: wrap;
+  }
+  .nav-tab {
+    flex: 1; min-width: 120px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    background: transparent;
+    border: none;
+    padding: 10px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .nav-tab:hover { color: var(--gold); background: var(--glass); }
+  .nav-tab.active {
+    color: var(--black);
+    background: var(--gold);
+    font-weight: 400;
+  }
+
+  /* ── SECTIONS ── */
+  .section { display: none; animation: fadeIn 0.35s ease; }
+  .section.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .section-header {
+    margin: 48px 0 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-header h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 22px;
+    color: var(--gold-light);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .section-header p {
+    color: var(--cream-dim);
+    font-style: italic;
+    font-size: 16px;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--char);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--border-bright); }
+  .card h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+    margin-bottom: 14px;
+  }
+  .card p { color: var(--cream-dim); font-size: 16px; line-height: 1.75; }
+
+  /* ── STEP CARDS ── */
+  .step {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 0 20px;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 25px; top: 52px; bottom: -24px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gold-dim), transparent);
+  }
+  .step-num {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    border: 2px solid var(--gold-dim);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-size: 16px;
+    color: var(--gold);
+    background: var(--ember);
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .step-body { padding-top: 4px; }
+  .step-body h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    color: var(--gold-light);
+    margin-bottom: 8px;
+    letter-spacing: 0.04em;
+  }
+  .step-body p, .step-body li {
+    color: var(--cream-dim);
+    font-size: 16px;
+    line-height: 1.75;
+  }
+  .step-body ul { padding-left: 20px; margin-top: 8px; }
+  .step-body li { margin-bottom: 4px; }
+  .step-body .note {
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: var(--glass);
+    border-left: 3px solid var(--gold-dim);
+    border-radius: 0 4px 4px 0;
+    font-size: 15px;
+    color: var(--cream-dim);
+    font-style: italic;
+  }
+
+  /* ── JAR CALCULATOR ── */
+  .calc-wrapper {
+    background: var(--char);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .calc-top {
+    padding: 28px 32px;
+    border-bottom: 1px solid var(--border);
+    background: var(--ember);
+  }
+  .calc-top h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 17px;
+    color: var(--gold-light);
+    margin-bottom: 16px;
+  }
+  .income-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-items: end;
+  }
+  .input-group label {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .input-group input {
+    width: 100%;
+    background: var(--black);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--cream);
+    font-family: 'DM Mono', monospace;
+    font-size: 22px;
+    padding: 12px 16px;
+    outline: none;
+    transition: border-color 0.2s;
+    -moz-appearance: textfield;
+  }
+  .input-group input::-webkit-outer-spin-button,
+  .input-group input::-webkit-inner-spin-button { -webkit-appearance: none; }
+  .input-group input:focus { border-color: var(--gold); }
+  .input-group input::placeholder { color: var(--smoke); }
+  .calc-btn {
+    width: 100%;
+    background: var(--gold);
+    color: var(--black);
+    border: none;
+    border-radius: 4px;
+    padding: 14px;
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 16px;
+  }
+  .calc-btn:hover { background: var(--gold-light); }
+  .calc-btn:active { transform: scale(0.98); }
+
+  .jars-grid {
+    padding: 24px 32px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .jar-row {
+    display: grid;
+    grid-template-columns: 36px 200px 1fr auto;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(201,151,58,0.1);
+    transition: background 0.15s;
+  }
+  .jar-row:last-child { border-bottom: none; }
+  .jar-row:hover { background: var(--glass); margin: 0 -12px; padding: 16px 12px; border-radius: 4px; }
+
+  .jar-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .jar-name-block { }
+  .jar-name-block .jname {
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    color: var(--cream);
+    display: block;
+  }
+  .jar-name-block .jpurpose {
+    font-size: 13px;
+    color: var(--cream-dim);
+    font-style: italic;
+  }
+
+  .jar-bar-wrap { position: relative; height: 8px; background: var(--black); border-radius: 4px; overflow: hidden; }
+  .jar-bar { height: 100%; border-radius: 4px; width: 0; transition: width 0.8s cubic-bezier(0.16,1,0.3,1); }
+
+  .jar-amount {
+    font-family: 'DM Mono', monospace;
+    font-size: 15px;
+    color: var(--gold-light);
+    min-width: 90px;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .lamp-row {
+    background: rgba(240,168,50,0.06);
+    border: 1px solid rgba(240,168,50,0.2);
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 0 0 20px 0;
+    display: grid;
+    grid-template-columns: 36px 1fr auto;
+    align-items: center;
+    gap: 16px;
+  }
+  .lamp-icon { font-size: 22px; }
+  .lamp-label { font-family: 'Cinzel', serif; font-size: 14px; color: var(--amber); }
+  .lamp-sub { font-size: 13px; color: var(--cream-dim); font-style: italic; }
+  .lamp-amount {
+    font-family: 'DM Mono', monospace;
+    font-size: 16px;
+    color: var(--amber);
+    font-weight: 400;
+  }
+
+  .total-row {
+    padding: 16px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    margin-top: 8px;
+  }
+  .total-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+  }
+  .total-amount {
+    font-family: 'DM Mono', monospace;
+    font-size: 18px;
+    color: var(--gold);
+  }
+
+  /* ── VAULT SETUP TABLE ── */
+  .vault-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+    font-size: 15px;
+  }
+  .vault-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .vault-table td {
+    padding: 14px 14px;
+    border-bottom: 1px solid rgba(201,151,58,0.08);
+    color: var(--cream-dim);
+    vertical-align: top;
+  }
+  .vault-table tr:last-child td { border-bottom: none; }
+  .vault-table tr:hover td { background: var(--glass); }
+  .vault-table .vname {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    color: var(--cream);
+    display: block;
+  }
+  .vault-table .emoji { font-size: 18px; }
+
+  /* ── CHECKLIST ── */
+  .checklist { list-style: none; padding: 0; }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(201,151,58,0.08);
+    cursor: pointer;
+    transition: background 0.15s;
+    border-radius: 4px;
+    padding: 12px 10px;
+  }
+  .check-item:hover { background: var(--glass); }
+  .check-item:last-child { border-bottom: none; }
+  .check-box {
+    width: 22px; height: 22px;
+    border: 2px solid var(--gold-dim);
+    border-radius: 3px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    margin-top: 2px;
+  }
+  .check-item.done .check-box {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+  .check-item.done .check-box::after { content: '✓'; font-size: 13px; color: var(--black); font-weight: bold; }
+  .check-item.done .check-text { text-decoration: line-through; color: var(--gold-dim); }
+  .check-text { font-size: 16px; color: var(--cream-dim); line-height: 1.5; }
+  .check-text strong { color: var(--cream); font-weight: 600; }
+  .check-phase {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 3px 8px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    margin-left: 4px;
+    background: var(--glass);
+    white-space: nowrap;
+  }
+  .progress-bar-wrap {
+    background: var(--char);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+  }
+  .progress-label {
+    display: flex; justify-content: space-between;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 10px;
+  }
+  .progress-track {
+    height: 8px;
+    background: var(--black);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--gold-dim), var(--gold-light));
+    border-radius: 4px;
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+
+  /* ── BEFORE / AFTER ── */
+  .before-after {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  .ba-card {
+    border-radius: 8px;
+    padding: 24px;
+    border: 1px solid var(--border);
+  }
+  .ba-card.before {
+    background: rgba(255,80,80,0.05);
+    border-color: rgba(255,80,80,0.2);
+  }
+  .ba-card.after {
+    background: rgba(127,200,127,0.05);
+    border-color: rgba(127,200,127,0.2);
+  }
+  .ba-title {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .ba-card.before .ba-title { color: #e06060; }
+  .ba-card.after .ba-title { color: #7ec87e; }
+  .ba-item {
+    font-size: 14px;
+    color: var(--cream-dim);
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(201,151,58,0.07);
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+  }
+  .ba-item:last-child { border-bottom: none; }
+  .ba-card.before .ba-item::before { content: '✗'; color: #e06060; font-size: 12px; flex-shrink: 0; }
+  .ba-card.after .ba-item::before { content: '✓'; color: #7ec87e; font-size: 12px; flex-shrink: 0; }
+
+  /* ── APY NOTE ── */
+  .apy-banner {
+    background: linear-gradient(135deg, rgba(201,151,58,0.12), rgba(240,168,50,0.06));
+    border: 1px solid var(--border-bright);
+    border-radius: 8px;
+    padding: 20px 28px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+  }
+  .apy-icon { font-size: 28px; flex-shrink: 0; }
+  .apy-text h4 {
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    color: var(--gold);
+    margin-bottom: 6px;
+    letter-spacing: 0.06em;
+  }
+  .apy-text p { font-size: 15px; color: var(--cream-dim); line-height: 1.65; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 40px 0 20px;
+    border-top: 1px solid var(--border);
+    margin-top: 60px;
+  }
+  footer p { font-size: 14px; color: var(--gold-dim); font-style: italic; }
+
+  @media (max-width: 600px) {
+    .income-row { grid-template-columns: 1fr; }
+    .jar-row { grid-template-columns: 36px 1fr auto; }
+    .jar-row .jar-bar-wrap { display: none; }
+    .before-after { grid-template-columns: 1fr; }
+    .nav-tabs { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div class="tool-badge">🪔 Firefly Financial™ · Tool 10</div>
+    <h1>The Banking Migration Map</h1>
+    <p class="subtitle">Taking the Jarring Framework off paper and into real bank accounts.</p>
+    <div class="flame-divider">🔥</div>
+  </header>
+
+  <!-- NAV -->
+  <nav class="nav-tabs" id="mainNav">
+    <button class="nav-tab active" onclick="showSection('overview')">Overview</button>
+    <button class="nav-tab" onclick="showSection('calculator')">Weekly Calculator</button>
+    <button class="nav-tab" onclick="showSection('migration')">Migration Steps</button>
+    <button class="nav-tab" onclick="showSection('vaults')">Vault Setup</button>
+    <button class="nav-tab" onclick="showSection('checklist')">Activation</button>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 1 — OVERVIEW
+  ════════════════════════════════════════════ -->
+  <section class="section active" id="overview">
+
+    <div class="section-header">
+      <h2>Before &amp; After</h2>
+      <p>This is what you're moving from — and what you're building toward.</p>
+    </div>
+
+    <div class="before-after">
+      <div class="ba-card before">
+        <div class="ba-title">Before — The Old Way</div>
+        <div class="ba-item">All income hits one business checking account</div>
+        <div class="ba-item">Personal bills, business expenses, daily spending — all tangled together</div>
+        <div class="ba-item">Jar transfers happen manually from memory</div>
+        <div class="ba-item">Savings earn near 0% in Credit Union accounts</div>
+        <div class="ba-item">Three separate CU accounts to track and manage</div>
+        <div class="ba-item">No visual separation between business &amp; personal</div>
+        <div class="ba-item">Tax time is stressful — everything is mixed</div>
+      </div>
+      <div class="ba-card after">
+        <div class="ba-title">After — The Firefly Way</div>
+        <div class="ba-item">Business income → dedicated business checking (Clear Cut)</div>
+        <div class="ba-item">Weekly "paycheck" transfer to your personal SoFi account</div>
+        <div class="ba-item">The Lamp™ (SoFi Checking) handles all bills &amp; daily spending</div>
+        <div class="ba-item">5 Vaults in SoFi — one per Jar — all earning up to 3.80% APY</div>
+        <div class="ba-item">Weekly jar pour from one clear starting number</div>
+        <div class="ba-item">Business and personal completely separated</div>
+        <div class="ba-item">Up to 20 Vaults for sub-goals within each jar</div>
+      </div>
+    </div>
+
+    <div class="apy-banner">
+      <div class="apy-icon">💡</div>
+      <div class="apy-text">
+        <h4>The Self-Employment APY Unlock</h4>
+        <p>Since you and your husband are paid daily from self-employment, you don't have a payroll direct deposit. <strong>To earn the 3.80% APY</strong>, you need to meet one of these: transfer $5,000+ into SoFi every 31-day period, OR subscribe to SoFi Plus. Because your income is variable, the $5,000/month qualifying deposit route is likely your path — track your monthly total carefully. If any single month falls below $5,000, the rate drops to approximately 1.0–1.2% until the next qualifying period.</p>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <h2>The Money Flow</h2>
+      <p>Income enters at the top. Every dollar has a name before the week is over.</p>
+    </div>
+
+    <div class="card">
+      <h3>🏗️ YOUR NEW BANKING ARCHITECTURE</h3>
+      <div style="font-family: 'DM Mono', monospace; font-size: 13px; line-height: 2.2; color: var(--cream-dim); padding: 8px 0;">
+        <div style="color: var(--amber);">🪔 Clear Cut Window Tinting</div>
+        <div style="padding-left: 20px;">↓ Square Deposits</div>
+        <div style="color: var(--amber); padding-left: 0;">🏦 Business Checking Account (Relay / Current CU)</div>
+        <div style="padding-left: 20px;">↓ Weekly transfer — your "paycheck" to yourself</div>
+        <div style="color: var(--amber);">🪔 The Lamp™ — SoFi Checking (personal hub)</div>
+        <div style="padding-left: 20px;">↓ Bills autopay from here · Debit card for daily spending</div>
+        <div style="padding-left: 20px;">↓ Every week: pour 50% into the 5 Vaults</div>
+        <div style="color: var(--jar1); padding-left: 40px;">🌱 Genesis Vault — 10% → Investing</div>
+        <div style="color: var(--jar2); padding-left: 40px;">🚪 Exodus Vault — 10% → Playing &amp; Joy</div>
+        <div style="color: var(--jar3); padding-left: 40px;">📜 Leviticus Vault — 10% → Learning</div>
+        <div style="color: var(--jar4); padding-left: 40px;">🔢 Numbers Vault — 10% → Savings</div>
+        <div style="color: var(--jar5); padding-left: 40px;">📣 Deuteronomy Vault — 10% → Giving</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📋 WHY SOFI IS THE RIGHT MOVE FOR YOU</h3>
+      <p>SoFi's Checking + Savings is a combined account. Your debit card pulls from the <em>checking side</em> — so daily purchases, bill pay, Zelle, everything — works exactly like your current account. The savings vaults sit on the <em>savings side</em>, earning interest, untouched until you intentionally move money. Up to 20 vaults under a single account. No extra logins. No extra transfers between banks. One app for your entire personal financial life.</p>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 2 — WEEKLY CALCULATOR
+  ════════════════════════════════════════════ -->
+  <section class="section" id="calculator">
+
+    <div class="section-header">
+      <h2>Weekly Jar Calculator</h2>
+      <p>Enter your combined weekly income. The system calculates every jar automatically.</p>
+    </div>
+
+    <div class="calc-wrapper">
+      <div class="calc-top">
+        <h3>🪔 Enter This Week's Income</h3>
+        <div class="income-row">
+          <div class="input-group">
+            <label>Your Weekly Income ($)</label>
+            <input type="number" id="incomeYou" placeholder="0.00" min="0" step="0.01" oninput="calcJars()">
+          </div>
+          <div class="input-group">
+            <label>Husband's Weekly Income ($)</label>
+            <input type="number" id="incomeSpouse" placeholder="0.00" min="0" step="0.01" oninput="calcJars()">
+          </div>
+        </div>
+        <button class="calc-btn" onclick="calcJars()">🔥 Pour the Jars</button>
+      </div>
+
+      <div class="jars-grid">
+        <!-- Lamp row -->
+        <div class="lamp-row" id="lampRow">
+          <div class="lamp-icon">🪔</div>
+          <div>
+            <div class="lamp-label">The Lamp™ — Living Account</div>
+            <div class="lamp-sub">50% — bills, daily spending, autopays stay here</div>
+          </div>
+          <div class="lamp-amount" id="lampAmt">$—</div>
+        </div>
+
+        <!-- Jars -->
+        <div class="jar-row" id="row0">
+          <div class="jar-dot" style="background: var(--jar1);"></div>
+          <div class="jar-name-block">
+            <span class="jname">🌱 Genesis Jar™</span>
+            <span class="jpurpose">Investing &amp; Multiplication</span>
+          </div>
+          <div class="jar-bar-wrap"><div class="jar-bar" id="bar0" style="background: var(--jar1);"></div></div>
+          <div class="jar-amount" id="amt0">$—</div>
+        </div>
+
+        <div class="jar-row" id="row1">
+          <div class="jar-dot" style="background: var(--jar2);"></div>
+          <div class="jar-name-block">
+            <span class="jname">🚪 Exodus Jar™</span>
+            <span class="jpurpose">Playing &amp; Joy</span>
+          </div>
+          <div class="jar-bar-wrap"><div class="jar-bar" id="bar1" style="background: var(--jar2);"></div></div>
+          <div class="jar-amount" id="amt1">$—</div>
+        </div>
+
+        <div class="jar-row" id="row2">
+          <div class="jar-dot" style="background: var(--jar3);"></div>
+          <div class="jar-name-block">
+            <span class="jname">📜 Leviticus Jar™</span>
+            <span class="jpurpose">Learning &amp; Self-Development</span>
+          </div>
+          <div class="jar-bar-wrap"><div class="jar-bar" id="bar2" style="background: var(--jar3);"></div></div>
+          <div class="jar-amount" id="amt2">$—</div>
+        </div>
+
+        <div class="jar-row" id="row3">
+          <div class="jar-dot" style="background: var(--jar4);"></div>
+          <div class="jar-name-block">
+            <span class="jname">🔢 Numbers Jar™</span>
+            <span class="jpurpose">Savings &amp; Discipline</span>
+          </div>
+          <div class="jar-bar-wrap"><div class="jar-bar" id="bar3" style="background: var(--jar4);"></div></div>
+          <div class="jar-amount" id="amt3">$—</div>
+        </div>
+
+        <div class="jar-row" id="row4">
+          <div class="jar-dot" style="background: var(--jar5);"></div>
+          <div class="jar-name-block">
+            <span class="jname">📣 Deuteronomy Jar™</span>
+            <span class="jpurpose">Giving &amp; Generosity</span>
+          </div>
+          <div class="jar-bar-wrap"><div class="jar-bar" id="bar4" style="background: var(--jar5);"></div></div>
+          <div class="jar-amount" id="amt4">$—</div>
+        </div>
+
+        <div class="total-row">
+          <span class="total-label">Total Allocated</span>
+          <span class="total-amount" id="totalAmt">$—</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📋 YOUR WEEKLY POUR INSTRUCTIONS</h3>
+      <p style="margin-bottom: 10px;">Every Friday (or whatever day you designate as Pour Day), do this in order:</p>
+      <ol style="padding-left: 22px; color: var(--cream-dim); font-size: 16px; line-height: 2;">
+        <li>Add up all income received this week (both of you)</li>
+        <li>Enter the total above — your jar amounts populate instantly</li>
+        <li>Transfer <strong style="color: var(--amber);">Lamp amount</strong> (50%) — keep it in SoFi Checking for bills &amp; spending</li>
+        <li>Transfer <strong style="color: var(--jar1);">Genesis amount</strong> → SoFi Vault: "Genesis Jar™"</li>
+        <li>Transfer <strong style="color: var(--jar2);">Exodus amount</strong> → SoFi Vault: "Exodus Jar™"</li>
+        <li>Transfer <strong style="color: var(--jar3);">Leviticus amount</strong> → SoFi Vault: "Leviticus Jar™"</li>
+        <li>Transfer <strong style="color: var(--jar4);">Numbers amount</strong> → SoFi Vault: "Numbers Jar™"</li>
+        <li>Transfer <strong style="color: var(--jar5);">Deuteronomy amount</strong> → SoFi Vault: "Deuteronomy Jar™"</li>
+      </ol>
+      <div style="margin-top: 14px; padding: 12px 16px; background: var(--glass); border-left: 3px solid var(--gold-dim); border-radius: 0 4px 4px 0; font-style: italic; font-size: 15px; color: var(--cream-dim);">
+        In SoFi, vault transfers happen inside the app instantly — Savings → Vault. It takes about 2 minutes once the system is set up.
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 3 — MIGRATION STEPS
+  ════════════════════════════════════════════ -->
+  <section class="section" id="migration">
+
+    <div class="section-header">
+      <h2>Step-by-Step Migration Guide</h2>
+      <p>The exact order of operations — do these in sequence, not all at once.</p>
+    </div>
+
+    <div class="apy-banner">
+      <div class="apy-icon">⏱️</div>
+      <div class="apy-text">
+        <h4>Timeline: 45–60 Days Total</h4>
+        <p>This is not a weekend project. Rushing a banking migration means broken autopays and missed payments. Follow the phases. Phase 1 and 2 happen in parallel. Phase 3 starts only after one full billing cycle on SoFi.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h3>PHASE 1 — Separate Business from Personal</h3>
+        <p>Before touching SoFi, get your business money completely separate from your personal money. This is the foundation everything else sits on.</p>
+        <ul>
+          <li>Confirm your existing business checking is in the name of <em>Clear Cut Window Tinting</em> or your LLC — not your personal name</li>
+          <li>If it's commingled, open a free business checking account (Relay Bank is free, Colorado-based businesses use it widely)</li>
+          <li>Verify ALL Square deposits are routing to the business account only</li>
+          <li>Designate a "pay yourself" day (every Friday is common for self-employed couples)</li>
+          <li>Decide your weekly paycheck amount — this is what flows into The Lamp™ each week</li>
+        </ul>
+        <div class="note">⚠️ Do not move on to Step 2 until Square is confirmed routing to the business account.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h3>Open Your SoFi Checking + Savings Account</h3>
+        <ul>
+          <li>Go to <strong>sofi.com/banking</strong> — opens in about 10 minutes</li>
+          <li>Open a single SoFi Checking + Savings account — this is both accounts in one</li>
+          <li>Fund it with a small initial transfer ($100–$500) from your current CU to activate it</li>
+          <li>You'll receive your SoFi debit card in 7–10 business days</li>
+          <li>Your husband should open his own SoFi account separately (or you can add him as a joint account holder)</li>
+        </ul>
+        <div class="note">📝 SoFi requires no minimum balance to open and charges no monthly fees.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h3>Create Your 5 Vaults Inside SoFi</h3>
+        <p>In the SoFi app: Savings → Vaults → Create New Vault. Name each one exactly:</p>
+        <ul>
+          <li><span style="color: var(--jar1);">🌱</span> <strong>Genesis Jar™</strong> — Investing &amp; Multiplication</li>
+          <li><span style="color: var(--jar2);">🚪</span> <strong>Exodus Jar™</strong> — Playing &amp; Joy</li>
+          <li><span style="color: var(--jar3);">📜</span> <strong>Leviticus Jar™</strong> — Learning &amp; Self-Development</li>
+          <li><span style="color: var(--jar4);">🔢</span> <strong>Numbers Jar™</strong> — Savings &amp; Discipline</li>
+          <li><span style="color: var(--jar5);">📣</span> <strong>Deuteronomy Jar™</strong> — Giving &amp; Generosity</li>
+        </ul>
+        <div class="note">All 5 vaults earn the same APY as your main savings balance. No extra accounts, no extra rates to track.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h3>Move Your Monthly Bills to SoFi (One at a Time)</h3>
+        <p>Make a list of every bill on autopay. Move them to SoFi one by one over 2–3 weeks:</p>
+        <ul>
+          <li>Log into each biller's website and update the payment method to your SoFi checking account/routing number</li>
+          <li>OR call the biller and provide SoFi routing + account number</li>
+          <li>Note: SoFi routing number is <strong>031101279</strong></li>
+          <li>Keep a spreadsheet: Bill name → Old account → Moved to SoFi → Date confirmed</li>
+          <li>Do NOT close CU accounts until every autopay has successfully processed through SoFi at least once</li>
+        </ul>
+        <div class="note">🗂️ Common bills to migrate: utilities, subscriptions, insurance, phone, internet, streaming services, gym, any recurring payment.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h3>Run Your First Weekly Pour</h3>
+        <p>Once SoFi is open and vaults are created — do your first manual jar pour:</p>
+        <ul>
+          <li>Transfer your weekly "paycheck" from business checking into SoFi Checking</li>
+          <li>Use the Weekly Calculator (Tab 2) to calculate each vault amount</li>
+          <li>In SoFi app: tap each vault and transfer the calculated amount from your main savings balance</li>
+          <li>Watch the vaults fill — this is the system working</li>
+        </ul>
+        <div class="note">This is Pour Day. Every week, same day. It takes 5 minutes when the system is running.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <h3>Verify the $5,000/Month Qualifying Threshold</h3>
+        <p>To earn 3.80% APY without a traditional direct deposit:</p>
+        <ul>
+          <li>SoFi requires $5,000+ in qualifying deposits every 31 days</li>
+          <li>Your weekly paycheck transfers from your business account likely count — confirm with SoFi support when you open (ask: "Do incoming ACH transfers from my own business account count as qualifying deposits?")</li>
+          <li>If your combined income in any given month is under $5,000, the rate drops — plan accordingly</li>
+          <li>SoFi Plus subscription ($10/month) also unlocks the full APY regardless of deposit amount — worth it if your income varies significantly</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">7</div>
+      <div class="step-body">
+        <h3>PHASE 3 — Wind Down Credit Union Accounts</h3>
+        <p>Only do this after one full billing cycle (30–45 days) on SoFi with zero payment failures:</p>
+        <ul>
+          <li>Confirm all autopays have processed successfully through SoFi</li>
+          <li>Transfer remaining balances from CU accounts to SoFi</li>
+          <li>Request account closure in writing or in person at each Credit Union</li>
+          <li>Keep one CU account open for 30 additional days as a fallback (zero balance is fine)</li>
+          <li>Cancel any CU debit cards after the final account is closed</li>
+        </ul>
+        <div class="note">🎉 When the last CU account closes, the migration is complete. Your money is now lit.</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 4 — VAULT SETUP
+  ════════════════════════════════════════════ -->
+  <section class="section" id="vaults">
+
+    <div class="section-header">
+      <h2>SoFi Vault Setup Guide</h2>
+      <p>Exact names, purposes, and rules for each vault — and how to use SoFi's 20-vault capacity for sub-goals.</p>
+    </div>
+
+    <div class="card" style="margin-bottom: 24px;">
+      <h3>🔧 HOW TO CREATE A VAULT IN SOFI</h3>
+      <ol style="padding-left: 22px; color: var(--cream-dim); font-size: 16px; line-height: 2.2;">
+        <li>Open the SoFi app on your phone</li>
+        <li>Tap <strong>Banking</strong> at the bottom of the screen</li>
+        <li>Scroll to your Savings section → tap <strong>Vaults</strong></li>
+        <li>Tap <strong>+ Create a Vault</strong></li>
+        <li>Enter the vault name exactly as listed below</li>
+        <li>Optionally set a savings goal amount</li>
+        <li>Tap <strong>Save</strong></li>
+        <li>Repeat for all 5 primary jars</li>
+      </ol>
+    </div>
+
+    <table class="vault-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Vault Name</th>
+          <th>Allocation</th>
+          <th>Rule &amp; Purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="emoji">🌱</span></td>
+          <td><span class="vname">Genesis Jar™</span><span style="font-size:12px; color: var(--jar1); display:block;">Investing &amp; Multiplication</span></td>
+          <td><strong style="color: var(--jar1);">10%</strong></td>
+          <td>Locked until your investment goal is reached. This jar feeds your future — stock account, real estate fund, or business investment. Do not touch it for anything else.</td>
+        </tr>
+        <tr>
+          <td><span class="emoji">🚪</span></td>
+          <td><span class="vname">Exodus Jar™</span><span style="font-size:12px; color: var(--jar2); display:block;">Playing &amp; Joy</span></td>
+          <td><strong style="color: var(--jar2);">10%</strong></td>
+          <td>Spent completely every month — no carrying over. This defeats the "I deserve it" impulse spending by giving joy a proper container. Dining out, date night, fun purchases — all come from here.</td>
+        </tr>
+        <tr>
+          <td><span class="emoji">📜</span></td>
+          <td><span class="vname">Leviticus Jar™</span><span style="font-size:12px; color: var(--jar3); display:block;">Learning &amp; Self-Development</span></td>
+          <td><strong style="color: var(--jar3);">10%</strong></td>
+          <td>Books, courses, certifications, seminars. You are your greatest asset. This jar invests in the person running the business — both of you.</td>
+        </tr>
+        <tr>
+          <td><span class="emoji">🔢</span></td>
+          <td><span class="vname">Numbers Jar™</span><span style="font-size:12px; color: var(--jar4); display:block;">Savings &amp; Discipline</span></td>
+          <td><strong style="color: var(--jar4);">10%</strong></td>
+          <td>Builds your financial cushion and funds named future purchases. Create sub-vaults for specific goals: Emergency Fund, New Equipment, Vehicle, Vacation. Never touch it for impulse purchases.</td>
+        </tr>
+        <tr>
+          <td><span class="emoji">📣</span></td>
+          <td><span class="vname">Deuteronomy Jar™</span><span style="font-size:12px; color: var(--jar5); display:block;">Giving &amp; Generosity</span></td>
+          <td><strong style="color: var(--jar5);">10%</strong></td>
+          <td>Tithes, offerings, charity, blessing others. Giving blesses the whole system — this jar is not optional. It is the jar that keeps the system moving.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="section-header">
+      <h2>Using Your Remaining 15 Vaults</h2>
+      <p>SoFi allows up to 20 vaults. Here's how to use the other 15 for sub-goals within each jar.</p>
+    </div>
+
+    <div class="card">
+      <h3>🌱 GENESIS SUB-VAULTS (examples)</h3>
+      <p>Genesis Jar — Investment Account Funding · Real Estate Down Payment Fund · Business Reinvestment Reserve · Retirement Seed Fund</p>
+    </div>
+    <div class="card">
+      <h3>🔢 NUMBERS SUB-VAULTS (most common)</h3>
+      <p>Emergency Fund (3–6 months expenses) · Vehicle Replacement · Home Repair Reserve · Tax Reserve (critical for self-employed) · Equipment Fund for Clear Cut · Slow Season Buffer</p>
+    </div>
+    <div class="card">
+      <h3>📜 LEVITICUS SUB-VAULTS (examples)</h3>
+      <p>Business Certification Fund · Coaching / Mentorship · Industry Conference · Online Course Library</p>
+    </div>
+    <div class="card">
+      <h3>💡 PRO TIP: The Tax Reserve Vault</h3>
+      <p>As self-employed business owners, you owe quarterly estimated taxes. Create a <strong>Tax Reserve</strong> vault inside Numbers and transfer approximately 25–30% of your net business profit each week into it. This is money that was never yours to spend. Having it in a named vault — earning interest — eliminates tax-time panic completely.</p>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 5 — ACTIVATION CHECKLIST
+  ════════════════════════════════════════════ -->
+  <section class="section" id="checklist">
+
+    <div class="section-header">
+      <h2>Activation Checklist</h2>
+      <p>Tap each item when complete. Track your progress through the full migration.</p>
+    </div>
+
+    <div class="progress-bar-wrap">
+      <div class="progress-label">
+        <span>Migration Progress</span>
+        <span id="progressPct">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <ul class="checklist" id="checklistEl">
+
+      <!-- PHASE 1: SEPARATE -->
+      <li class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Business account confirmed</strong> — Clear Cut income routes to a dedicated business checking, not personal <span class="check-phase">Phase 1</span></div>
+      </li>
+      <li class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Square deposits verified</strong> — All Square payments routing to business account only <span class="check-phase">Phase 1</span></div>
+      </li>
+      <li class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Pour Day designated</strong> — You and your husband have agreed on a weekly pay-yourself day (e.g., every Friday) <span class="check-phase">Phase 1</span></div>
+      </li>
+
+      <!-- PHASE 2: SOFI SETUP -->
+      <li class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>SoFi account opened</strong> — SoFi Checking + Savings activated at sofi.com <span class="check-phase">Phase 2</span></div>
+      </li>
+      <li class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>SoFi debit card received</strong> — Physical card arrived and activated <span class="check-phase">Phase 2</span></div>
+      </li>
+      <li class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Genesis Jar™ vault created</strong> — Named exactly: "Genesis Jar™" in SoFi Vaults <span class="check-phase">Phase 2</span></div>
+      </li>
+      <li class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Exodus Jar™ vault created</strong> — Named exactly: "Exodus Jar™" in SoFi Vaults <span class="check-phase">Phase 2</span></div>
+      </li>
+      <li class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Leviticus Jar™ vault created</strong> — Named exactly: "Leviticus Jar™" in SoFi Vaults <span class="check-phase">Phase 2</span></div>
+      </li>
+      <li class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Numbers Jar™ vault created</strong> — Named exactly: "Numbers Jar™" in SoFi Vaults <span class="check-phase">Phase 2</span></div>
+      </li>
+      <li class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Deuteronomy Jar™ vault created</strong> — Named exactly: "Deuteronomy Jar™" in SoFi Vaults <span class="check-phase">Phase 2</span></div>
+      </li>
+      <li class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>APY path confirmed</strong> — Verified with SoFi whether your weekly transfers qualify for the 3.80% rate <span class="check-phase">Phase 2</span></div>
+      </li>
+
+      <!-- PHASE 2: BILLS -->
+      <li class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Bill inventory complete</strong> — Full list of all autopays and recurring payments documented <span class="check-phase">Phase 2</span></div>
+      </li>
+      <li class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Bills migrated to SoFi</strong> — All autopays updated with SoFi routing/account number (Routing: 031101279) <span class="check-phase">Phase 2</span></div>
+      </li>
+      <li class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>First Pour Day completed</strong> — First weekly jar pour done successfully through all 5 vaults <span class="check-phase">Phase 2</span></div>
+      </li>
+      <li class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>One full billing cycle completed</strong> — 30–45 days of all bills processing through SoFi with no failures <span class="check-phase">Phase 2</span></div>
+      </li>
+
+      <!-- PHASE 3: WIND DOWN -->
+      <li class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Credit Union balances transferred</strong> — Remaining funds moved from all 3 CU accounts to SoFi <span class="check-phase">Phase 3</span></div>
+      </li>
+      <li class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Credit Union accounts closed</strong> — All 3 CU accounts formally closed in writing <span class="check-phase">Phase 3</span></div>
+      </li>
+      <li class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Old debit cards cancelled</strong> — All CU debit cards cut and account access removed <span class="check-phase">Phase 3</span></div>
+      </li>
+
+      <!-- COMPLETE -->
+      <li class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>🔥 Migration Complete</strong> — The Jarring Framework is live in real bank accounts. The system is working. <span class="check-phase">Done</span></div>
+      </li>
+
+    </ul>
+
+  </section>
+
+  <footer>
+    <p>Firefly Financial™ — Light your money on fire. In the best way. 🦋</p>
+    <p style="margin-top: 6px; font-size: 12px;">Tool 10 · The Banking Migration Map · Firefly Jars Financial Success Systems, LLC</p>
+  </footer>
+
+</div>
+
+<script>
+  // ── TAB NAVIGATION ──
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // ── JAR CALCULATOR ──
+  const jars = [
+    { pct: 0.10, label: 'Genesis',      color: '#7eb87e' },
+    { pct: 0.10, label: 'Exodus',       color: '#e07b5a' },
+    { pct: 0.10, label: 'Leviticus',    color: '#7ab3d4' },
+    { pct: 0.10, label: 'Numbers',      color: '#c9973a' },
+    { pct: 0.10, label: 'Deuteronomy',  color: '#b07cc6' },
+  ];
+
+  function fmt(n) {
+    return n <= 0 ? '$—' : '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  function calcJars() {
+    const y = parseFloat(document.getElementById('incomeYou').value) || 0;
+    const s = parseFloat(document.getElementById('incomeSpouse').value) || 0;
+    const total = y + s;
+
+    if (total <= 0) {
+      document.getElementById('lampAmt').textContent = '$—';
+      jars.forEach((_, i) => {
+        document.getElementById('amt' + i).textContent = '$—';
+        document.getElementById('bar' + i).style.width = '0%';
+      });
+      document.getElementById('totalAmt').textContent = '$—';
+      return;
+    }
+
+    const lamp = total * 0.50;
+    const perJar = total * 0.10;
+    const jarTotal = perJar * 5;
+
+    document.getElementById('lampAmt').textContent = fmt(lamp);
+
+    jars.forEach((j, i) => {
+      document.getElementById('amt' + i).textContent = fmt(perJar);
+      // Bar width relative to lamp amount as max reference
+      const pct = Math.min((perJar / (total * 0.20)) * 100, 100);
+      setTimeout(() => {
+        document.getElementById('bar' + i).style.width = pct + '%';
+      }, i * 80);
+    });
+
+    document.getElementById('totalAmt').textContent = fmt(total);
+  }
+
+  // ── CHECKLIST ──
+  function toggleCheck(el) {
+    el.classList.toggle('done');
+    updateProgress();
+    // Persist
+    saveChecklist();
+  }
+
+  function updateProgress() {
+    const items = document.querySelectorAll('.check-item');
+    const done = document.querySelectorAll('.check-item.done').length;
+    const pct = Math.round((done / items.length) * 100);
+    document.getElementById('progressPct').textContent = pct + '%';
+    document.getElementById('progressFill').style.width = pct + '%';
+  }
+
+  function saveChecklist() {
+    const states = [];
+    document.querySelectorAll('.check-item').forEach(el => {
+      states.push(el.classList.contains('done') ? '1' : '0');
+    });
+    try { localStorage.setItem('ff_tool10_checklist', states.join(',')); } catch(e) {}
+  }
+
+  function loadChecklist() {
+    try {
+      const saved = localStorage.getItem('ff_tool10_checklist');
+      if (!saved) return;
+      const states = saved.split(',');
+      document.querySelectorAll('.check-item').forEach((el, i) => {
+        if (states[i] === '1') el.classList.add('done');
+      });
+      updateProgress();
+    } catch(e) {}
+  }
+
+  // Init
+  loadChecklist();
+</script>
+</body>
+</html>
