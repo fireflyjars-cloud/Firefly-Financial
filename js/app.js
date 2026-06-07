@@ -193,6 +193,27 @@ animate();
 })();
 
 
+// ── Alternating Hero Tagline ──
+(function () {
+  const tagline = document.querySelector('.hero-tagline');
+  if (!tagline) return;
+
+  const lines = [
+    'Light your money on fire. In the best way.',
+    'The small steady glow of every disciplined decision.',
+  ];
+  let i = 0;
+
+  setInterval(() => {
+    tagline.style.opacity = '0';
+    setTimeout(() => {
+      i = (i + 1) % lines.length;
+      tagline.textContent = lines[i];
+      tagline.style.opacity = '1';
+    }, 800);            // matches the CSS fade duration
+  }, 5000);             // each line shows for 5 seconds
+})();
+
 // ── CTA Fireflies (gather from page edges & swirl around bottom button on scroll) ──
 (function () {
   const section = document.querySelector('.cta-section');

@@ -143,9 +143,9 @@ body {
   text-shadow: 0 0 14px rgba(0, 180, 166, 0.7);
   max-width: 460px;
   text-align: center;
-  white-space: nowrap;
   padding: 20px 0 28px;
   margin-top: 4px;
+  transition: opacity 0.8s ease;
 }
 
 .hero-divider {
