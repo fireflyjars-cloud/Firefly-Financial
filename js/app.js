@@ -193,6 +193,96 @@ animate();
 })();
 
 
+// ── CTA Fireflies (gather from page edges & swirl around bottom button on scroll) ──
+(function () {
+  const section = document.querySelector('.cta-section');
+  if (!section) return;
+  const btn = section.querySelector('.hero-cta');
+  if (!btn) return;
+
+  const COLORS = ['255,215,0', '255,190,0', '255,165,0', '255,200,80', '255,255,150'];
+  const COUNT  = 1000;
+  const flies  = [];
+
+  for (let i = 0; i < COUNT; i++) {
+    const dot = document.createElement('span');
+    dot.className = 'cta-ff';
+    const size = 2 + Math.random() * 3.5;
+    dot.style.width  = size + 'px';
+    dot.style.height = size + 'px';
+    dot.style.setProperty('--ff-color', COLORS[Math.floor(Math.random() * COLORS.length)]);
+    dot.style.animationDuration = (1.5 + Math.random() * 3) + 's';
+    dot.style.animationDelay    = (-Math.random() * 4) + 's';
+    section.appendChild(dot);
+
+    flies.push({
+      el: dot,
+      angle: Math.random() * Math.PI * 2,
+      radius: 60 + Math.random() * 190,      // how far it orbits the button
+      speed: (0.004 + Math.random() * 0.018) * (Math.random() < 0.5 ? -1 : 1),
+      startX: 0,
+      startY: 0,
+      progress: 0,                            // 0 = at edge, 1 = orbiting
+      entrySpeed: 0.006 + Math.random() * 0.012,
+    });
+  }
+
+  function getCenter() {
+    return {
+      cx: btn.offsetLeft + btn.offsetWidth  / 2,
+      cy: btn.offsetTop  + btn.offsetHeight / 2,
+    };
+  }
+
+  let started = false;
+
+  function start() {
+    if (started) return;
+    started = true;
+
+    const w = section.clientWidth;
+    const h = section.clientHeight;
+
+    flies.forEach((f) => {
+      const edge = Math.floor(Math.random() * 4);
+      if      (edge === 0) { f.startX = Math.random() * w; f.startY = -12; }
+      else if (edge === 1) { f.startX = w + 12;            f.startY = Math.random() * h; }
+      else if (edge === 2) { f.startX = Math.random() * w; f.startY = h + 12; }
+      else                 { f.startX = -12;               f.startY = Math.random() * h; }
+      f.el.classList.add('lit');
+    });
+
+    loop();
+  }
+
+  function loop() {
+    const { cx, cy } = getCenter();
+
+    flies.forEach((f) => {
+      if (f.progress < 1) f.progress += f.entrySpeed;
+      const p    = Math.min(1, f.progress);
+      const ease = p * p * (3 - 2 * p);        // smoothstep
+
+      f.angle += f.speed;
+      const ox = cx + Math.cos(f.angle) * f.radius;
+      const oy = cy + Math.sin(f.angle) * f.radius * 0.6;   // gentle ellipse
+
+      const x = f.startX + (ox - f.startX) * ease;
+      const y = f.startY + (oy - f.startY) * ease;
+
+      f.el.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    requestAnimationFrame(loop);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) start(); });
+  }, { threshold: 0.35 });
+
+  observer.observe(btn);
+})();
+
 // ── Jar Glass Click Sound ──
 const clickAudio = new window.Audio('https://assets.mixkit.co/active_storage/sfx/2073/2073-preview.mp3');
 clickAudio.volume = 0.6;
