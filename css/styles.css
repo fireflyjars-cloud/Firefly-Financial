@@ -481,6 +481,27 @@ footer {
   .jar-card      { width: 140px; }
 }
 
+/* Bottom Call To Action Section */
+.cta-section {
+  text-align: center;
+  padding: 70px 20px 90px;
+}
+
+.cta-heading {
+  font-family: 'Georgia', serif;
+  font-size: 1.9rem;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.cta-subtext {
+  font-size: 1.05rem;
+  color: #e0e0e0;
+  max-width: 540px;
+  margin: 0 auto 32px;
+  line-height: 1.6;
+}
+
 /* Email Opt-In Section */
 .optin-section {
   background-color: #0a0a0a;
