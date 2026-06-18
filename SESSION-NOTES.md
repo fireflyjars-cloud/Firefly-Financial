@@ -1,45 +1,55 @@
 # 🔥 Firefly Financial — Where We Left Off
 
-**Last updated:** June 7, 2026
+**Last updated:** June 17, 2026
 
 > **To pick back up:** Open Claude and paste this whole file, or just say:
 > *"I'm ready to keep building Firefly Financial — here are my session notes"* and paste the "Next Up" section.
 
 ---
 
-## ✅ Done in the last session (June 7, 2026)
+## ✅ Done — June 7 session (website + funnel)
 
-- Added a **second "Start Your Journey" button** at the bottom of the homepage (links to Kit opt-in)
-- Added **swirling fireflies** that gather from the page edges and orbit that bottom button when it scrolls into view
-- **Moved The Lamp section** above The Five Jars (now: intro → Lamp → Five Jars → CTA)
-- **Alternating hero tagline** — fades between:
-  - "Light your money on fire. In the best way."
-  - "The small steady glow of every disciplined decision."
-- **Cleaned up the footer** — brand-forward format, removed "DBA":
-  - © 2026 Firefly Financial™ · Firefly Jars Financial Success Systems, LLC
-- Built a full **Terms of Service page** (`terms.html`) — Colorado governing law, Arapahoe County, contact email delyce@fireflyfinancialsuccess.com. Linked in footer.
-- **Published Email #4 in Kit** — promotes Substack + ebook, teases Monthly Money Map™ coming in Email #5 (no new tool link in #4)
-- **Fixed the email sequence** — manually added existing subscribers to the Welcome Sequence (existing subscribers don't auto-enroll in Kit)
+- Second **"Start Your Journey" button** at homepage bottom + **swirling fireflies** orbiting it on scroll
+- **Moved The Lamp** above the Five Jars; **alternating hero tagline**; brand-forward footer (removed "DBA")
+- Full **Terms of Service page** (`terms.html`) — Colorado law, contact delyce@fireflyfinancialsuccess.com, linked in footer
+- **Published Email #4 in Kit**; manually enrolled existing subscribers into the Welcome Sequence
+
+## ✅ Done — June 17 session (ALL 9 TOOLS COMPLETE 🎉)
+
+- **Rebuilt Tools 4, 5, 7, 9** clean from broken Word HTML → working UTF-8 (Debt-to-Income, Before You Borrow, Daily Expense Tracker, Lamp & Exodus Sort)
+- **Relabeled Tools 6 & 8** to new numbering (Credit Card Log 4→6, Financial Goals 3→8)
+- Fixed Monthly Money Map footer "Tool 03" → "Tool 3"
+- **Restyled the Tools landing page** (`tools/index.html`) — tool numbers 1–9, full ™ names, brand green-gradient style, fixed raw `&`
+- 🔑 **Discovered the encoding bug:** the old Word files were UTF-16. When rebuilding, ALWAYS `rm` the file first, then write fresh so it's clean UTF-8. (Use HTML entities like `&trade; &copy; &mdash;` for safety.)
+- 🔑 **Workflow shortcut:** the broken Word files live in the repo, so Claude can read & rebuild them directly — no pasting from Drive needed.
 
 ---
 
 ## 📋 NEXT UP (in priority order)
 
-### 1. Rebuild Tool 5 — Monthly Money Map™ ⬅️ START HERE
-- The current tool files were exported from Word and are broken (not clickable).
-- **How:** Open `monthly-money-map.html` (the Word version) in Google Drive → *HTML Tools / funnel downloads*, copy the Word HTML, and paste it into Claude. Claude rebuilds it clean.
-- Say: **"I'm ready to rebuild Tool 5 (Monthly Money Map) for Firefly Financial"** and paste the Word HTML.
+### 1. ⬅️ FINISH the Google Drive refresh (IN PROGRESS — START HERE)
+Replace the stale Drive copies in *HTML Tools / funnel downloads* with the current repo files
+(local folder: `C:\Users\colli\Firefly-Financial\tools`). **Method that works:** in Drive, right-click the old file → **Remove** (trash it), then **drag** the matching file from File Explorer into the folder. (The "Manage versions" option was missing from Delyce's right-click menu, so use delete + drag instead.)
 
-### 2. Rebuild remaining tools (same process, in order)
-- Tool 6: `lamp-exodus-sort.html`
-- Tool 7: `debt-to-income-calculator.html`
-- Tool 8: `daily-expense-tracker.html`
-- Tool 9: `before-you-borrow.html`
+Files still needing a Drive refresh:
+- [ ] `my-financial-goals.html` — Drive copy still says TOOL 3; repo is correct (TOOL 8). ← was mid-upload when we stopped
+- [ ] `debt-to-income-calculator.html`
+- [ ] `before-you-borrow.html`
+- [ ] `my-credit-card-log.html`
+- [ ] `daily-expense-tracker.html`
+- [ ] `lamp-exodus-sort.html`
+- To verify any file is current: open it, Ctrl+F, search `TOOL` — the number should match the master order below.
 
-### 3. Other to-dos
-- Write a **Privacy Policy** page (recommended since we collect emails)
-- Add a **Tools link** to the homepage navigation bar
-- Continue the **Kit nurture sequence** (Email #5 = Monthly Money Map™ reveal)
+### 2. Add a **Tools link** to the homepage top navigation
+- Right now visitors can only reach `/tools/` by direct link. Add a nav link on the homepage.
+
+### 3. Kit **Email #5** — Monthly Money Map™ reveal
+- (Email #4 already published. June 11 calendar reminder covers #4 timing.)
+
+### 4. Write a **Privacy Policy** page
+- Recommended since we collect emails. Same style as `terms.html`.
+
+### 5. Bigger projects (later)
 - Set up **Supabase login** so users can save their tool data
 - **Brainstorm new tool names** — treasure hunt / magic lamp metaphor (Aladdin-inspired, NO proprietary character names). Example idea: "The Map To The Lamp™"
 
