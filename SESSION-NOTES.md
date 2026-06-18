@@ -58,9 +58,9 @@
 ### 🔢 MASTER TOOL ORDER (locked June 7, 2026) — no leading zeros in labels
 1. The Lamp Diagnostic™ — `lamp-diagnostic.html` ✅ live
 2. My Monthly Income™ — `my-monthly-income.html` ✅ live
-3. Monthly Money Map™ — `monthly-money-map.html` ✅ live
+3. Monthly Money Map™ — `monthly-money-map.html` ✅ live — 🔒 FINAL, DO NOT CHANGE (built in separate chat, locked by Delyce June 17, 2026)
 4. Debt-to-Income Calculator™ — `debt-to-income-calculator.html` ✅ rebuilt
-5. Before You Borrow™ — `before-you-borrow.html` ⬜ to build
+5. Before You Borrow™ — `before-you-borrow.html` ✅ rebuilt
 6. My Credit Card Log™ — `my-credit-card-log.html` ✅ live (RELABEL 4→6)
 7. Daily Expense Tracker™ — `daily-expense-tracker.html` ⬜ to build
 8. My Financial Goals™ — `my-financial-goals.html` ✅ live (RELABEL 3→8)
