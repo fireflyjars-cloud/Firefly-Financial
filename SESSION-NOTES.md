@@ -61,8 +61,8 @@
 3. Monthly Money Map™ — `monthly-money-map.html` ✅ live — 🔒 FINAL, DO NOT CHANGE (built in separate chat, locked by Delyce June 17, 2026)
 4. Debt-to-Income Calculator™ — `debt-to-income-calculator.html` ✅ rebuilt
 5. Before You Borrow™ — `before-you-borrow.html` ✅ rebuilt
-6. My Credit Card Log™ — `my-credit-card-log.html` ✅ live (RELABEL 4→6)
-7. Daily Expense Tracker™ — `daily-expense-tracker.html` ⬜ to build
+6. My Credit Card Log™ — `my-credit-card-log.html` ✅ live, relabeled 4→6
+7. Daily Expense Tracker™ — `daily-expense-tracker.html` ✅ rebuilt
 8. My Financial Goals™ — `my-financial-goals.html` ✅ live (RELABEL 3→8)
 9. Lamp & Exodus Sort™ — `lamp-exodus-sort.html` ⬜ to build
 
