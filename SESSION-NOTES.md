@@ -63,7 +63,7 @@
 5. Before You Borrow™ — `before-you-borrow.html` ✅ rebuilt
 6. My Credit Card Log™ — `my-credit-card-log.html` ✅ live, relabeled 4→6
 7. Daily Expense Tracker™ — `daily-expense-tracker.html` ✅ rebuilt
-8. My Financial Goals™ — `my-financial-goals.html` ✅ live (RELABEL 3→8)
+8. My Financial Goals™ — `my-financial-goals.html` ✅ live, relabeled 3→8
 9. Lamp & Exodus Sort™ — `lamp-exodus-sort.html` ⬜ to build
 
 ### 🫙 The Five Jars (canonical order)
