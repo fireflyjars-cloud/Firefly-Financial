@@ -15,6 +15,15 @@
 }
 .ff-save-btn:hover { background: rgba(0,180,166,0.1); border-color: #00B4A6; box-shadow: 0 0 20px rgba(0,180,166,0.25); }
 .ff-save-btn:disabled { opacity: 0.6; cursor: default; }
+.ff-save-desc {
+  font-size: 0.75rem;
+  color: #9CA3AF;
+  text-align: center;
+  font-style: italic;
+  letter-spacing: 0.3px;
+  margin-top: 10px;
+  line-height: 1.6;
+}
 
 .ff-history-panel {
   background: rgba(255,255,255,0.02);
