@@ -370,6 +370,7 @@
       Object.keys(cardData).forEach(k => delete cardData[k]);
       cardCount = 0;
       addCard(); addCard();
+      calcSummary();
       window.scrollTo({ top:0, behavior:'smooth' });
     }
 
