@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/tool-history.css" />
   <title>My Debt-to-Income Calculator — Firefly Financial</title>
   <style>
     :root {
@@ -393,6 +394,11 @@
 
     <p class="verse">"Let no debt remain outstanding, except the continuing debt to love one another." &mdash; Romans 13:8</p>
 
+    <div class="ff-save-wrap">
+      <button class="ff-save-btn" id="ffSaveBtn" onclick="ffSaveResult()">💾 &nbsp; Save These Results</button>
+    </div>
+    <div class="ff-history-panel" id="ffHistoryPanel"></div>
+
     <div class="actions">
       <button class="btn" onclick="resetAll()">&#8634; Start Over</button>
       <button class="btn" onclick="window.print()">&#9113; Save / Print</button>
@@ -404,6 +410,7 @@
     &copy; 2026 Firefly Jars Financial Success Systems, LLC &nbsp;&middot;&nbsp; Firefly Financial&trade; &nbsp;&middot;&nbsp; Tool 4 of the Jarring Framework Toolkit
   </footer>
 
+  <script src="../js/tool-history.js"></script>
   <script>
     let debtCount = 0;
 
@@ -547,6 +554,42 @@
     // start with 3 empty debt rows
     addDebt(); addDebt(); addDebt();
     calc();
+
+    // ── Save / History ──
+    function ffCapture() {
+      const income = FireflyHistory.captureFields(document, ['iGross','iTax','iDues','iBen','iOther']);
+      const debts = FireflyHistory.captureRows('debtBody', '.debt-row');
+      const dtiText = document.getElementById('dtiNum').textContent;
+      const dtiNum = parseFloat(dtiText);
+      return {
+        data: { income, debts },
+        headline: dtiText === '—' ? 'No DTI yet' : dtiText,
+        headlineNum: isNaN(dtiNum) ? null : dtiNum,
+        summary: !isNaN(dtiNum) ? 'Debt-to-income ratio' : 'Saved with incomplete data'
+      };
+    }
+    function ffRestoreEntry(entry) {
+      FireflyHistory.restoreFields(document, entry.data.income);
+      FireflyHistory.restoreRows('debtBody', '.debt-row', entry.data.debts, addDebt);
+      calc();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function ffSaveResult() {
+      const c = ffCapture();
+      FireflyHistory.save('debt-to-income-calculator', { data: c.data, summary: c.summary, headlineText: c.headline, headlineNum: c.headlineNum });
+      ffRenderHistory();
+      FireflyHistory.flashSaved(document.getElementById('ffSaveBtn'));
+    }
+    function ffRenderHistory() {
+      FireflyHistory.renderPanel('debt-to-income-calculator', document.getElementById('ffHistoryPanel'), {
+        formatHeadline: e => e.headlineText,
+        headlineValue: e => e.headlineNum,
+        higherIsBetter: false,
+        formatDelta: d => d.toFixed(1) + '%',
+        onRestore: ffRestoreEntry
+      });
+    }
+    ffRenderHistory();
   </script>
 
 </body>

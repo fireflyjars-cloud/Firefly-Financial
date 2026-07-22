@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/tool-history.css" />
   <title>Before You Borrow — Firefly Financial</title>
   <style>
     :root {
@@ -405,6 +406,11 @@
 
     <p class="verse">"The rich rule over the poor, and the borrower is slave to the lender." &mdash; Proverbs 22:7</p>
 
+    <div class="ff-save-wrap">
+      <button class="ff-save-btn" id="ffSaveBtn" onclick="ffSaveResult()">💾 &nbsp; Save These Results</button>
+    </div>
+    <div class="ff-history-panel" id="ffHistoryPanel"></div>
+
     <div class="actions">
       <button class="btn" onclick="resetAll()">&#8634; Start Over</button>
       <button class="btn" onclick="window.print()">&#9113; Save / Print</button>
@@ -416,6 +422,7 @@
     &copy; 2026 Firefly Jars Financial Success Systems, LLC &nbsp;&middot;&nbsp; Firefly Financial&trade; &nbsp;&middot;&nbsp; Tool 5 of the Jarring Framework Toolkit
   </footer>
 
+  <script src="../js/tool-history.js"></script>
   <script>
     function switchTab(tab) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -429,6 +436,40 @@
       document.querySelectorAll('input, textarea').forEach(el => el.value = '');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    // ── Save / History ──
+    function ffFieldEls() {
+      return Array.from(document.querySelectorAll('#tab-loans input, #tab-loans textarea, #tab-cards input, #tab-cards textarea'));
+    }
+    function ffCapture() {
+      const vals = ffFieldEls().map(el => el.value);
+      const offerNames = Array.from(document.querySelectorAll('.offer-name input')).map(el => el.value).filter(Boolean);
+      const filledCount = vals.filter(v => v && v.trim()).length;
+      return {
+        data: { vals },
+        headline: offerNames.length ? offerNames.join(' vs ') : (filledCount + ' fields filled'),
+        headlineNum: null,
+        summary: filledCount + ' of ' + vals.length + ' fields filled'
+      };
+    }
+    function ffRestoreEntry(entry) {
+      const els = ffFieldEls();
+      (entry.data.vals || []).forEach((v, i) => { if (els[i]) els[i].value = v; });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function ffSaveResult() {
+      const c = ffCapture();
+      FireflyHistory.save('before-you-borrow', { data: c.data, summary: c.summary, headlineText: c.headline, headlineNum: c.headlineNum });
+      ffRenderHistory();
+      FireflyHistory.flashSaved(document.getElementById('ffSaveBtn'));
+    }
+    function ffRenderHistory() {
+      FireflyHistory.renderPanel('before-you-borrow', document.getElementById('ffHistoryPanel'), {
+        formatHeadline: e => e.headlineText,
+        onRestore: ffRestoreEntry
+      });
+    }
+    ffRenderHistory();
   </script>
 
 </body>

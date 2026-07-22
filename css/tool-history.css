@@ -1,0 +1,105 @@
+/* Firefly Financial — shared "save your results" UI (used across all tools) */
+.ff-save-wrap { text-align: center; margin-bottom: 20px; }
+.ff-save-btn {
+  background: transparent;
+  border: 2px solid rgba(0,180,166,0.4);
+  border-radius: 10px;
+  color: #00B4A6;
+  font-family: Georgia, serif;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 12px 26px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.ff-save-btn:hover { background: rgba(0,180,166,0.1); border-color: #00B4A6; box-shadow: 0 0 20px rgba(0,180,166,0.25); }
+.ff-save-btn:disabled { opacity: 0.6; cursor: default; }
+
+.ff-history-panel {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,215,0,0.15);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+.ff-history-title {
+  font-size: 0.68rem;
+  color: #FFD700;
+  opacity: 0.75;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.ff-history-empty {
+  color: #9CA3AF;
+  font-size: 0.88rem;
+  font-style: italic;
+  text-align: center;
+  padding: 4px 0 2px;
+}
+.ff-history-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 4px; }
+.ff-history-entry {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.ff-history-main { flex: 1; min-width: 180px; }
+.ff-history-date {
+  font-size: 0.66rem;
+  color: #9CA3AF;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.ff-history-headline {
+  font-size: 1.1rem;
+  color: #FFD700;
+  font-weight: bold;
+  font-variant-numeric: tabular-nums;
+}
+.ff-history-delta { font-size: 0.72rem; margin-left: 8px; font-weight: normal; }
+.ff-history-delta.good { color: #00B4A6; }
+.ff-history-delta.bad { color: #FF6B9D; }
+.ff-history-summary { font-size: 0.8rem; color: #E5E7EB; margin-top: 3px; }
+.ff-history-actions { display: flex; gap: 8px; }
+.ff-history-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 7px;
+  color: #E5E7EB;
+  font-family: Georgia, serif;
+  font-size: 0.7rem;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.ff-history-btn.restore { border-color: rgba(0,180,166,0.4); color: #00B4A6; }
+.ff-history-btn.restore:hover { background: rgba(0,180,166,0.1); }
+.ff-history-btn.delete { border-color: rgba(255,107,157,0.3); color: #FF6B9D; }
+.ff-history-btn.delete:hover { background: rgba(255,107,157,0.08); }
+.ff-history-clear {
+  display: block;
+  text-align: center;
+  font-size: 0.72rem;
+  color: #9CA3AF;
+  margin: 14px auto 0;
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: Georgia, serif;
+}
+.ff-history-clear:hover { color: #FF6B9D; }
+
+@media print {
+  .ff-save-wrap, .ff-history-panel { display: none; }
+}

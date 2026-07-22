@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/tool-history.css" />
   <title>Daily Expense Tracker — Firefly Financial</title>
   <style>
     :root {
@@ -333,6 +334,11 @@
 
     <p class="verse">"Know well the condition of your flocks, and give attention to your herds." &mdash; Proverbs 27:23</p>
 
+    <div class="ff-save-wrap">
+      <button class="ff-save-btn" id="ffSaveBtn" onclick="ffSaveResult()">💾 &nbsp; Save These Results</button>
+    </div>
+    <div class="ff-history-panel" id="ffHistoryPanel"></div>
+
     <div class="actions">
       <button class="btn" onclick="resetAll()">&#8634; Start Over</button>
       <button class="btn" onclick="window.print()">&#9113; Save / Print</button>
@@ -344,6 +350,7 @@
     &copy; 2026 Firefly Jars Financial Success Systems, LLC &nbsp;&middot;&nbsp; Firefly Financial&trade; &nbsp;&middot;&nbsp; Tool 7 of the Jarring Framework Toolkit
   </footer>
 
+  <script src="../js/tool-history.js"></script>
   <script>
     const COLS = ['house','gas','groc','meals','cloth','ent','other'];
     let rowCount = 0;
@@ -448,6 +455,42 @@
     // start with 3 empty rows
     addRow(); addRow(); addRow();
     calc();
+
+    // ── Save / History ──
+    function ffCapture() {
+      const meta = FireflyHistory.captureFields(document, ['periodIn','budgetIn']);
+      const rows = FireflyHistory.captureRows('expBody', 'tr');
+      const grand = document.getElementById('grandTotal').textContent;
+      const grandNum = parseFloat(grand.replace(/[$,]/g,'')) || 0;
+      return {
+        data: { meta, rows },
+        headline: grand,
+        headlineNum: grandNum,
+        summary: (meta.periodIn ? meta.periodIn + ' · ' : '') + rows.length + ' expense' + (rows.length !== 1 ? 's' : '') + ' logged'
+      };
+    }
+    function ffRestoreEntry(entry) {
+      FireflyHistory.restoreFields(document, entry.data.meta);
+      FireflyHistory.restoreRows('expBody', 'tr', entry.data.rows, addRow);
+      calc();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function ffSaveResult() {
+      const c = ffCapture();
+      FireflyHistory.save('daily-expense-tracker', { data: c.data, summary: c.summary, headlineText: c.headline, headlineNum: c.headlineNum });
+      ffRenderHistory();
+      FireflyHistory.flashSaved(document.getElementById('ffSaveBtn'));
+    }
+    function ffRenderHistory() {
+      FireflyHistory.renderPanel('daily-expense-tracker', document.getElementById('ffHistoryPanel'), {
+        formatHeadline: e => e.headlineText,
+        headlineValue: e => e.headlineNum,
+        higherIsBetter: false,
+        formatDelta: d => '$' + d.toFixed(2),
+        onRestore: ffRestoreEntry
+      });
+    }
+    ffRenderHistory();
   </script>
 
 </body>
