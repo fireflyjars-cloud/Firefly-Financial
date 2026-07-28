@@ -10,6 +10,7 @@
     :root {
       --teal:#00B4A6; --pink:#FF6B9D; --gold:#FFD700; --amber:#FFA500;
       --purple:#c084fc; --white:#FFFFFF; --lg:#E5E7EB; --mg:#9CA3AF;
+      --red:#EF4444; --yellow:#FDE047; --green:#4ADE80;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; }
@@ -75,8 +76,9 @@
 
     /* Category / contributor cards (shared shape) */
     .cards-list { display:flex; flex-direction:column; gap:16px; margin-bottom:16px; }
-    .category-card, .contributor-card { background:rgba(255,255,255,.02); border:1px solid rgba(255,215,0,.12); border-radius:16px; padding:20px 22px; transition:border-color .2s; }
+    .category-card, .contributor-card { background:rgba(255,255,255,.02); border:1px solid rgba(255,215,0,.12); border-radius:16px; padding:20px 22px; transition:border-color .2s, background .2s; }
     .category-card:hover, .contributor-card:hover { border-color:rgba(255,215,0,.22); }
+    .category-card.done, .contributor-card.done { border-color:rgba(0,180,166,.4); background:rgba(0,180,166,.04); }
     .cat-top, .con-top { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
     .cat-name-in, .con-name-in { flex:1; background:transparent; border:none; border-bottom:1px solid rgba(255,215,0,.2); color:var(--white); font-family:Georgia,serif; font-size:1.02rem; padding:4px 0; outline:none; transition:border-color .2s; }
     .cat-name-in:focus, .con-name-in:focus { border-bottom-color:var(--gold); }
@@ -137,6 +139,34 @@
     .funded-track { background:rgba(255,255,255,.06); border-radius:999px; height:6px; overflow:hidden; margin-top:16px; display:none; }
     body.mode-group .funded-track { display:block; }
     .funded-fill { height:100%; border-radius:999px; background:linear-gradient(to right,var(--teal),var(--gold)); transition:width .5s; }
+
+    /* Firefly Glow Score */
+    .glow-box { border-radius:16px; padding:28px 24px; text-align:center; margin-bottom:24px; border:1px solid; transition:background .4s, border-color .4s, box-shadow .4s; }
+    .glow-pct { font-size:2.6rem; font-weight:bold; font-variant-numeric:tabular-nums; margin-bottom:2px; transition:color .4s, text-shadow .4s; }
+    .glow-label { font-size:.8rem; text-transform:uppercase; letter-spacing:2px; margin-bottom:18px; transition:color .4s; }
+    .glow-track { background:rgba(255,255,255,.08); border-radius:999px; height:10px; overflow:hidden; margin-bottom:14px; }
+    .glow-fill { height:100%; border-radius:999px; transition:width .6s ease, background .4s; }
+    .glow-note { font-size:.8rem; color:var(--mg); font-style:italic; line-height:1.6; }
+    .glow-sparkle { font-size:1.3rem; letter-spacing:8px; margin-bottom:10px; opacity:0; height:0; overflow:hidden; transition:opacity .5s; }
+
+    .glow-box.tier-red    { background:rgba(239,68,68,.06);  border-color:rgba(239,68,68,.35); }
+    .glow-box.tier-orange { background:rgba(255,165,0,.06);  border-color:rgba(255,165,0,.35); }
+    .glow-box.tier-yellow { background:rgba(253,224,71,.06); border-color:rgba(253,224,71,.35); }
+    .glow-box.tier-green  { background:rgba(74,222,128,.06); border-color:rgba(74,222,128,.35); }
+    .glow-box.tier-gold   { background:rgba(255,215,0,.1);   border-color:rgba(255,215,0,.6); box-shadow:0 0 34px rgba(255,215,0,.25); }
+
+    .tier-red    .glow-pct, .tier-red    .glow-label { color:var(--red); }
+    .tier-orange .glow-pct, .tier-orange .glow-label { color:var(--amber); }
+    .tier-yellow .glow-pct, .tier-yellow .glow-label { color:var(--yellow); }
+    .tier-green  .glow-pct, .tier-green  .glow-label { color:var(--green); }
+    .tier-gold   .glow-pct, .tier-gold   .glow-label { color:var(--gold); text-shadow:0 0 18px rgba(255,215,0,.55); }
+    .tier-gold .glow-sparkle { opacity:1; height:auto; }
+
+    .tier-red    .glow-fill { background:var(--red); }
+    .tier-orange .glow-fill { background:var(--amber); }
+    .tier-yellow .glow-fill { background:var(--yellow); }
+    .tier-green  .glow-fill { background:var(--green); }
+    .tier-gold   .glow-fill { background:linear-gradient(to right, var(--gold), #FFF8DC); }
 
     /* Tips */
     .tip-card { background:rgba(255,255,255,.02); border:1px solid rgba(255,215,0,.12); border-radius:16px; padding:24px 26px; margin-bottom:16px; }
@@ -270,6 +300,15 @@
       <p class="sweat-count" id="sweatCount"></p>
     </div>
 
+    <p class="sec-label">✨ Firefly Glow Score</p>
+    <div class="glow-box tier-red" id="glowBox">
+      <div class="glow-sparkle">🌟 ✨ 🌟 ✨ 🌟</div>
+      <div class="glow-pct" id="glowPct">0%</div>
+      <div class="glow-label" id="glowLabel">Just Getting Started</div>
+      <div class="glow-track"><div class="glow-fill" id="glowFill" style="width:0%"></div></div>
+      <p class="glow-note" id="glowNote">Check off categories, tasks, and contributions as you go — your glow grows as your event comes together.</p>
+    </div>
+
     <p class="sec-label">📊 Budget at a Glance</p>
     <div class="summary">
       <p class="sum-lbl">✦ Across All Categories</p>
@@ -328,6 +367,12 @@
     <div class="closing">
       <p class="closing-title">✦ A Word Before You Celebrate</p>
       <p class="closing-text">A good event doesn't need to cost more than you can see coming. <em>Name the categories. Know the numbers.</em> Whether it's just you covering it or a whole circle of people showing up to help — <strong>plan the glow, don't just hope for it.</strong></p>
+    </div>
+
+    <div class="tip-card">
+      <p class="tip-title">📖 One More Thing, Before You Go</p>
+      <p class="tip-body">You just did something most people never do with their own money — named every category, put a number on it, and tracked it. If that kind of clarity felt good, my book digs into why so many high earners do everything "right" and still feel like the money disappears, and how to close that gap.</p>
+      <p class="tip-body" style="margin-bottom:0;"><a href="https://delyce.gumroad.com/l/rsceh" target="_blank" rel="noopener" style="color:var(--teal); text-decoration:none;">Why High Earners Still Feel Broke and How to Fix It →</a></p>
     </div>
 
     <div class="ff-save-wrap">
@@ -433,8 +478,18 @@
             </div>
           </div>
         </div>
+        <label class="paid-wrap">
+          <input type="checkbox" id="catdone-${id}" onchange="toggleCategoryDone(${id}, this)" />
+          <span class="paid-lbl">Booked / Paid in full</span>
+        </label>
       `;
       document.getElementById('categoriesList').appendChild(card);
+      calcSummary();
+    }
+
+    function toggleCategoryDone(id, cb) {
+      const card = document.getElementById(`cat-${id}`);
+      if (card) card.classList.toggle('done', cb.checked);
       calcSummary();
     }
 
@@ -478,11 +533,17 @@
           </div>
         </div>
         <label class="paid-wrap">
-          <input type="checkbox" id="conpaid-${id}" />
+          <input type="checkbox" id="conpaid-${id}" onchange="toggleContributorPaid(${id}, this)" />
           <span class="paid-lbl">Paid in full</span>
         </label>
       `;
       document.getElementById('contributorsList').appendChild(card);
+      calcSummary();
+    }
+
+    function toggleContributorPaid(id, cb) {
+      const card = document.getElementById(`con-${id}`);
+      if (card) card.classList.toggle('done', cb.checked);
       calcSummary();
     }
 
@@ -522,18 +583,21 @@
       `;
       document.getElementById('sweatList').appendChild(li);
       updateSweatCount();
+      calcSummary();
     }
 
     function toggleSweatDone(id, cb) {
       const li = document.getElementById(`sweat-${id}`);
       if (li) li.classList.toggle('done', cb.checked);
       updateSweatCount();
+      calcSummary();
     }
 
     function removeSweatItem(id) {
       const el = document.getElementById(`sweat-${id}`);
       if (el) el.remove();
       updateSweatCount();
+      calcSummary();
     }
 
     function updateSweatCount() {
@@ -594,6 +658,66 @@
         stillNeeded > 0 ? fmt(stillNeeded) : (budgetedSum > 0 ? '$0.00 — fully funded!' : '$0.00');
       const pctFunded = budgetedSum > 0 ? Math.min((collectedSum / budgetedSum) * 100, 100) : 0;
       document.getElementById('fundedFill').style.width = pctFunded + '%';
+
+      calcGlow();
+    }
+
+    // ---- Firefly Glow Score ----
+    function calcGlow() {
+      const mode = document.getElementById('modeField').value;
+      let total = 0, done = 0;
+
+      document.querySelectorAll('.category-card').forEach(card => {
+        total++;
+        if (card.querySelector('input[type="checkbox"]')?.checked) done++;
+      });
+
+      if (mode === 'group') {
+        document.querySelectorAll('.contributor-card').forEach(card => {
+          total++;
+          if (card.querySelector('input[type="checkbox"]')?.checked) done++;
+        });
+        document.querySelectorAll('.sweat-card').forEach(card => {
+          total++;
+          if (card.querySelector('input[type="checkbox"]')?.checked) done++;
+        });
+      }
+
+      const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+      renderGlow(pct);
+    }
+
+    function renderGlow(pct) {
+      const box    = document.getElementById('glowBox');
+      const pctEl  = document.getElementById('glowPct');
+      const lblEl  = document.getElementById('glowLabel');
+      const fillEl = document.getElementById('glowFill');
+      const noteEl = document.getElementById('glowNote');
+      if (!box) return;
+
+      let tier, label, note;
+      if (pct >= 100) {
+        tier = 'gold';   label = 'Ready to Celebrate!';
+        note = 'Every piece is checked off. Time to shine. ✨';
+      } else if (pct >= 75) {
+        tier = 'green';  label = 'Almost Ready';
+        note = "Just a few things left — you're close.";
+      } else if (pct >= 50) {
+        tier = 'yellow'; label = 'Getting There';
+        note = 'Good progress — keep checking things off.';
+      } else if (pct >= 25) {
+        tier = 'orange'; label = 'Making Progress';
+        note = "You're on your way — keep going.";
+      } else {
+        tier = 'red';    label = 'Just Getting Started';
+        note = 'Check off categories, tasks, and contributions as you go — your glow grows as your event comes together.';
+      }
+
+      box.className = 'glow-box tier-' + tier;
+      pctEl.textContent = pct + '%';
+      lblEl.textContent = label;
+      noteEl.textContent = note;
+      fillEl.style.width = pct + '%';
     }
 
     function seedDefaults() {
@@ -656,6 +780,13 @@
       document.querySelectorAll('.category-card').forEach(card => {
         const id = card.id.match(/cat-(\d+)/)[1];
         calcCategory(id);
+        const cb = document.getElementById(`catdone-${id}`);
+        if (cb && cb.checked) card.classList.add('done');
+      });
+      document.querySelectorAll('.contributor-card').forEach(card => {
+        const id = card.id.match(/con-(\d+)/)[1];
+        const cb = document.getElementById(`conpaid-${id}`);
+        if (cb && cb.checked) card.classList.add('done');
       });
       document.querySelectorAll('.sweat-card').forEach(li => {
         const id = li.id.match(/sweat-(\d+)/)[1];
