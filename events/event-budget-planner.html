@@ -43,6 +43,8 @@
     .mode-note { font-size:.8rem; color:var(--mg); font-style:italic; margin-bottom:30px; text-align:center; }
 
     /* Research guide */
+    .guide-toggle-btn { display:block; width:100%; background:transparent; border:1px dashed rgba(255,215,0,.25); border-radius:12px; color:rgba(255,215,0,.65); font-family:Georgia,serif; font-size:.82rem; padding:13px 18px; cursor:pointer; transition:all .2s; margin-bottom:24px; text-align:center; }
+    .guide-toggle-btn:hover { border-color:var(--gold); color:var(--gold); background:rgba(255,215,0,.03); }
     .guide-block { background:rgba(255,255,255,.02); border:1px solid rgba(255,215,0,.14); border-radius:14px; padding:24px; margin-bottom:24px; }
     .guide-text { font-size:.88rem; color:var(--lg); line-height:1.7; margin-bottom:16px; }
     .guide-text strong { color:var(--gold); }
@@ -58,8 +60,8 @@
     .guide-note strong { color:var(--teal); }
 
     /* Budget starter helper */
-    .starter-block { background:rgba(0,180,166,.04); border:1px solid rgba(0,180,166,.2); border-radius:14px; padding:24px; margin-bottom:32px; }
-    .starter-label { font-size:.68rem; color:var(--teal); text-transform:uppercase; letter-spacing:3px; margin-bottom:10px; opacity:.85; }
+    .starter-block { background:rgba(0,180,166,.06); border:1px solid rgba(0,180,166,.35); border-radius:16px; padding:28px; margin-bottom:20px; box-shadow:0 0 30px rgba(0,180,166,.1); }
+    .starter-label { font-size:.72rem; color:var(--teal); text-transform:uppercase; letter-spacing:3px; margin-bottom:10px; opacity:.95; }
     .starter-text { font-size:.88rem; color:var(--lg); line-height:1.6; margin-bottom:18px; }
     .starter-fields { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; margin-bottom:16px; }
     .starter-btn-row { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
@@ -104,6 +106,7 @@
 
     /* Time & Talent (sweat-equity) list */
     .sweat-intro { font-size:.88rem; color:var(--lg); line-height:1.6; margin-bottom:16px; }
+    .cat-intro { font-size:.85rem; color:var(--mg); line-height:1.6; margin-bottom:16px; }
     .sweat-list { list-style:decimal; padding-left:22px; display:flex; flex-direction:column; gap:14px; margin-bottom:16px; }
     .sweat-list li::marker { color:var(--gold); font-weight:bold; }
     .sweat-card { background:rgba(255,255,255,.02); border:1px solid rgba(255,215,0,.12); border-radius:12px; padding:16px 18px; transition:border-color .2s; }
@@ -168,7 +171,7 @@
       .sum-grid { grid-template-columns:1fr 1fr; }
     }
     @media print {
-      .btn-row, .print-note, .back-link, .add-btn, .del-btn, .mode-toggle, .starter-block, .guide-block, .ff-save-wrap, .ff-history-panel { display:none; }
+      .btn-row, .print-note, .back-link, .add-btn, .del-btn, .mode-toggle, .starter-block, .guide-toggle-btn, .guide-block, .ff-save-wrap, .ff-history-panel { display:none; }
     }
   </style>
 </head>
@@ -201,40 +204,9 @@
     <p class="mode-note">You can switch between the two anytime — nothing you've entered gets lost.</p>
     <input type="hidden" id="modeField" value="self" />
 
-    <p class="sec-label">📐 How Much Should Each Category Get? — A Guest-Count Guide</p>
-    <div class="guide-block">
-      <p class="guide-text">There's no single official rule for splitting an event budget — every planner's numbers vary a bit. But researching wedding-industry data, corporate/upscale event guidance, and general party-planning sources together shows a consistent pattern: <strong>as your guest count grows, catering's share of the budget grows with it, while venue, entertainment, and photography shrink as a percentage</strong> — because catering scales directly with every added guest, but a rented room or a hired DJ often costs close to the same whether 20 people show up or 60. Below is a synthesized starting-point split across three guest-count tiers, built from that research:</p>
-      <div class="guide-table-wrap">
-        <table class="guide-table">
-          <thead>
-            <tr>
-              <th>Category</th>
-              <th>Small<span>Under 25 guests</span></th>
-              <th>Medium<span>25–74 guests</span></th>
-              <th>Large<span>75+ guests</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>Venue</td><td>8%</td><td>20%</td><td>22%</td></tr>
-            <tr><td>Catering &amp; Beverage</td><td>42%</td><td>32%</td><td>26%</td></tr>
-            <tr><td>Lodging / Room Block</td><td>2%</td><td>5%</td><td>8%</td></tr>
-            <tr><td>Decor &amp; Florals</td><td>12%</td><td>11%</td><td>9%</td></tr>
-            <tr><td>Entertainment</td><td>10%</td><td>9%</td><td>8%</td></tr>
-            <tr><td>Photography / Video</td><td>8%</td><td>9%</td><td>11%</td></tr>
-            <tr><td>Attire</td><td>6%</td><td>6%</td><td>7%</td></tr>
-            <tr><td>Invitations &amp; Stationery</td><td>4%</td><td>3%</td><td>3%</td></tr>
-            <tr><td>Favors &amp; Gifts</td><td>6%</td><td>3%</td><td>2%</td></tr>
-            <tr><td>Transportation</td><td>2%</td><td>2%</td><td>4%</td></tr>
-            <tr><td>Total</td><td>100%</td><td>100%</td><td>100%</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="guide-note"><strong>Why it shifts:</strong> a $600 flat venue fee spread across 20 guests is $30/head — spread across 40 guests, it's $15/head. That's the fixed-cost effect. Meanwhile catering at $35/head stays $35/head no matter who's counting. The more guests you add, the more your budget's center of gravity moves toward food and away from the room. This is a <em style="color:var(--teal)">starting point</em>, not a rule — a backyard gathering with a free venue or a hotel-based event with a room block will shift these numbers further. Adjust every category to fit your actual event.</p>
-    </div>
-
     <div class="starter-block">
       <p class="starter-label">🕯️ Help Me Build a Starting Budget</p>
-      <p class="starter-text">Enter your expected guest count and total target budget, then apply the matching tier from the guide above to the categories underneath. It's a <em style="color:var(--teal)">starting point</em>, not a rule — adjust every number to fit your actual event.</p>
+      <p class="starter-text">Enter your expected guest count and total target budget, then apply a suggested split to the categories below. It's a <em style="color:var(--teal)">starting point</em>, not a rule — adjust every number to fit your actual event.</p>
       <div class="starter-fields">
         <div class="field-wrap">
           <label class="field-lbl teal">Expected Guest Count</label>
@@ -251,7 +223,39 @@
       </div>
     </div>
 
+    <button class="guide-toggle-btn" id="guideToggleBtn" onclick="toggleGuide()">📐 Curious how that split was calculated? View the Guest-Count Guide ▾</button>
+    <div class="guide-block" id="guideBlock" style="display:none;">
+      <p class="guide-text">There's no single official rule for splitting an event budget — every planner's numbers vary a bit. But researching wedding-industry data, corporate/upscale event guidance, and general party-planning sources together shows a consistent pattern: <strong>smaller, casual gatherings put most of the budget into food, while larger, more formal events shift more of the budget toward the venue and photography</strong> — a backyard party doesn't need a rented hall, but a 100-person celebration usually does, and that pulls dollars away from catering even as the DJ and decorations become relatively cheaper per guest. Below is a synthesized starting-point split across three guest-count tiers, built from that research:</p>
+      <div class="guide-table-wrap">
+        <table class="guide-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Small<span>Under 25 guests</span></th>
+              <th>Medium<span>25–74 guests</span></th>
+              <th>Large<span>75+ guests</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Venue</td><td>8%</td><td>20%</td><td>22%</td></tr>
+            <tr><td>Catering &amp; Beverage</td><td>42%</td><td>32%</td><td>26%</td></tr>
+            <tr><td>Decorations</td><td>12%</td><td>11%</td><td>9%</td></tr>
+            <tr><td>DJ / Sound Equipment</td><td>10%</td><td>9%</td><td>8%</td></tr>
+            <tr><td>Photography / Video</td><td>8%</td><td>9%</td><td>11%</td></tr>
+            <tr><td>Invitations &amp; Stationery</td><td>4%</td><td>3%</td><td>3%</td></tr>
+            <tr><td>Attire</td><td>6%</td><td>6%</td><td>7%</td></tr>
+            <tr><td>Favors &amp; Gifts</td><td>6%</td><td>3%</td><td>2%</td></tr>
+            <tr><td>Transportation</td><td>2%</td><td>2%</td><td>4%</td></tr>
+            <tr><td>Lodging / Room Block</td><td>2%</td><td>5%</td><td>8%</td></tr>
+            <tr><td>Total</td><td>100%</td><td>100%</td><td>100%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="guide-note"><strong>Why it shifts:</strong> a $600 flat DJ fee spread across 20 guests is $30/head — spread across 40 guests, it's $15/head. That's the fixed-cost effect, and it's why DJ/sound and decorations shrink as a share of the budget when guest count grows. Venue and photography move the other way — a small home-based gathering barely needs a venue line at all, but a 100-person celebration usually means a rented hall and fuller photo coverage, which eats into catering's share even though the food per guest hasn't changed. This is a <em style="color:var(--teal)">starting point</em>, not a rule — a backyard gathering with a free venue or a hotel-based event with a room block will shift these numbers further. Adjust every category to fit your actual event.</p>
+    </div>
+
     <p class="sec-label">🎉 Budget Categories — Where It's All Allocated</p>
+    <p class="cat-intro">Here are the ten most common categories people need when planning an event, in order of importance — type over each with your own, or leave them as they are.</p>
     <div class="cards-list" id="categoriesList"></div>
     <button class="add-btn" onclick="addCategory()">+ Add a Category</button>
 
@@ -298,11 +302,11 @@
       <div class="funded-track"><div class="funded-fill" id="fundedFill" style="width:0%"></div></div>
     </div>
 
-    <p class="sec-label">💡 Party Planning Tips</p>
+    <p class="sec-label">💡 Firefly Planning Tips</p>
 
     <div class="tip-card">
       <p class="tip-title">🏨 Ask About the Room Block → Event Space Discount</p>
-      <p class="tip-body">If guests are staying overnight, ask the hotel about a <strong>room block</strong> — a set number of rooms reserved for your group, usually at a discounted nightly rate. Many hotels will also waive or discount the rental fee for a meeting or event space once you book enough room nights (sometimes called a <strong>rooms-to-space ratio</strong>). This is a real, common practice — but it's negotiated, not automatic, and it's rarely 100% free.</p>
+      <p class="tip-body">If you're planning your event at a hotel where your guests are also staying overnight, ask about a <strong>room block</strong> — a set number of rooms reserved for your group, usually at a discounted nightly rate. Many hotels will also waive or discount the rental fee for your event space once you book enough room nights (sometimes called a <strong>rooms-to-space ratio</strong>). This is a real, common practice — but it's negotiated, not automatic, and it's rarely 100% free.</p>
       <ul class="tip-checklist">
         <li>Ask directly: "If I block X rooms, what event space comes with it?"</li>
         <li>Get the room-to-space ratio and any <strong>food &amp; beverage minimum</strong> in writing.</li>
@@ -323,7 +327,7 @@
 
     <div class="closing">
       <p class="closing-title">✦ A Word Before You Celebrate</p>
-      <p class="closing-text">A good event doesn't need to cost more than you can see coming. <em>Name the categories. Know the numbers. Ask for what you're entitled to.</em> Whether it's just you covering it or a whole circle of people showing up to help — <strong>plan the glow, don't just hope for it.</strong></p>
+      <p class="closing-text">A good event doesn't need to cost more than you can see coming. <em>Name the categories. Know the numbers.</em> Whether it's just you covering it or a whole circle of people showing up to help — <strong>plan the glow, don't just hope for it.</strong></p>
     </div>
 
     <div class="ff-save-wrap">
@@ -350,20 +354,21 @@
     let contributorCount = 0;
 
     // Percentages researched from wedding/event/party budget industry sources — see the
-    // "How Much Should Each Category Get?" guide on the page for the source list and rationale.
-    // Tiered by guest count because fixed-cost categories (venue, entertainment, photography)
-    // shrink as a share of the budget while catering scales linearly with headcount.
+    // "How Much Should Each Category Get?" guide on the page for the rationale.
+    // Ordered per Delyce's priority list (venue, food, decorations, DJ first), then the
+    // rest of the most commonly needed event categories. All 10 are pre-seeded so the
+    // Budget Starter split always adds up to the full target budget.
     const defaultCategories = [
       { key:'venue',       name:'Venue',                      pctSmall:0.08, pctMedium:0.20, pctLarge:0.22 },
       { key:'catering',    name:'Catering & Beverage',         pctSmall:0.42, pctMedium:0.32, pctLarge:0.26 },
-      { key:'lodging',     name:'Lodging / Room Block',        pctSmall:0.02, pctMedium:0.05, pctLarge:0.08 },
-      { key:'decor',       name:'Decor & Florals',             pctSmall:0.12, pctMedium:0.11, pctLarge:0.09 },
-      { key:'entertain',   name:'Entertainment',               pctSmall:0.10, pctMedium:0.09, pctLarge:0.08 },
+      { key:'decor',       name:'Decorations',                 pctSmall:0.12, pctMedium:0.11, pctLarge:0.09 },
+      { key:'entertain',   name:'DJ / Sound Equipment',        pctSmall:0.10, pctMedium:0.09, pctLarge:0.08 },
       { key:'photo',       name:'Photography / Video',         pctSmall:0.08, pctMedium:0.09, pctLarge:0.11 },
-      { key:'attire',      name:'Attire',                      pctSmall:0.06, pctMedium:0.06, pctLarge:0.07 },
       { key:'stationery',  name:'Invitations & Stationery',    pctSmall:0.04, pctMedium:0.03, pctLarge:0.03 },
+      { key:'attire',      name:'Attire',                      pctSmall:0.06, pctMedium:0.06, pctLarge:0.07 },
       { key:'favors',      name:'Favors & Gifts',              pctSmall:0.06, pctMedium:0.03, pctLarge:0.02 },
-      { key:'transport',   name:'Transportation',              pctSmall:0.02, pctMedium:0.02, pctLarge:0.04 }
+      { key:'transport',   name:'Transportation',              pctSmall:0.02, pctMedium:0.02, pctLarge:0.04 },
+      { key:'lodging',     name:'Lodging / Room Block',        pctSmall:0.02, pctMedium:0.05, pctLarge:0.08 }
     ];
 
     function guestTier(guests) {
@@ -374,6 +379,17 @@
 
     function fmt(n) {
       return '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    // ---- Guide toggle ----
+    function toggleGuide() {
+      const block = document.getElementById('guideBlock');
+      const btn = document.getElementById('guideToggleBtn');
+      const showing = block.style.display !== 'none';
+      block.style.display = showing ? 'none' : 'block';
+      btn.textContent = showing
+        ? '📐 Curious how that split was calculated? View the Guest-Count Guide ▾'
+        : '📐 Hide the Guest-Count Guide ▴';
     }
 
     // ---- Mode toggle ----
@@ -398,7 +414,7 @@
       if (key) card.dataset.key = key;
       card.innerHTML = `
         <div class="cat-top">
-          <input class="cat-name-in" id="catname-${id}" type="text" value="${name || ''}" placeholder="e.g. Venue, Catering, Photography" />
+          <input class="cat-name-in" id="catname-${id}" type="text" value="" placeholder="${name || 'e.g. Venue, Catering, Photography'}" />
           <button class="del-btn" onclick="removeCategory(${id})">Remove</button>
         </div>
         <div class="cat-fields">
@@ -479,7 +495,7 @@
     // ---- Time & Talent (sweat equity) ----
     let sweatCount = 0;
     const sweatPlaceholders = [
-      'Venue booked, confirmed, deposit paid, and contract signed — Molly',
+      'Venue booked, confirmed, deposit paid, and contract signed — Aunt Carol',
       'Caterer booked and menu finalized — Sharon',
       'Decorations picked up and set up day-of — Aunt Pam',
       'Photography covered by a friend — Jordan',
