@@ -23,7 +23,18 @@
       min-height: 100vh;
       font-family: Georgia, serif;
     }
+    #fireflyCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
     header {
+      position: relative;
+      z-index: 1;
       text-align: center;
       padding: 64px 24px 40px;
       border-bottom: 1px solid rgba(255,215,0,0.12);
@@ -58,6 +69,8 @@
       margin: 0 auto;
     }
     .tools-grid {
+      position: relative;
+      z-index: 1;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 22px;
@@ -82,6 +95,8 @@
     .tool-card h3 { color: var(--gold); font-size: 1.3rem; margin-bottom: 10px; }
     .tool-card p { color: var(--mid-gray); font-size: 0.94rem; line-height: 1.6; }
     footer {
+      position: relative;
+      z-index: 1;
       text-align: center;
       padding: 32px 24px;
       border-top: 1px solid rgba(0,180,166,0.15);
@@ -96,6 +111,8 @@
   </style>
 </head>
 <body>
+
+  <canvas id="fireflyCanvas"></canvas>
 
   <header>
     <p class="brand-name">Firefly Events&trade;</p>
@@ -116,5 +133,6 @@
     An extension of Firefly Financial&trade; &nbsp;&middot;&nbsp; <a href="../index.html">Explore the Jarring Framework &rarr;</a>
   </footer>
 
+  <script src="../js/events-fireflies.js"></script>
 </body>
 </html>
