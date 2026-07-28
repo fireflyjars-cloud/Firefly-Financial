@@ -43,6 +43,45 @@
     .mode-btn.active small { color:var(--lg); }
     .mode-note { font-size:.8rem; color:var(--mg); font-style:italic; margin-bottom:30px; text-align:center; }
 
+    /* Event Dashboard */
+    .dash-block { background:rgba(255,255,255,.025); border:1px solid rgba(255,215,0,.2); border-radius:18px; padding:28px; margin-bottom:32px; }
+    .dash-name-in { display:block; width:100%; background:transparent; border:none; border-bottom:2px solid rgba(255,215,0,.25); color:var(--gold); font-family:Georgia,serif; font-style:italic; font-size:1.5rem; padding:6px 0 10px; outline:none; text-align:center; transition:border-color .2s; margin-bottom:18px; }
+    .dash-name-in:focus { border-bottom-color:var(--gold); }
+    .dash-name-in::placeholder { color:rgba(255,215,0,.3); }
+    .dash-sub-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:14px; }
+    .dash-countdown { text-align:center; font-size:1rem; color:var(--pink); font-style:italic; margin-bottom:24px; text-shadow:0 0 14px rgba(255,107,157,.25); }
+    .dash-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:16px; margin-bottom:22px; }
+    .dash-stat { background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:16px; text-align:center; }
+    .dash-stat-lbl { font-size:.62rem; color:var(--mg); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:6px; }
+    .dash-stat-val { font-size:1.4rem; font-variant-numeric:tabular-nums; color:var(--lg); transition:color .4s; margin-bottom:2px; }
+    .dash-stat-val.gold { color:var(--gold); }
+    .dash-stat-val.teal { color:var(--teal); }
+    .dash-stat-sub { font-size:.68rem; color:var(--mg); font-style:italic; }
+    .dash-stat-val.tier-red    { color:var(--red); }
+    .dash-stat-val.tier-orange { color:var(--amber); }
+    .dash-stat-val.tier-yellow { color:var(--yellow); }
+    .dash-stat-val.tier-green  { color:var(--green); }
+    .dash-stat-val.tier-gold   { color:var(--gold); text-shadow:0 0 12px rgba(255,215,0,.5); }
+    .whatsleft-title { font-size:.65rem; color:var(--gold); opacity:.7; text-transform:uppercase; letter-spacing:2px; margin-bottom:10px; text-align:center; }
+    .whatsleft-list { display:flex; flex-direction:column; gap:8px; }
+    .whatsleft-item { background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.08); border-radius:10px; padding:10px 14px; transition:border-color .2s, background .2s; }
+    .whatsleft-item label { display:flex; align-items:center; gap:10px; cursor:pointer; }
+    .whatsleft-item input[type="checkbox"] { width:16px; height:16px; accent-color:var(--gold); cursor:pointer; flex-shrink:0; }
+    .whatsleft-item span { font-size:.86rem; color:var(--lg); }
+    .whatsleft-more { text-align:center; font-size:.74rem; color:var(--mg); font-style:italic; margin-top:6px; }
+    .whatsleft-empty { text-align:center; font-size:.9rem; color:var(--teal); font-style:italic; padding:8px 0; }
+    @media (max-width:600px) {
+      .dash-sub-row { grid-template-columns:1fr; }
+    }
+
+    /* Confetti */
+    .confetti-layer { position:fixed; inset:0; pointer-events:none; z-index:999; overflow:hidden; }
+    .confetti-piece { position:absolute; top:-10px; border-radius:2px; opacity:.95; animation-name:confetti-fall; animation-timing-function:ease-in; animation-fill-mode:forwards; }
+    @keyframes confetti-fall {
+      0%   { transform:translateY(0) rotate(0deg); opacity:1; }
+      100% { transform:translateY(105vh) rotate(var(--rot)); opacity:0; }
+    }
+
     /* Research guide */
     .guide-toggle-btn { display:block; width:100%; background:transparent; border:1px dashed rgba(255,215,0,.25); border-radius:12px; color:rgba(255,215,0,.65); font-family:Georgia,serif; font-size:.82rem; padding:13px 18px; cursor:pointer; transition:all .2s; margin-bottom:24px; text-align:center; }
     .guide-toggle-btn:hover { border-color:var(--gold); color:var(--gold); background:rgba(255,215,0,.03); }
@@ -219,6 +258,43 @@
     <p class="intro">
       Whether you're planning it alone or your people are chipping in, this tool works the same way: <strong>decide what each part of the event should cost, track what you actually spend, and — if it's a group effort — see exactly what's still needed and who's covered it.</strong> No login, saved right here on this device.
     </p>
+
+    <div class="dash-block">
+      <input class="dash-name-in" id="dashEventName" type="text" placeholder="e.g. Uncle Tony's 70th Birthday" />
+
+      <div class="dash-sub-row">
+        <div class="field-wrap">
+          <label class="field-lbl teal">Event Date</label>
+          <input class="field-in" id="dashEventDate" type="date" oninput="updateCountdown()" />
+        </div>
+        <div class="field-wrap">
+          <label class="field-lbl gold">Theme / Colors</label>
+          <input class="field-in gold" id="dashTheme" type="text" placeholder="e.g. Gold &amp; Navy, Tropical Luau" />
+        </div>
+      </div>
+      <p class="dash-countdown" id="dashCountdown">Enter your event date to start the countdown.</p>
+
+      <div class="dash-stats">
+        <div class="dash-stat">
+          <p class="dash-stat-lbl">Progress</p>
+          <p class="dash-stat-val tier-red" id="dashProgressPct">0%</p>
+          <p class="dash-stat-sub" id="dashProgressLabel">Just Getting Started</p>
+        </div>
+        <div class="dash-stat">
+          <p class="dash-stat-lbl">Budget</p>
+          <p class="dash-stat-val gold" id="dashBudget">$0 spent</p>
+          <p class="dash-stat-sub" id="dashBudgetSub">of $0 budgeted</p>
+        </div>
+        <div class="dash-stat">
+          <p class="dash-stat-lbl">Tasks Remaining</p>
+          <p class="dash-stat-val teal" id="dashTasksRemaining">0</p>
+          <p class="dash-stat-sub">To finish up</p>
+        </div>
+      </div>
+
+      <p class="whatsleft-title">✦ What's Left</p>
+      <div class="whatsleft-list" id="dashWhatsLeft"></div>
+    </div>
 
     <p class="sec-label">✦ How Is This Event Being Funded?</p>
     <div class="mode-toggle">
@@ -397,6 +473,7 @@
   <script>
     let categoryCount = 0;
     let contributorCount = 0;
+    let glowCelebrated = false;
 
     // Percentages researched from wedding/event/party budget industry sources — see the
     // "How Much Should Each Category Get?" guide on the page for the rationale.
@@ -490,6 +567,7 @@
     function toggleCategoryDone(id, cb) {
       const card = document.getElementById(`cat-${id}`);
       if (card) card.classList.toggle('done', cb.checked);
+      if (cb.checked) fireConfetti();
       calcSummary();
     }
 
@@ -544,6 +622,7 @@
     function toggleContributorPaid(id, cb) {
       const card = document.getElementById(`con-${id}`);
       if (card) card.classList.toggle('done', cb.checked);
+      if (cb.checked) fireConfetti();
       calcSummary();
     }
 
@@ -589,6 +668,7 @@
     function toggleSweatDone(id, cb) {
       const li = document.getElementById(`sweat-${id}`);
       if (li) li.classList.toggle('done', cb.checked);
+      if (cb.checked) fireConfetti();
       updateSweatCount();
       calcSummary();
     }
@@ -645,6 +725,11 @@
       remEl.textContent = fmt(Math.abs(remaining)) + (remaining < 0 ? ' over' : '');
       remEl.className = 'sum-item-val ' + (remaining < 0 ? 'pink' : 'gold');
 
+      const dashBudgetEl = document.getElementById('dashBudget');
+      const dashBudgetSubEl = document.getElementById('dashBudgetSub');
+      if (dashBudgetEl) dashBudgetEl.textContent = fmt(spentSum) + ' spent';
+      if (dashBudgetSubEl) dashBudgetSubEl.textContent = 'of ' + fmt(budgetedSum) + ' budgeted';
+
       let pledgedSum = 0, collectedSum = 0;
       document.querySelectorAll('.contributor-card').forEach(card => {
         const id = card.id.match(/con-(\d+)/)[1];
@@ -662,29 +747,46 @@
       calcGlow();
     }
 
-    // ---- Firefly Glow Score ----
+    // ---- Firefly Glow Score & Dashboard ----
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+    }
+
     function calcGlow() {
       const mode = document.getElementById('modeField').value;
-      let total = 0, done = 0;
+      const items = [];
 
       document.querySelectorAll('.category-card').forEach(card => {
-        total++;
-        if (card.querySelector('input[type="checkbox"]')?.checked) done++;
+        const id = card.id.match(/cat-(\d+)/)[1];
+        const nameIn = card.querySelector('.cat-name-in');
+        const cb = card.querySelector('input[type="checkbox"]');
+        items.push({ source:'cat', id, name: nameIn.value || nameIn.placeholder, done: !!cb?.checked });
       });
 
       if (mode === 'group') {
         document.querySelectorAll('.contributor-card').forEach(card => {
-          total++;
-          if (card.querySelector('input[type="checkbox"]')?.checked) done++;
+          const id = card.id.match(/con-(\d+)/)[1];
+          const nameIn = card.querySelector('.con-name-in');
+          const cb = card.querySelector('input[type="checkbox"]');
+          items.push({ source:'con', id, name: (nameIn.value || nameIn.placeholder || 'Contributor'), done: !!cb?.checked });
         });
         document.querySelectorAll('.sweat-card').forEach(card => {
-          total++;
-          if (card.querySelector('input[type="checkbox"]')?.checked) done++;
+          const id = card.id.match(/sweat-(\d+)/)[1];
+          const nameIn = card.querySelector('.sweat-in');
+          const cb = card.querySelector('input[type="checkbox"]');
+          items.push({ source:'sweat', id, name: (nameIn.value || nameIn.placeholder || 'Task'), done: !!cb?.checked });
         });
       }
 
+      const total = items.length;
+      const done = items.filter(i => i.done).length;
       const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+
+      const remEl = document.getElementById('dashTasksRemaining');
+      if (remEl) remEl.textContent = total - done;
+
       renderGlow(pct);
+      renderWhatsLeft(items.filter(i => !i.done));
     }
 
     function renderGlow(pct) {
@@ -718,6 +820,116 @@
       lblEl.textContent = label;
       noteEl.textContent = note;
       fillEl.style.width = pct + '%';
+
+      const dashPctEl = document.getElementById('dashProgressPct');
+      const dashLblEl = document.getElementById('dashProgressLabel');
+      if (dashPctEl) dashPctEl.className = 'dash-stat-val tier-' + tier;
+      if (dashPctEl) dashPctEl.textContent = pct + '%';
+      if (dashLblEl) dashLblEl.textContent = label;
+
+      if (pct >= 100 && !glowCelebrated) {
+        glowCelebrated = true;
+        fireConfetti(true);
+      } else if (pct < 100) {
+        glowCelebrated = false;
+      }
+    }
+
+    function renderWhatsLeft(remaining) {
+      const container = document.getElementById('dashWhatsLeft');
+      if (!container) return;
+      container.innerHTML = '';
+
+      if (remaining.length === 0) {
+        container.innerHTML = '<p class="whatsleft-empty">✨ Everything is checked off — you\'re ready!</p>';
+        return;
+      }
+
+      const MAX_SHOWN = 5;
+      remaining.slice(0, MAX_SHOWN).forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'whatsleft-item';
+        row.innerHTML = `
+          <label>
+            <input type="checkbox" onchange="whatsLeftComplete(this)" data-source="${item.source}" data-id="${item.id}" />
+            <span>${escapeHtml(item.name)}</span>
+          </label>
+        `;
+        container.appendChild(row);
+      });
+
+      if (remaining.length > MAX_SHOWN) {
+        const more = document.createElement('p');
+        more.className = 'whatsleft-more';
+        more.textContent = `+ ${remaining.length - MAX_SHOWN} more below`;
+        container.appendChild(more);
+      }
+    }
+
+    function whatsLeftComplete(cb) {
+      if (!cb.checked) return;
+      const source = cb.dataset.source;
+      const id = cb.dataset.id;
+      const map = {
+        cat:   { prefix: 'catdone-',   fn: toggleCategoryDone },
+        con:   { prefix: 'conpaid-',   fn: toggleContributorPaid },
+        sweat: { prefix: 'sweatdone-', fn: toggleSweatDone }
+      };
+      const cfg = map[source];
+      if (!cfg) return;
+      const realCb = document.getElementById(cfg.prefix + id);
+      if (!realCb) return;
+      realCb.checked = true;
+      cfg.fn(id, realCb);
+    }
+
+    function updateCountdown() {
+      const dateInput = document.getElementById('dashEventDate');
+      const el = document.getElementById('dashCountdown');
+      if (!dateInput || !el) return;
+      if (!dateInput.value) {
+        el.textContent = 'Enter your event date to start the countdown.';
+        return;
+      }
+      const eventDate = new Date(dateInput.value + 'T00:00:00');
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const diffDays = Math.round((eventDate - today) / 86400000);
+
+      if (diffDays > 1) {
+        el.textContent = `🕯️ ${diffDays} Days to Go`;
+      } else if (diffDays === 1) {
+        el.textContent = "🕯️ Tomorrow's the Day!";
+      } else if (diffDays === 0) {
+        el.textContent = "🎉 Today's the Day!";
+      } else {
+        const daysAgo = Math.abs(diffDays);
+        el.textContent = `That was ${daysAgo} day${daysAgo === 1 ? '' : 's'} ago.`;
+      }
+    }
+
+    function fireConfetti(big) {
+      const colors = ['#FFD700', '#FF6B9D', '#00B4A6', '#FFA500', '#FFF8DC'];
+      const count = big ? 140 : 55;
+      const layer = document.createElement('div');
+      layer.className = 'confetti-layer';
+      document.body.appendChild(layer);
+
+      for (let i = 0; i < count; i++) {
+        const piece = document.createElement('span');
+        piece.className = 'confetti-piece';
+        const size = 6 + Math.random() * 5;
+        piece.style.left = (Math.random() * 100) + 'vw';
+        piece.style.width = size + 'px';
+        piece.style.height = size + 'px';
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDuration = (2 + Math.random() * 1.6) + 's';
+        piece.style.animationDelay = (Math.random() * 0.35) + 's';
+        piece.style.setProperty('--rot', (Math.random() * 360) + 'deg');
+        layer.appendChild(piece);
+      }
+
+      setTimeout(() => layer.remove(), 4000);
     }
 
     function seedDefaults() {
@@ -738,19 +950,25 @@
       setMode('self');
       document.getElementById('starterGuests').value = '';
       document.getElementById('starterTarget').value = '';
+      document.getElementById('dashEventName').value = '';
+      document.getElementById('dashEventDate').value = '';
+      document.getElementById('dashTheme').value = '';
+      updateCountdown();
+      glowCelebrated = false;
       seedDefaults();
       calcSummary();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     seedDefaults();
+    updateCountdown();
 
     // ── Save / History ──
     function ffCapture() {
       const categories = FireflyHistory.captureRows('categoriesList', '.category-card');
       const contributors = FireflyHistory.captureRows('contributorsList', '.contributor-card');
       const sweat = FireflyHistory.captureRows('sweatList', '.sweat-card');
-      const fields = FireflyHistory.captureFields(document, ['modeField', 'starterGuests', 'starterTarget']);
+      const fields = FireflyHistory.captureFields(document, ['modeField', 'starterGuests', 'starterTarget', 'dashEventName', 'dashEventDate', 'dashTheme']);
       const budgeted = document.getElementById('sumBudgeted').textContent;
       const spent = document.getElementById('sumSpent').textContent;
       const modeLabel = fields.modeField === 'group' ? 'Group-Funded' : 'Self-Funded';
@@ -776,6 +994,8 @@
 
       FireflyHistory.restoreFields(document, entry.data.fields || {});
       setMode((entry.data.fields && entry.data.fields.modeField) || 'self');
+      updateCountdown();
+      glowCelebrated = false;
 
       document.querySelectorAll('.category-card').forEach(card => {
         const id = card.id.match(/cat-(\d+)/)[1];
