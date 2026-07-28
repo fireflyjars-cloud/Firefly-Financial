@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="../css/tool-history.css" />
+  <title>Event Budget Planner — Firefly Events</title>
+  <style>
+    :root {
+      --teal:#00B4A6; --pink:#FF6B9D; --gold:#FFD700; --amber:#FFA500;
+      --purple:#c084fc; --white:#FFFFFF; --lg:#E5E7EB; --mg:#9CA3AF;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      background: radial-gradient(ellipse at center,#0D1F0F 0%,#080F08 50%,#020402 100%);
+      color:var(--white); min-height:100vh; font-family:Georgia,serif; background-attachment:fixed;
+    }
+    header { text-align:center; padding:52px 24px 40px; border-bottom:1px solid rgba(255,215,0,.12); }
+    .brand { font-size:.68rem; color:var(--teal); text-transform:uppercase; letter-spacing:3px; margin-bottom:14px; text-shadow:0 0 14px rgba(0,180,166,.6); }
+    h1 { font-size:2.2rem; font-style:italic; color:var(--gold); text-shadow:0 0 30px rgba(255,215,0,.4); margin-bottom:8px; }
+    .subtitle { font-size:.82rem; color:var(--pink); text-transform:uppercase; letter-spacing:2px; text-shadow:0 0 12px rgba(255,107,157,.5); }
+    main { max-width:860px; margin:0 auto; padding:48px 20px 0; }
+    .back-link { display:block; text-align:center; margin-bottom:24px; }
+    .back-link a { color:var(--teal); font-size:.85rem; text-decoration:none; }
+    .back-link a:hover { text-decoration:underline; }
+    .intro { color:var(--lg); font-size:.97rem; line-height:1.7; margin-bottom:32px; }
+    .intro em { color:var(--teal); font-style:italic; }
+    .intro strong { color:var(--gold); }
+    .sec-label { font-size:.68rem; color:var(--gold); opacity:.7; text-transform:uppercase; letter-spacing:3px; margin:28px 0 12px; }
+
+    /* Mode toggle */
+    .mode-toggle { display:flex; gap:10px; margin-bottom:10px; }
+    .mode-btn {
+      flex:1; background:rgba(255,255,255,.03); border:1px solid rgba(255,215,0,.18); border-radius:12px;
+      color:var(--mg); font-family:Georgia,serif; font-size:.85rem; padding:14px 12px; cursor:pointer;
+      transition:all .2s; text-align:center;
+    }
+    .mode-btn.active { border-color:var(--gold); color:var(--gold); background:rgba(255,215,0,.06); box-shadow:0 0 18px rgba(255,215,0,.12); }
+    .mode-btn small { display:block; font-size:.7rem; color:var(--mg); margin-top:4px; font-style:italic; }
+    .mode-btn.active small { color:var(--lg); }
+    .mode-note { font-size:.8rem; color:var(--mg); font-style:italic; margin-bottom:30px; text-align:center; }
+
+    /* Research guide */
+    .guide-block { background:rgba(255,255,255,.02); border:1px solid rgba(255,215,0,.14); border-radius:14px; padding:24px; margin-bottom:24px; }
+    .guide-text { font-size:.88rem; color:var(--lg); line-height:1.7; margin-bottom:16px; }
+    .guide-text strong { color:var(--gold); }
+    .guide-table-wrap { overflow-x:auto; margin-bottom:16px; }
+    .guide-table { width:100%; border-collapse:collapse; font-size:.82rem; min-width:480px; }
+    .guide-table th, .guide-table td { text-align:left; padding:9px 10px; border-bottom:1px solid rgba(255,255,255,.08); }
+    .guide-table th { color:var(--gold); font-size:.68rem; text-transform:uppercase; letter-spacing:1px; opacity:.85; }
+    .guide-table th span { display:block; font-size:.62rem; color:var(--mg); text-transform:none; letter-spacing:0; font-style:italic; margin-top:2px; }
+    .guide-table td { color:var(--lg); font-variant-numeric:tabular-nums; }
+    .guide-table td:first-child { color:var(--white); }
+    .guide-table tr:last-child td { border-bottom:none; font-weight:bold; color:var(--teal); }
+    .guide-note { font-size:.84rem; color:var(--lg); line-height:1.7; background:rgba(0,180,166,.05); border:1px solid rgba(0,180,166,.18); border-radius:10px; padding:14px 16px; margin-bottom:0; }
+    .guide-note strong { color:var(--teal); }
+
+    /* Budget starter helper */
+    .starter-block { background:rgba(0,180,166,.04); border:1px solid rgba(0,180,166,.2); border-radius:14px; padding:24px; margin-bottom:32px; }
+    .starter-label { font-size:.68rem; color:var(--teal); text-transform:uppercase; letter-spacing:3px; margin-bottom:10px; opacity:.85; }
+    .starter-text { font-size:.88rem; color:var(--lg); line-height:1.6; margin-bottom:18px; }
+    .starter-fields { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; margin-bottom:16px; }
+    .starter-btn-row { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+    .starter-btn {
+      background:transparent; border:2px solid rgba(0,180,166,.4); border-radius:10px; color:var(--teal);
+      font-family:Georgia,serif; font-size:.8rem; text-transform:uppercase; letter-spacing:1px; padding:11px 22px; cursor:pointer; transition:all .3s;
+    }
+    .starter-btn:hover { background:rgba(0,180,166,.1); box-shadow:0 0 18px rgba(0,180,166,.2); }
+    .starter-flash { font-size:.78rem; color:var(--teal); opacity:0; transition:opacity .3s; }
+    .starter-flash.show { opacity:1; }
+
+    /* Category / contributor cards (shared shape) */
+    .cards-list { display:flex; flex-direction:column; gap:16px; margin-bottom:16px; }
+    .category-card, .contributor-card { background:rgba(255,255,255,.02); border:1px solid rgba(255,215,0,.12); border-radius:16px; padding:20px 22px; transition:border-color .2s; }
+    .category-card:hover, .contributor-card:hover { border-color:rgba(255,215,0,.22); }
+    .cat-top, .con-top { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+    .cat-name-in, .con-name-in { flex:1; background:transparent; border:none; border-bottom:1px solid rgba(255,215,0,.2); color:var(--white); font-family:Georgia,serif; font-size:1.02rem; padding:4px 0; outline:none; transition:border-color .2s; }
+    .cat-name-in:focus, .con-name-in:focus { border-bottom-color:var(--gold); }
+    .cat-name-in::placeholder, .con-name-in::placeholder { color:rgba(255,255,255,.18); font-style:italic; }
+    .del-btn { background:transparent; border:none; color:rgba(255,255,255,.14); font-family:Georgia,serif; font-size:.76rem; cursor:pointer; transition:color .2s; white-space:nowrap; }
+    .del-btn:hover { color:var(--pink); }
+
+    .cat-fields, .con-fields { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:14px; }
+    .field-wrap { display:flex; flex-direction:column; gap:5px; }
+    .field-lbl { font-size:.6rem; text-transform:uppercase; letter-spacing:1.5px; }
+    .field-lbl.gold { color:var(--gold); opacity:.7; }
+    .field-lbl.teal { color:var(--teal); opacity:.7; }
+    .field-in { background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,.1); color:var(--white); font-family:Georgia,serif; font-size:.9rem; padding:6px 0; outline:none; transition:border-color .2s; font-variant-numeric:tabular-nums; width:100%; }
+    .field-in:focus { border-bottom-color:var(--teal); }
+    .field-in.gold:focus { border-bottom-color:var(--gold); }
+    .field-in::placeholder { color:rgba(255,255,255,.12); font-style:italic; }
+    .remaining-box { background:rgba(0,180,166,.06); border:1px solid rgba(0,180,166,.2); border-radius:8px; padding:10px 14px; }
+    .remaining-box.over { background:rgba(255,107,157,.06); border-color:rgba(255,107,157,.25); }
+    .mn-lbl { font-size:.6rem; color:var(--teal); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:4px; }
+    .remaining-box.over .mn-lbl { color:var(--pink); }
+    .mn-val { font-size:1.1rem; color:var(--teal); font-variant-numeric:tabular-nums; transition:all .3s; }
+    .remaining-box.over .mn-val { color:var(--pink); }
+
+    .paid-wrap { display:flex; align-items:center; gap:8px; margin-top:12px; }
+    .paid-wrap input[type="checkbox"] { width:16px; height:16px; accent-color:var(--teal); cursor:pointer; }
+    .paid-lbl { font-size:.78rem; color:var(--mg); }
+
+    /* Time & Talent (sweat-equity) list */
+    .sweat-intro { font-size:.88rem; color:var(--lg); line-height:1.6; margin-bottom:16px; }
+    .sweat-list { list-style:decimal; padding-left:22px; display:flex; flex-direction:column; gap:14px; margin-bottom:16px; }
+    .sweat-list li::marker { color:var(--gold); font-weight:bold; }
+    .sweat-card { background:rgba(255,255,255,.02); border:1px solid rgba(255,215,0,.12); border-radius:12px; padding:16px 18px; transition:border-color .2s; }
+    .sweat-card:hover { border-color:rgba(255,215,0,.22); }
+    .sweat-top { display:flex; align-items:center; gap:12px; }
+    .sweat-in { flex:1; background:transparent; border:none; border-bottom:1px solid rgba(255,215,0,.2); color:var(--white); font-family:Georgia,serif; font-size:.92rem; padding:4px 0; outline:none; transition:border-color .2s; }
+    .sweat-in:focus { border-bottom-color:var(--gold); }
+    .sweat-in::placeholder { color:rgba(255,255,255,.24); font-style:italic; }
+    .sweat-card.done { border-color:rgba(0,180,166,.4); background:rgba(0,180,166,.04); }
+    .sweat-count { font-size:.78rem; color:var(--mg); text-align:center; margin-bottom:32px; }
+    .sweat-count strong { color:var(--teal); }
+
+    .add-btn { background:transparent; border:1px dashed rgba(255,215,0,.2); border-radius:12px; color:rgba(255,215,0,.4); font-family:Georgia,serif; font-size:.82rem; padding:14px 24px; cursor:pointer; transition:all .2s; width:100%; margin-bottom:32px; letter-spacing:1.5px; }
+    .add-btn:hover { border-color:rgba(255,215,0,.4); color:var(--gold); background:rgba(255,215,0,.03); }
+
+    /* Summary */
+    .summary { background:rgba(255,215,0,.04); border:1px solid rgba(255,215,0,.18); border-radius:14px; padding:24px; margin-bottom:24px; }
+    .sum-lbl { font-size:.68rem; color:var(--gold); text-transform:uppercase; letter-spacing:2px; text-align:center; margin-bottom:16px; }
+    .sum-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; }
+    .sum-item { text-align:center; }
+    .sum-item-lbl { font-size:.62rem; color:var(--mg); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:4px; }
+    .sum-item-val { font-size:1.2rem; font-variant-numeric:tabular-nums; transition:all .3s; }
+    .sum-item-val.gold { color:var(--gold); }
+    .sum-item-val.teal { color:var(--teal); }
+    .sum-item-val.pink { color:var(--pink); }
+    .sum-item.group-only { display:none; }
+    body.mode-group .sum-item.group-only { display:block; }
+    .funded-track { background:rgba(255,255,255,.06); border-radius:999px; height:6px; overflow:hidden; margin-top:16px; display:none; }
+    body.mode-group .funded-track { display:block; }
+    .funded-fill { height:100%; border-radius:999px; background:linear-gradient(to right,var(--teal),var(--gold)); transition:width .5s; }
+
+    /* Tips */
+    .tip-card { background:rgba(255,255,255,.02); border:1px solid rgba(255,215,0,.12); border-radius:16px; padding:24px 26px; margin-bottom:16px; }
+    .tip-title { font-size:1.05rem; color:var(--gold); margin-bottom:10px; }
+    .tip-body { font-size:.9rem; color:var(--lg); line-height:1.7; margin-bottom:12px; }
+    .tip-body strong { color:var(--gold); }
+    .tip-checklist { list-style:none; margin-bottom:12px; }
+    .tip-checklist li { font-size:.86rem; color:var(--lg); line-height:1.7; padding-left:20px; position:relative; }
+    .tip-checklist li::before { content:"✦"; position:absolute; left:0; color:var(--teal); }
+    .tip-firefly { font-size:.85rem; color:var(--teal); font-style:italic; border-top:1px solid rgba(0,180,166,.15); padding-top:12px; }
+    .tip-firefly strong { color:var(--teal); font-style:normal; }
+
+    .closing { border:1px solid rgba(255,215,0,.1); border-radius:14px; background:rgba(255,215,0,.02); padding:28px; text-align:center; margin-bottom:28px; }
+    .closing-title { font-size:.65rem; color:var(--gold); opacity:.5; text-transform:uppercase; letter-spacing:3px; margin-bottom:14px; }
+    .closing-text { font-size:1rem; color:var(--lg); line-height:1.8; }
+    .closing-text em { color:var(--teal); font-style:italic; }
+    .closing-text strong { color:var(--gold); }
+
+    .btn-row { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:24px; }
+    .btn { flex:1; min-width:140px; border-radius:10px; font-family:Georgia,serif; font-size:.78rem; cursor:pointer; transition:all .3s; padding:12px 20px; text-transform:uppercase; letter-spacing:1.5px; background:transparent; }
+    .btn-reset { border:2px solid rgba(255,255,255,.12); color:rgba(255,255,255,.4); }
+    .btn-reset:hover { border-color:rgba(255,255,255,.3); color:var(--white); }
+    .btn-print { border:2px solid rgba(255,215,0,.3); color:var(--gold); }
+    .btn-print:hover { background:rgba(255,215,0,.08); border-color:var(--gold); box-shadow:0 0 18px rgba(255,215,0,.2); }
+    .print-note { font-size:.74rem; color:var(--mg); text-align:center; font-style:italic; margin-bottom:48px; }
+    footer { text-align:center; padding:24px; border-top:1px solid rgba(0,180,166,.15); font-size:.74rem; color:var(--teal); opacity:.7; letter-spacing:1px; }
+    footer a { color:var(--mg); text-decoration:none; }
+    footer a:hover { color:var(--teal); text-decoration:underline; }
+    @media (max-width:600px) {
+      h1 { font-size:1.7rem; }
+      .cat-top, .con-top { flex-wrap:wrap; }
+      .sum-grid { grid-template-columns:1fr 1fr; }
+    }
+    @media print {
+      .btn-row, .print-note, .back-link, .add-btn, .del-btn, .mode-toggle, .starter-block, .guide-block, .ff-save-wrap, .ff-history-panel { display:none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="brand">Firefly Events&trade; &middot; The Small, Steady Glow of Every Lasting Memory</p>
+    <h1>Event Budget Planner&trade;</h1>
+    <p class="subtitle">Plan It &middot; Fund It &middot; Celebrate It</p>
+  </header>
+
+  <main>
+    <div class="back-link"><a href="index.html">&larr; Back to Firefly Events</a></div>
+
+    <p class="intro">
+      Whether you're planning it alone or your people are chipping in, this tool works the same way: <strong>decide what each part of the event should cost, track what you actually spend, and — if it's a group effort — see exactly what's still needed and who's covered it.</strong> No login, saved right here on this device.
+    </p>
+
+    <p class="sec-label">✦ How Is This Event Being Funded?</p>
+    <div class="mode-toggle">
+      <button class="mode-btn active" id="modeBtnSelf" onclick="setMode('self')">
+        Self-Funded
+        <small>I'm tracking my own budget</small>
+      </button>
+      <button class="mode-btn" id="modeBtnGroup" onclick="setMode('group')">
+        Group-Funded / Donations
+        <small>Friends &amp; family are contributing</small>
+      </button>
+    </div>
+    <p class="mode-note">You can switch between the two anytime — nothing you've entered gets lost.</p>
+    <input type="hidden" id="modeField" value="self" />
+
+    <p class="sec-label">📐 How Much Should Each Category Get? — A Guest-Count Guide</p>
+    <div class="guide-block">
+      <p class="guide-text">There's no single official rule for splitting an event budget — every planner's numbers vary a bit. But researching wedding-industry data, corporate/upscale event guidance, and general party-planning sources together shows a consistent pattern: <strong>as your guest count grows, catering's share of the budget grows with it, while venue, entertainment, and photography shrink as a percentage</strong> — because catering scales directly with every added guest, but a rented room or a hired DJ often costs close to the same whether 20 people show up or 60. Below is a synthesized starting-point split across three guest-count tiers, built from that research:</p>
+      <div class="guide-table-wrap">
+        <table class="guide-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Small<span>Under 25 guests</span></th>
+              <th>Medium<span>25–74 guests</span></th>
+              <th>Large<span>75+ guests</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Venue</td><td>8%</td><td>20%</td><td>22%</td></tr>
+            <tr><td>Catering &amp; Beverage</td><td>42%</td><td>32%</td><td>26%</td></tr>
+            <tr><td>Lodging / Room Block</td><td>2%</td><td>5%</td><td>8%</td></tr>
+            <tr><td>Decor &amp; Florals</td><td>12%</td><td>11%</td><td>9%</td></tr>
+            <tr><td>Entertainment</td><td>10%</td><td>9%</td><td>8%</td></tr>
+            <tr><td>Photography / Video</td><td>8%</td><td>9%</td><td>11%</td></tr>
+            <tr><td>Attire</td><td>6%</td><td>6%</td><td>7%</td></tr>
+            <tr><td>Invitations &amp; Stationery</td><td>4%</td><td>3%</td><td>3%</td></tr>
+            <tr><td>Favors &amp; Gifts</td><td>6%</td><td>3%</td><td>2%</td></tr>
+            <tr><td>Transportation</td><td>2%</td><td>2%</td><td>4%</td></tr>
+            <tr><td>Total</td><td>100%</td><td>100%</td><td>100%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="guide-note"><strong>Why it shifts:</strong> a $600 flat venue fee spread across 20 guests is $30/head — spread across 40 guests, it's $15/head. That's the fixed-cost effect. Meanwhile catering at $35/head stays $35/head no matter who's counting. The more guests you add, the more your budget's center of gravity moves toward food and away from the room. This is a <em style="color:var(--teal)">starting point</em>, not a rule — a backyard gathering with a free venue or a hotel-based event with a room block will shift these numbers further. Adjust every category to fit your actual event.</p>
+    </div>
+
+    <div class="starter-block">
+      <p class="starter-label">🕯️ Help Me Build a Starting Budget</p>
+      <p class="starter-text">Enter your expected guest count and total target budget, then apply the matching tier from the guide above to the categories underneath. It's a <em style="color:var(--teal)">starting point</em>, not a rule — adjust every number to fit your actual event.</p>
+      <div class="starter-fields">
+        <div class="field-wrap">
+          <label class="field-lbl teal">Expected Guest Count</label>
+          <input class="field-in" id="starterGuests" type="number" min="0" step="1" placeholder="e.g. 40" />
+        </div>
+        <div class="field-wrap">
+          <label class="field-lbl gold">Total Target Budget ($)</label>
+          <input class="field-in gold" id="starterTarget" type="number" min="0" step="1" placeholder="e.g. 5000" />
+        </div>
+      </div>
+      <div class="starter-btn-row">
+        <button class="starter-btn" onclick="applyStarterSplit()">Apply Suggested Split</button>
+        <span class="starter-flash" id="starterFlash">✓ Applied to categories below</span>
+      </div>
+    </div>
+
+    <p class="sec-label">🎉 Budget Categories — Where It's All Allocated</p>
+    <div class="cards-list" id="categoriesList"></div>
+    <button class="add-btn" onclick="addCategory()">+ Add a Category</button>
+
+    <div class="cards-list" id="contributorsList" style="display:none;"></div>
+    <button class="add-btn" id="addContributorBtn" onclick="addContributor()" style="display:none;">+ Add a Contributor</button>
+
+    <div id="sweatSection" style="display:none;">
+      <p class="sec-label">🙌 Time &amp; Talent — Non-Financial Contributions</p>
+      <p class="sweat-intro">Not everyone can chip in money — but everyone can chip in <em style="color:var(--teal)">something</em>. List the tasks people are covering with their time, skills, or effort. Type over the example text with your own — name who's got it and check it off once it's done.</p>
+      <ol class="sweat-list" id="sweatList"></ol>
+      <button class="add-btn" id="addSweatBtn" onclick="addSweatItem()">+ Add a Task</button>
+      <p class="sweat-count" id="sweatCount"></p>
+    </div>
+
+    <p class="sec-label">📊 Budget at a Glance</p>
+    <div class="summary">
+      <p class="sum-lbl">✦ Across All Categories</p>
+      <div class="sum-grid">
+        <div class="sum-item">
+          <p class="sum-item-lbl">Total Budgeted</p>
+          <div class="sum-item-val gold" id="sumBudgeted">$0.00</div>
+        </div>
+        <div class="sum-item">
+          <p class="sum-item-lbl">Total Spent</p>
+          <div class="sum-item-val teal" id="sumSpent">$0.00</div>
+        </div>
+        <div class="sum-item">
+          <p class="sum-item-lbl">Remaining to Spend</p>
+          <div class="sum-item-val gold" id="sumRemaining">$0.00</div>
+        </div>
+        <div class="sum-item group-only">
+          <p class="sum-item-lbl">Total Pledged</p>
+          <div class="sum-item-val pink" id="sumPledged">$0.00</div>
+        </div>
+        <div class="sum-item group-only">
+          <p class="sum-item-lbl">Total Collected</p>
+          <div class="sum-item-val teal" id="sumCollected">$0.00</div>
+        </div>
+        <div class="sum-item group-only">
+          <p class="sum-item-lbl">Still Needed</p>
+          <div class="sum-item-val pink" id="sumStillNeeded">$0.00</div>
+        </div>
+      </div>
+      <div class="funded-track"><div class="funded-fill" id="fundedFill" style="width:0%"></div></div>
+    </div>
+
+    <p class="sec-label">💡 Party Planning Tips</p>
+
+    <div class="tip-card">
+      <p class="tip-title">🏨 Ask About the Room Block → Event Space Discount</p>
+      <p class="tip-body">If guests are staying overnight, ask the hotel about a <strong>room block</strong> — a set number of rooms reserved for your group, usually at a discounted nightly rate. Many hotels will also waive or discount the rental fee for a meeting or event space once you book enough room nights (sometimes called a <strong>rooms-to-space ratio</strong>). This is a real, common practice — but it's negotiated, not automatic, and it's rarely 100% free.</p>
+      <ul class="tip-checklist">
+        <li>Ask directly: "If I block X rooms, what event space comes with it?"</li>
+        <li>Get the room-to-space ratio and any <strong>food &amp; beverage minimum</strong> in writing.</li>
+        <li>Watch for an <strong>attrition clause</strong> — if your group doesn't fill the block, you may be charged a penalty for the empty rooms.</li>
+      </ul>
+      <p class="tip-firefly"><strong>Firefly tip:</strong> Budget the room block as a "negotiate this" line, not a guaranteed savings line, until the contract is signed.</p>
+    </div>
+
+    <div class="tip-card">
+      <p class="tip-title">🗓️ Off-Peak Dates Save Real Money</p>
+      <p class="tip-body">Venues and vendors often charge less for dates outside their busiest season, or for a Friday/Sunday instead of a Saturday. Before you lock in a date, ask what the rate difference is — it can be significant enough to move an entire category of your budget.</p>
+    </div>
+
+    <div class="tip-card">
+      <p class="tip-title">🛟 Build In a Buffer</p>
+      <p class="tip-body">Set aside 10–15% of your total budget as a contingency line before you allocate the rest. Almost every event has at least one surprise cost — better to plan for it than to raid another category when it shows up.</p>
+    </div>
+
+    <div class="closing">
+      <p class="closing-title">✦ A Word Before You Celebrate</p>
+      <p class="closing-text">A good event doesn't need to cost more than you can see coming. <em>Name the categories. Know the numbers. Ask for what you're entitled to.</em> Whether it's just you covering it or a whole circle of people showing up to help — <strong>plan the glow, don't just hope for it.</strong></p>
+    </div>
+
+    <div class="ff-save-wrap">
+      <button class="ff-save-btn" id="ffSaveBtn" onclick="ffSaveResult()">💾 &nbsp; Save These Results</button>
+      <p class="ff-save-desc">Saves right here in your browser — no login needed — so you can come back anytime and compare today's numbers to your last 25 saves.</p>
+    </div>
+    <div class="ff-history-panel" id="ffHistoryPanel"></div>
+
+    <div class="btn-row">
+      <button class="btn btn-reset" onclick="resetAll()">↺ &nbsp; Start Over</button>
+      <button class="btn btn-print" onclick="window.print()">🖨️ &nbsp; Print / Save as PDF</button>
+    </div>
+    <p class="print-note">Printing gives you a clean copy for vendor meetings or your own records.</p>
+  </main>
+
+  <footer>
+    © 2026 Firefly Jars Financial Success Systems, LLC &nbsp;·&nbsp; Firefly Events™<br />
+    <span style="opacity:.85">An extension of Firefly Financial™ &nbsp;·&nbsp; <a href="../index.html">Explore the Jarring Framework →</a></span>
+  </footer>
+
+  <script src="../js/tool-history.js"></script>
+  <script>
+    let categoryCount = 0;
+    let contributorCount = 0;
+
+    // Percentages researched from wedding/event/party budget industry sources — see the
+    // "How Much Should Each Category Get?" guide on the page for the source list and rationale.
+    // Tiered by guest count because fixed-cost categories (venue, entertainment, photography)
+    // shrink as a share of the budget while catering scales linearly with headcount.
+    const defaultCategories = [
+      { key:'venue',       name:'Venue',                      pctSmall:0.08, pctMedium:0.20, pctLarge:0.22 },
+      { key:'catering',    name:'Catering & Beverage',         pctSmall:0.42, pctMedium:0.32, pctLarge:0.26 },
+      { key:'lodging',     name:'Lodging / Room Block',        pctSmall:0.02, pctMedium:0.05, pctLarge:0.08 },
+      { key:'decor',       name:'Decor & Florals',             pctSmall:0.12, pctMedium:0.11, pctLarge:0.09 },
+      { key:'entertain',   name:'Entertainment',               pctSmall:0.10, pctMedium:0.09, pctLarge:0.08 },
+      { key:'photo',       name:'Photography / Video',         pctSmall:0.08, pctMedium:0.09, pctLarge:0.11 },
+      { key:'attire',      name:'Attire',                      pctSmall:0.06, pctMedium:0.06, pctLarge:0.07 },
+      { key:'stationery',  name:'Invitations & Stationery',    pctSmall:0.04, pctMedium:0.03, pctLarge:0.03 },
+      { key:'favors',      name:'Favors & Gifts',              pctSmall:0.06, pctMedium:0.03, pctLarge:0.02 },
+      { key:'transport',   name:'Transportation',              pctSmall:0.02, pctMedium:0.02, pctLarge:0.04 }
+    ];
+
+    function guestTier(guests) {
+      if (guests >= 75) return { key: 'pctLarge',  label: 'Large Gathering (75+ guests)' };
+      if (guests >= 25) return { key: 'pctMedium', label: 'Medium Gathering (25–74 guests)' };
+      return { key: 'pctSmall', label: 'Small Gathering (under 25 guests)' };
+    }
+
+    function fmt(n) {
+      return '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    // ---- Mode toggle ----
+    function setMode(mode) {
+      document.getElementById('modeField').value = mode;
+      document.body.classList.toggle('mode-group', mode === 'group');
+      document.getElementById('modeBtnSelf').classList.toggle('active', mode === 'self');
+      document.getElementById('modeBtnGroup').classList.toggle('active', mode === 'group');
+      document.getElementById('contributorsList').style.display = mode === 'group' ? 'flex' : 'none';
+      document.getElementById('addContributorBtn').style.display = mode === 'group' ? 'block' : 'none';
+      document.getElementById('sweatSection').style.display = mode === 'group' ? 'block' : 'none';
+      calcSummary();
+    }
+
+    // ---- Categories ----
+    function addCategory(name, key) {
+      categoryCount++;
+      const id = categoryCount;
+      const card = document.createElement('div');
+      card.className = 'category-card';
+      card.id = `cat-${id}`;
+      if (key) card.dataset.key = key;
+      card.innerHTML = `
+        <div class="cat-top">
+          <input class="cat-name-in" id="catname-${id}" type="text" value="${name || ''}" placeholder="e.g. Venue, Catering, Photography" />
+          <button class="del-btn" onclick="removeCategory(${id})">Remove</button>
+        </div>
+        <div class="cat-fields">
+          <div class="field-wrap">
+            <label class="field-lbl gold">Budgeted ($)</label>
+            <input class="field-in gold" id="catbudget-${id}" type="number" min="0" step="1" value="0" oninput="calcCategory(${id})" />
+          </div>
+          <div class="field-wrap">
+            <label class="field-lbl teal">Spent So Far ($)</label>
+            <input class="field-in" id="catspent-${id}" type="number" min="0" step="1" value="0" oninput="calcCategory(${id})" />
+          </div>
+          <div class="field-wrap">
+            <div class="remaining-box" id="catbox-${id}">
+              <p class="mn-lbl">Remaining</p>
+              <div class="mn-val" id="catremain-${id}">$0.00</div>
+            </div>
+          </div>
+        </div>
+      `;
+      document.getElementById('categoriesList').appendChild(card);
+      calcSummary();
+    }
+
+    function calcCategory(id) {
+      const budgeted = parseFloat(document.getElementById(`catbudget-${id}`)?.value) || 0;
+      const spent    = parseFloat(document.getElementById(`catspent-${id}`)?.value)  || 0;
+      const remaining = budgeted - spent;
+      const remainEl = document.getElementById(`catremain-${id}`);
+      const boxEl = document.getElementById(`catbox-${id}`);
+      if (remainEl) remainEl.textContent = fmt(Math.abs(remaining)) + (remaining < 0 ? ' over' : '');
+      if (boxEl) boxEl.classList.toggle('over', remaining < 0);
+      calcSummary();
+    }
+
+    function removeCategory(id) {
+      const el = document.getElementById(`cat-${id}`);
+      if (el) el.remove();
+      calcSummary();
+    }
+
+    // ---- Contributors ----
+    function addContributor(name, note) {
+      contributorCount++;
+      const id = contributorCount;
+      const card = document.createElement('div');
+      card.className = 'contributor-card';
+      card.id = `con-${id}`;
+      card.innerHTML = `
+        <div class="con-top">
+          <input class="con-name-in" id="conname-${id}" type="text" value="${name || ''}" placeholder="e.g. Mom, Aunt Sheila, Coworker Pool" />
+          <button class="del-btn" onclick="removeContributor(${id})">Remove</button>
+        </div>
+        <div class="con-fields">
+          <div class="field-wrap">
+            <label class="field-lbl gold">Pledged ($)</label>
+            <input class="field-in gold" id="conpledge-${id}" type="number" min="0" step="1" value="0" oninput="calcSummary()" />
+          </div>
+          <div class="field-wrap">
+            <label class="field-lbl teal">Received ($)</label>
+            <input class="field-in" id="conreceived-${id}" type="number" min="0" step="1" value="0" oninput="calcSummary()" />
+          </div>
+        </div>
+        <label class="paid-wrap">
+          <input type="checkbox" id="conpaid-${id}" />
+          <span class="paid-lbl">Paid in full</span>
+        </label>
+      `;
+      document.getElementById('contributorsList').appendChild(card);
+      calcSummary();
+    }
+
+    function removeContributor(id) {
+      const el = document.getElementById(`con-${id}`);
+      if (el) el.remove();
+      calcSummary();
+    }
+
+    // ---- Time & Talent (sweat equity) ----
+    let sweatCount = 0;
+    const sweatPlaceholders = [
+      'Venue booked, confirmed, deposit paid, and contract signed — Molly',
+      'Caterer booked and menu finalized — Sharon',
+      'Decorations picked up and set up day-of — Aunt Pam',
+      'Photography covered by a friend — Jordan',
+      'Playlist and sound system handled — DJ Mike',
+      'Transportation coordinated for out-of-town guests — Uncle Ray'
+    ];
+
+    function addSweatItem(text) {
+      sweatCount++;
+      const id = sweatCount;
+      const placeholder = sweatPlaceholders[(id - 1) % sweatPlaceholders.length];
+      const li = document.createElement('li');
+      li.className = 'sweat-card';
+      li.id = `sweat-${id}`;
+      li.innerHTML = `
+        <div class="sweat-top">
+          <input class="sweat-in" id="sweatname-${id}" type="text" value="${text || ''}" placeholder="${placeholder}" />
+          <button class="del-btn" onclick="removeSweatItem(${id})">Remove</button>
+        </div>
+        <label class="paid-wrap">
+          <input type="checkbox" id="sweatdone-${id}" onchange="toggleSweatDone(${id}, this)" />
+          <span class="paid-lbl">Done</span>
+        </label>
+      `;
+      document.getElementById('sweatList').appendChild(li);
+      updateSweatCount();
+    }
+
+    function toggleSweatDone(id, cb) {
+      const li = document.getElementById(`sweat-${id}`);
+      if (li) li.classList.toggle('done', cb.checked);
+      updateSweatCount();
+    }
+
+    function removeSweatItem(id) {
+      const el = document.getElementById(`sweat-${id}`);
+      if (el) el.remove();
+      updateSweatCount();
+    }
+
+    function updateSweatCount() {
+      const items = document.querySelectorAll('.sweat-card');
+      const done = document.querySelectorAll('.sweat-card.done').length;
+      const el = document.getElementById('sweatCount');
+      el.innerHTML = items.length ? `<strong>${done}</strong> of ${items.length} tasks marked done` : '';
+    }
+
+    // ---- Budget starter ----
+    function applyStarterSplit() {
+      const target = parseFloat(document.getElementById('starterTarget').value) || 0;
+      if (target <= 0) return;
+      const guests = parseFloat(document.getElementById('starterGuests').value) || 0;
+      const tier = guestTier(guests);
+      document.querySelectorAll('.category-card').forEach(card => {
+        const key = card.dataset.key;
+        const entry = defaultCategories.find(c => c.key === key);
+        if (!entry) return;
+        const id = card.id.match(/cat-(\d+)/)[1];
+        const input = document.getElementById(`catbudget-${id}`);
+        if (input) { input.value = Math.round(target * entry[tier.key]); calcCategory(id); }
+      });
+      const flash = document.getElementById('starterFlash');
+      flash.textContent = guests > 0
+        ? `✓ Applied the ${tier.label} split below`
+        : `✓ Applied the ${tier.label} split below — enter a guest count for a more precise tier`;
+      flash.classList.add('show');
+      setTimeout(() => flash.classList.remove('show'), 3200);
+      calcSummary();
+    }
+
+    // ---- Summary ----
+    function calcSummary() {
+      let budgetedSum = 0, spentSum = 0;
+      document.querySelectorAll('.category-card').forEach(card => {
+        const id = card.id.match(/cat-(\d+)/)[1];
+        budgetedSum += parseFloat(document.getElementById(`catbudget-${id}`)?.value) || 0;
+        spentSum    += parseFloat(document.getElementById(`catspent-${id}`)?.value)  || 0;
+      });
+      document.getElementById('sumBudgeted').textContent  = fmt(budgetedSum);
+      document.getElementById('sumSpent').textContent     = fmt(spentSum);
+      const remaining = budgetedSum - spentSum;
+      const remEl = document.getElementById('sumRemaining');
+      remEl.textContent = fmt(Math.abs(remaining)) + (remaining < 0 ? ' over' : '');
+      remEl.className = 'sum-item-val ' + (remaining < 0 ? 'pink' : 'gold');
+
+      let pledgedSum = 0, collectedSum = 0;
+      document.querySelectorAll('.contributor-card').forEach(card => {
+        const id = card.id.match(/con-(\d+)/)[1];
+        pledgedSum   += parseFloat(document.getElementById(`conpledge-${id}`)?.value)   || 0;
+        collectedSum += parseFloat(document.getElementById(`conreceived-${id}`)?.value) || 0;
+      });
+      document.getElementById('sumPledged').textContent   = fmt(pledgedSum);
+      document.getElementById('sumCollected').textContent = fmt(collectedSum);
+      const stillNeeded = Math.max(budgetedSum - collectedSum, 0);
+      document.getElementById('sumStillNeeded').textContent =
+        stillNeeded > 0 ? fmt(stillNeeded) : (budgetedSum > 0 ? '$0.00 — fully funded!' : '$0.00');
+      const pctFunded = budgetedSum > 0 ? Math.min((collectedSum / budgetedSum) * 100, 100) : 0;
+      document.getElementById('fundedFill').style.width = pctFunded + '%';
+    }
+
+    function seedDefaults() {
+      document.getElementById('categoriesList').innerHTML = '';
+      categoryCount = 0;
+      defaultCategories.forEach(c => addCategory(c.name, c.key));
+
+      document.getElementById('contributorsList').innerHTML = '';
+      contributorCount = 0;
+      addContributor(); addContributor();
+
+      document.getElementById('sweatList').innerHTML = '';
+      sweatCount = 0;
+      addSweatItem(); addSweatItem(); addSweatItem();
+    }
+
+    function resetAll() {
+      setMode('self');
+      document.getElementById('starterGuests').value = '';
+      document.getElementById('starterTarget').value = '';
+      seedDefaults();
+      calcSummary();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    seedDefaults();
+
+    // ── Save / History ──
+    function ffCapture() {
+      const categories = FireflyHistory.captureRows('categoriesList', '.category-card');
+      const contributors = FireflyHistory.captureRows('contributorsList', '.contributor-card');
+      const sweat = FireflyHistory.captureRows('sweatList', '.sweat-card');
+      const fields = FireflyHistory.captureFields(document, ['modeField', 'starterGuests', 'starterTarget']);
+      const budgeted = document.getElementById('sumBudgeted').textContent;
+      const spent = document.getElementById('sumSpent').textContent;
+      const modeLabel = fields.modeField === 'group' ? 'Group-Funded' : 'Self-Funded';
+      return {
+        data: { categories, contributors, sweat, fields },
+        headline: budgeted + ' budgeted',
+        headlineNum: parseFloat(budgeted.replace(/[$,]/g, '')) || 0,
+        summary: modeLabel + ' · spent ' + spent
+      };
+    }
+    function ffRestoreEntry(entry) {
+      document.getElementById('categoriesList').innerHTML = '';
+      categoryCount = 0;
+      FireflyHistory.restoreRows('categoriesList', '.category-card', entry.data.categories, addCategory);
+
+      document.getElementById('contributorsList').innerHTML = '';
+      contributorCount = 0;
+      FireflyHistory.restoreRows('contributorsList', '.contributor-card', entry.data.contributors, addContributor);
+
+      document.getElementById('sweatList').innerHTML = '';
+      sweatCount = 0;
+      FireflyHistory.restoreRows('sweatList', '.sweat-card', entry.data.sweat || [], addSweatItem);
+
+      FireflyHistory.restoreFields(document, entry.data.fields || {});
+      setMode((entry.data.fields && entry.data.fields.modeField) || 'self');
+
+      document.querySelectorAll('.category-card').forEach(card => {
+        const id = card.id.match(/cat-(\d+)/)[1];
+        calcCategory(id);
+      });
+      document.querySelectorAll('.sweat-card').forEach(li => {
+        const id = li.id.match(/sweat-(\d+)/)[1];
+        const cb = document.getElementById(`sweatdone-${id}`);
+        if (cb && cb.checked) toggleSweatDone(id, cb);
+      });
+      updateSweatCount();
+      calcSummary();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function ffSaveResult() {
+      const c = ffCapture();
+      FireflyHistory.save('event-budget-planner', { data: c.data, summary: c.summary, headlineText: c.headline, headlineNum: c.headlineNum });
+      ffRenderHistory();
+      FireflyHistory.flashSaved(document.getElementById('ffSaveBtn'));
+    }
+    function ffRenderHistory() {
+      FireflyHistory.renderPanel('event-budget-planner', document.getElementById('ffHistoryPanel'), {
+        formatHeadline: e => e.headlineText,
+        headlineValue: e => e.headlineNum,
+        higherIsBetter: true,
+        formatDelta: d => '$' + d.toFixed(2),
+        onRestore: ffRestoreEntry
+      });
+    }
+    ffRenderHistory();
+  </script>
+
+</body>
+</html>
