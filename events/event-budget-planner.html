@@ -246,10 +246,62 @@
       .cat-top, .con-top { flex-wrap:wrap; }
       .sum-grid { grid-template-columns:1fr 1fr; }
     }
+    /* ── Print: dark screen theme doesn't survive on paper, so rebuild it light.
+       None of this affects the on-screen page. ── */
     @media print {
-      .btn-row, .print-note, .back-link, .add-btn, .del-btn, .mode-toggle, .starter-block, .guide-toggle-btn, .guide-block, .ff-save-wrap, .ff-history-panel { display:none; }
+      @page { margin: 14mm; }
+
+      /* interactive chrome has no meaning on paper */
+      .btn-row, .print-note, .back-link, .add-btn, .del-btn, .mode-toggle, .mode-note,
+      .starter-block, .guide-toggle-btn, .guide-block, .ff-save-wrap, .ff-history-panel,
+      .confetti-layer { display:none !important; }
+
+      /* gold logo is invisible on white paper — swap to the black one */
       .brand-logo { display:none; }
       .brand-logo-print { display:block; width:180px; max-width:56vw; height:auto; margin:0 auto 14px; }
+
+      body { background:#fff !important; color:#111 !important; }
+      main { max-width:none; padding:0; }
+      header { border-bottom:1px solid #bbb; padding:0 0 16px; }
+
+      /* force every themed colour to dark ink, drop the glows */
+      h1, .brand, .subtitle, .intro, .intro em, .intro strong, .sec-label, .cat-intro,
+      .sweat-intro, .whatsleft-title, .whatsleft-divider, .whatsleft-more, .whatsleft-empty,
+      .sum-lbl, .sum-item-lbl, .sum-item-val, .dash-stat-lbl, .dash-stat-val, .dash-stat-sub,
+      .dash-countdown, .glow-pct, .glow-label, .glow-note, .guide-note, .guide-note strong,
+      .tip-title, .tip-body, .tip-body strong, .tip-firefly, .tip-firefly strong,
+      .tip-checklist li, .tip-checklist li::before, .closing-title, .closing-text,
+      .closing-text em, .closing-text strong, .field-lbl, .mn-lbl, .mn-val, .paid-lbl,
+      .sweat-count, .sweat-count strong, .whatsleft-item span, footer, footer a, a {
+        color:#111 !important; text-shadow:none !important; opacity:1 !important;
+      }
+      .scripture, .scripture-ref { color:#5b21b6 !important; text-shadow:none !important; }
+
+      /* typed values AND the suggested placeholder names must both be readable —
+         category names live in placeholders until the user overwrites them */
+      input, textarea, select {
+        color:#111 !important; background:transparent !important;
+        -webkit-text-fill-color:#111 !important;
+      }
+      ::placeholder { color:#555 !important; opacity:1 !important; }
+      .cat-name-in, .con-name-in, .sweat-in, .dash-name-in, .field-in { border-bottom:1px solid #999 !important; }
+
+      /* containers: white with borders that actually show */
+      .dash-block, .category-card, .contributor-card, .sweat-card, .tip-card,
+      .closing, .summary, .glow-box, .dash-stat, .remaining-box, .whatsleft-item {
+        background:#fff !important; border:1px solid #ccc !important; box-shadow:none !important;
+      }
+      .category-card.done, .contributor-card.done, .sweat-card.done, .whatsleft-item.done { background:#f4f4f5 !important; }
+      .whatsleft-item.done span { color:#666 !important; }
+
+      /* browsers skip background colours on print, so force these bars to render */
+      .glow-track, .funded-track { background:#e5e5e5 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+      .glow-fill, .funded-fill { background:#555 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+      input[type="checkbox"] { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+
+      /* don't split a card across two pages */
+      .dash-block, .glow-box, .summary, .category-card, .contributor-card,
+      .sweat-card, .tip-card, .closing { break-inside:avoid; page-break-inside:avoid; }
     }
   </style>
 </head>
