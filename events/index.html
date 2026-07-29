@@ -51,6 +51,17 @@
       margin: 0 auto;
       filter: drop-shadow(0 0 26px rgba(255,215,0,0.30));
     }
+    .brand-logo-print { display: none; }
+    @media print {
+      .brand-logo { display: none; }
+      .brand-logo-print {
+        display: block;
+        width: 340px;
+        max-width: 80vw;
+        height: auto;
+        margin: 0 auto;
+      }
+    }
     .tagline {
       font-size: 0.95rem;
       color: var(--pink);
@@ -129,7 +140,7 @@
   <canvas id="fireflyCanvas"></canvas>
 
   <header>
-    <h1><img src="../assets/images/firefly-events-logo.png" alt="Firefly Events&trade;" class="brand-logo" /></h1>
+    <h1><img src="../assets/images/firefly-events-logo.png" alt="Firefly Events&trade;" class="brand-logo" /><img src="../assets/images/firefly-events-logo-print.png" alt="" aria-hidden="true" class="brand-logo-print" /></h1>
     <p class="tagline">The Small, Steady Glow of Every Lasting Memory</p>
     <p class="intro">Free tools to help you plan and budget your next gathering &mdash; showers, weddings, reunions, fundraisers, and everything in between. <em>No login required.</em></p>
     <p class="scripture">&ldquo;Everyone brings out the choice wine first &hellip; but you have saved the best till now.&rdquo;<span class="scripture-ref">&mdash; John 2:10</span></p>

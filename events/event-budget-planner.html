@@ -20,6 +20,7 @@
     }
     header { text-align:center; padding:52px 24px 40px; border-bottom:1px solid rgba(255,215,0,.12); }
     .brand-logo { display:block; width:180px; max-width:56vw; height:auto; margin:0 auto 14px; filter:drop-shadow(0 0 20px rgba(255,215,0,.28)); }
+    .brand-logo-print { display:none; }
     .brand { font-size:.68rem; color:var(--teal); text-transform:uppercase; letter-spacing:3px; margin-bottom:14px; text-shadow:0 0 14px rgba(0,180,166,.6); }
     h1 { font-size:2.2rem; font-style:italic; color:var(--gold); text-shadow:0 0 30px rgba(255,215,0,.4); margin-bottom:8px; }
     .subtitle { font-size:.82rem; color:var(--pink); text-transform:uppercase; letter-spacing:2px; text-shadow:0 0 12px rgba(255,107,157,.5); }
@@ -70,7 +71,10 @@
     .whatsleft-item { background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.08); border-radius:10px; padding:10px 14px; transition:border-color .2s, background .2s; }
     .whatsleft-item label { display:flex; align-items:center; gap:10px; cursor:pointer; }
     .whatsleft-item input[type="checkbox"] { width:16px; height:16px; accent-color:var(--gold); cursor:pointer; flex-shrink:0; }
-    .whatsleft-item span { font-size:.86rem; color:var(--lg); }
+    .whatsleft-item span { font-size:.86rem; color:var(--lg); transition:color .3s; }
+    .whatsleft-item.done { background:rgba(255,255,255,.012); border-color:rgba(255,255,255,.05); }
+    .whatsleft-item.done span { color:#6B7280; }
+    .whatsleft-divider { text-align:center; font-size:.6rem; color:var(--mg); opacity:.55; text-transform:uppercase; letter-spacing:2px; margin:12px 0 2px; }
     .whatsleft-more { text-align:center; font-size:.74rem; color:var(--mg); font-style:italic; margin-top:6px; }
     .whatsleft-empty { text-align:center; font-size:.9rem; color:var(--teal); font-style:italic; padding:8px 0; }
     @media (max-width:600px) {
@@ -244,6 +248,8 @@
     }
     @media print {
       .btn-row, .print-note, .back-link, .add-btn, .del-btn, .mode-toggle, .starter-block, .guide-toggle-btn, .guide-block, .ff-save-wrap, .ff-history-panel { display:none; }
+      .brand-logo { display:none; }
+      .brand-logo-print { display:block; width:180px; max-width:56vw; height:auto; margin:0 auto 14px; }
     }
   </style>
 </head>
@@ -251,6 +257,7 @@
 
   <header>
     <img src="../assets/images/firefly-events-logo.png" alt="Firefly Events&trade;" class="brand-logo" />
+    <img src="../assets/images/firefly-events-logo-print.png" alt="" aria-hidden="true" class="brand-logo-print" />
     <p class="brand">The Small, Steady Glow of Every Lasting Memory</p>
     <h1>Event Budget Planner&trade;</h1>
     <p class="subtitle">Plan It &middot; Fund It &middot; Celebrate It</p>
@@ -298,7 +305,7 @@
         </div>
       </div>
 
-      <p class="whatsleft-title">✦ What's Left</p>
+      <p class="whatsleft-title">✦ Planning Checklist</p>
       <div class="whatsleft-list" id="dashWhatsLeft"></div>
     </div>
 
@@ -544,7 +551,7 @@
       if (key) card.dataset.key = key;
       card.innerHTML = `
         <div class="cat-top">
-          <input class="cat-name-in" id="catname-${id}" type="text" value="" placeholder="${name || 'e.g. Venue, Catering, Photography'}" />
+          <input class="cat-name-in" id="catname-${id}" type="text" value="" placeholder="${name || 'e.g. Venue, Catering, Photography'}" oninput="calcSummary()" />
           <button class="del-btn" onclick="removeCategory(${id})">Remove</button>
         </div>
         <div class="cat-fields">
@@ -605,7 +612,7 @@
       card.id = `con-${id}`;
       card.innerHTML = `
         <div class="con-top">
-          <input class="con-name-in" id="conname-${id}" type="text" value="${name || ''}" placeholder="e.g. Mom, Aunt Sheila, Coworker Pool" />
+          <input class="con-name-in" id="conname-${id}" type="text" value="${name || ''}" placeholder="e.g. Mom, Aunt Sheila, Coworker Pool" oninput="calcSummary()" />
           <button class="del-btn" onclick="removeContributor(${id})">Remove</button>
         </div>
         <div class="con-fields">
@@ -660,7 +667,7 @@
       li.id = `sweat-${id}`;
       li.innerHTML = `
         <div class="sweat-top">
-          <input class="sweat-in" id="sweatname-${id}" type="text" value="${text || ''}" placeholder="${placeholder}" />
+          <input class="sweat-in" id="sweatname-${id}" type="text" value="${text || ''}" placeholder="${placeholder}" oninput="calcSummary()" />
           <button class="del-btn" onclick="removeSweatItem(${id})">Remove</button>
         </div>
         <label class="paid-wrap">
@@ -794,7 +801,7 @@
       if (remEl) remEl.textContent = total - done;
 
       renderGlow(pct);
-      renderWhatsLeft(items.filter(i => !i.done));
+      renderWhatsLeft(items);
     }
 
     function renderGlow(pct) {
@@ -843,52 +850,66 @@
       }
     }
 
-    function renderWhatsLeft(remaining) {
+    // Remaining items stay at the top; completed ones drop to the bottom in grey
+    // rather than vanishing, so progress stays visible.
+    function renderWhatsLeft(items) {
       const container = document.getElementById('dashWhatsLeft');
       if (!container) return;
       container.innerHTML = '';
-
-      if (remaining.length === 0) {
-        container.innerHTML = '<p class="whatsleft-empty">✨ Everything is checked off — you\'re ready!</p>';
-        return;
-      }
+      if (items.length === 0) return;
 
       const MAX_SHOWN = 5;
-      remaining.slice(0, MAX_SHOWN).forEach(item => {
+      const remaining = items.filter(i => !i.done);
+      const completed = items.filter(i => i.done);
+
+      const makeRow = item => {
         const row = document.createElement('div');
-        row.className = 'whatsleft-item';
+        row.className = 'whatsleft-item' + (item.done ? ' done' : '');
         row.innerHTML = `
           <label>
-            <input type="checkbox" onchange="whatsLeftComplete(this)" data-source="${item.source}" data-id="${item.id}" />
+            <input type="checkbox"${item.done ? ' checked' : ''} onchange="whatsLeftToggle(this)" data-source="${item.source}" data-id="${item.id}" />
             <span>${escapeHtml(item.name)}</span>
           </label>
         `;
-        container.appendChild(row);
-      });
+        return row;
+      };
+      const makeNote = (cls, text) => {
+        const p = document.createElement('p');
+        p.className = cls;
+        p.textContent = text;
+        return p;
+      };
 
-      if (remaining.length > MAX_SHOWN) {
-        const more = document.createElement('p');
-        more.className = 'whatsleft-more';
-        more.textContent = `+ ${remaining.length - MAX_SHOWN} more below`;
-        container.appendChild(more);
+      if (remaining.length === 0) {
+        container.appendChild(makeNote('whatsleft-empty', "✨ Everything is checked off — you're ready!"));
+      } else {
+        remaining.slice(0, MAX_SHOWN).forEach(i => container.appendChild(makeRow(i)));
+        if (remaining.length > MAX_SHOWN) {
+          container.appendChild(makeNote('whatsleft-more', `+ ${remaining.length - MAX_SHOWN} more below`));
+        }
+      }
+
+      if (completed.length > 0) {
+        container.appendChild(makeNote('whatsleft-divider', `✓ Done (${completed.length})`));
+        completed.slice(0, MAX_SHOWN).forEach(i => container.appendChild(makeRow(i)));
+        if (completed.length > MAX_SHOWN) {
+          container.appendChild(makeNote('whatsleft-more', `+ ${completed.length - MAX_SHOWN} more done`));
+        }
       }
     }
 
-    function whatsLeftComplete(cb) {
-      if (!cb.checked) return;
-      const source = cb.dataset.source;
-      const id = cb.dataset.id;
+    function whatsLeftToggle(cb) {
       const map = {
         cat:   { prefix: 'catdone-',   fn: toggleCategoryDone },
         con:   { prefix: 'conpaid-',   fn: toggleContributorPaid },
         sweat: { prefix: 'sweatdone-', fn: toggleSweatDone }
       };
-      const cfg = map[source];
+      const cfg = map[cb.dataset.source];
       if (!cfg) return;
-      const realCb = document.getElementById(cfg.prefix + id);
+      const realCb = document.getElementById(cfg.prefix + cb.dataset.id);
       if (!realCb) return;
-      realCb.checked = true;
-      cfg.fn(id, realCb);
+      realCb.checked = cb.checked;
+      cfg.fn(cb.dataset.id, realCb);
     }
 
     function updateCountdown() {
