@@ -365,6 +365,7 @@
     <div class="cards-list" id="categoriesList"></div>
     <button class="add-btn" onclick="addCategory()">+ Add a Category</button>
 
+    <p class="sec-label" id="contributorsLabel" style="display:none;">💰 Contributions — Who's Chipping In</p>
     <div class="cards-list" id="contributorsList" style="display:none;"></div>
     <button class="add-btn" id="addContributorBtn" onclick="addContributor()" style="display:none;">+ Add a Contributor</button>
 
@@ -520,6 +521,7 @@
       document.body.classList.toggle('mode-group', mode === 'group');
       document.getElementById('modeBtnSelf').classList.toggle('active', mode === 'self');
       document.getElementById('modeBtnGroup').classList.toggle('active', mode === 'group');
+      document.getElementById('contributorsLabel').style.display = mode === 'group' ? 'block' : 'none';
       document.getElementById('contributorsList').style.display = mode === 'group' ? 'flex' : 'none';
       document.getElementById('addContributorBtn').style.display = mode === 'group' ? 'block' : 'none';
       document.getElementById('sweatSection').style.display = mode === 'group' ? 'block' : 'none';
