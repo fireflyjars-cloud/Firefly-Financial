@@ -34,7 +34,14 @@
     .scripture-ref { display:block; font-size:.72rem; font-style:normal; letter-spacing:1px; opacity:.75; margin-top:7px; }
     .intro em { color:var(--teal); font-style:italic; }
     .intro strong { color:var(--gold); }
-    .sec-label { font-size:.68rem; color:var(--gold); opacity:.7; text-transform:uppercase; letter-spacing:3px; margin:28px 0 12px; }
+    /* Section headings. These were .68rem uppercase at 70% opacity, which read as
+       eyebrow labels rather than headings — people couldn't find the sections. Now
+       sized like .tip-title, full opacity, with a rule underneath to chunk the page. */
+    .sec-label {
+      font-size:1.15rem; color:var(--gold); opacity:1; letter-spacing:.4px;
+      margin:48px 0 18px; padding-bottom:10px;
+      border-bottom:1px solid rgba(255,215,0,.22);
+    }
 
     /* Mode toggle */
     .mode-toggle { display:flex; gap:10px; margin-bottom:10px; }
@@ -109,7 +116,9 @@
 
     /* Budget starter helper */
     .starter-block { background:rgba(0,180,166,.06); border:1px solid rgba(0,180,166,.35); border-radius:16px; padding:28px; margin-bottom:20px; box-shadow:0 0 30px rgba(0,180,166,.1); }
-    .starter-label { font-size:.72rem; color:var(--teal); text-transform:uppercase; letter-spacing:3px; margin-bottom:10px; opacity:.95; }
+    /* card-level heading: readable next to the 1.15rem section headings, but a step
+       down from them since it lives inside the starter block */
+    .starter-label { font-size:1rem; color:var(--teal); letter-spacing:.3px; margin-bottom:12px; opacity:1; }
     .starter-text { font-size:.88rem; color:var(--lg); line-height:1.6; margin-bottom:18px; }
     .starter-fields { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; margin-bottom:16px; }
     .starter-btn-row { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
@@ -286,6 +295,9 @@
         color:#111 !important; text-shadow:none !important; opacity:1 !important;
       }
       .scripture, .scripture-ref { color:#5b21b6 !important; text-shadow:none !important; }
+
+      /* the heading rule is faint gold on screen — invisible on white paper */
+      .sec-label { border-bottom-color:#bbb !important; }
 
       /* typed values AND the suggested placeholder names must both be readable —
          category names live in placeholders until the user overwrites them */
