@@ -221,6 +221,8 @@
     .tip-title { font-size:1.05rem; color:var(--gold); margin-bottom:10px; }
     .tip-body { font-size:.9rem; color:var(--lg); line-height:1.7; margin-bottom:12px; }
     .tip-body strong { color:var(--gold); }
+    /* the book mention sits below the exit buttons — detached so it reads as a P.S. */
+    .promo-card { margin-top:44px; }
     .tip-checklist { list-style:none; margin-bottom:12px; }
     .tip-checklist li { font-size:.86rem; color:var(--lg); line-height:1.7; padding-left:20px; position:relative; }
     .tip-checklist li::before { content:"✦"; position:absolute; left:0; color:var(--teal); }
@@ -258,7 +260,11 @@
       /* interactive chrome has no meaning on paper */
       .btn-row, .print-note, .back-link, .add-btn, .del-btn, .mode-toggle, .mode-note,
       .starter-block, .guide-toggle-btn, .guide-block, .ff-save-wrap, .ff-history-panel,
-      .confetti-layer, .early-badge { display:none !important; }
+      .confetti-layer, .early-badge, .promo-card { display:none !important; }
+
+      /* the planning tips are collapsed on screen, but they're vendor-meeting material
+         (the room-block questions especially) — always print them, open or not */
+      #tipsBlock { display:block !important; }
 
       /* gold logo is invisible on white paper — swap to the black one */
       .brand-logo { display:none; }
@@ -489,7 +495,8 @@
       <div class="funded-track"><div class="funded-fill" id="fundedFill" style="width:0%"></div></div>
     </div>
 
-    <p class="sec-label">💡 Firefly Planning Tips</p>
+    <button class="guide-toggle-btn" id="tipsToggleBtn" onclick="toggleTips()">💡 3 tips for stretching your event budget ▾</button>
+    <div id="tipsBlock" style="display:none;">
 
     <div class="tip-card">
       <p class="tip-title">🏨 Ask About the Room Block → Event Space Discount</p>
@@ -512,15 +519,11 @@
       <p class="tip-body">Set aside 10–15% of your total budget as a contingency line before you allocate the rest. Almost every event has at least one surprise cost — better to plan for it than to raid another category when it shows up.</p>
     </div>
 
+    </div><!-- /tipsBlock -->
+
     <div class="closing">
       <p class="closing-title">✦ A Word Before You Celebrate</p>
       <p class="closing-text">A good event doesn't need to cost more than you can see coming. <em>Name the categories. Know the numbers.</em> Whether it's just you covering it or a whole circle of people showing up to help — <strong>plan the glow, don't just hope for it.</strong></p>
-    </div>
-
-    <div class="tip-card">
-      <p class="tip-title">📖 One More Thing, Before You Go</p>
-      <p class="tip-body">You just did something most people never do with their own money — named every category, put a number on it, and tracked it. If that kind of clarity felt good, my book digs into why so many high earners do everything "right" and still feel like the money disappears, and how to close that gap.</p>
-      <p class="tip-body" style="margin-bottom:0;"><a href="https://delyce.gumroad.com/l/rsceh" target="_blank" rel="noopener" style="color:var(--teal); text-decoration:none;">Why High Earners Still Feel Broke and How to Fix It →</a></p>
     </div>
 
     <!-- panel sits above the save button so its "save your results below" copy points the right way -->
@@ -535,6 +538,13 @@
       <button class="btn btn-print" onclick="window.print()">🖨️ &nbsp; Print / Get a PDF Copy</button>
     </div>
     <p class="print-note">Printing gives you a clean copy for vendor meetings or your own records.</p>
+
+    <!-- absolute last thing on the page, below the exit buttons, and never printed -->
+    <div class="tip-card promo-card">
+      <p class="tip-title">📖 One More Thing, Before You Go</p>
+      <p class="tip-body">You just did something most people never do with their own money — named every category, put a number on it, and tracked it. If that kind of clarity felt good, my book digs into why so many high earners do everything "right" and still feel like the money disappears, and how to close that gap.</p>
+      <p class="tip-body" style="margin-bottom:0;"><a href="https://delyce.gumroad.com/l/rsceh" target="_blank" rel="noopener" style="color:var(--teal); text-decoration:none;">Why High Earners Still Feel Broke and How to Fix It →</a></p>
+    </div>
   </main>
 
   <footer>
@@ -585,6 +595,18 @@
       btn.textContent = showing
         ? '📐 Curious how that split was calculated? View the Guest-Count Guide ▾'
         : '📐 Hide the Guest-Count Guide ▴';
+    }
+
+    // ---- Planning tips toggle ----
+    // Collapsed by default so the page doesn't run long before the save/exit buttons.
+    function toggleTips() {
+      const block = document.getElementById('tipsBlock');
+      const btn = document.getElementById('tipsToggleBtn');
+      const showing = block.style.display !== 'none';
+      block.style.display = showing ? 'none' : 'block';
+      btn.textContent = showing
+        ? '💡 3 tips for stretching your event budget ▾'
+        : '💡 Hide the planning tips ▴';
     }
 
     // ---- Mode toggle ----
