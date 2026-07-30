@@ -120,6 +120,7 @@
     .starter-btn:hover { background:rgba(0,180,166,.1); box-shadow:0 0 18px rgba(0,180,166,.2); }
     .starter-flash { font-size:.78rem; color:var(--teal); opacity:0; transition:opacity .3s; }
     .starter-flash.show { opacity:1; }
+    .starter-flash.warn { color:var(--gold); }
 
     /* Category / contributor cards (shared shape) */
     .cards-list { display:flex; flex-direction:column; gap:16px; margin-bottom:16px; }
@@ -246,6 +247,8 @@
       h1 { font-size:1.7rem; }
       .cat-top, .con-top { flex-wrap:wrap; }
       .sum-grid { grid-template-columns:1fr 1fr; }
+      /* the starter button label is long — give it the full row on phones */
+      .starter-btn { width:100%; }
     }
     /* ── Print: dark screen theme doesn't survive on paper, so rebuild it light.
        None of this affects the on-screen page. ── */
@@ -380,7 +383,7 @@
 
     <div class="starter-block">
       <p class="starter-label">🕯️ Help Me Build a Starting Budget</p>
-      <p class="starter-text">Enter your expected guest count and total target budget, then apply a suggested split to the categories below. It's a <em style="color:var(--teal)">starting point</em>, not a rule — adjust every number to fit your actual event.</p>
+      <p class="starter-text">Enter your expected guest count and total target budget, then click the button below to build your breakdown — <strong style="color:var(--teal)">the category amounts stay at $0 until you click it.</strong> What it builds is a <em style="color:var(--teal)">starting point</em>, not a rule — adjust every number to fit your actual event.</p>
       <div class="starter-fields">
         <div class="field-wrap">
           <label class="field-lbl teal">Expected Guest Count</label>
@@ -392,7 +395,7 @@
         </div>
       </div>
       <div class="starter-btn-row">
-        <button class="starter-btn" onclick="applyStarterSplit()">Apply Suggested Split</button>
+        <button class="starter-btn" onclick="applyStarterSplit()">Apply Split &amp; Build My Budget</button>
         <span class="starter-flash" id="starterFlash">✓ Applied to categories below</span>
       </div>
     </div>
@@ -520,15 +523,16 @@
       <p class="tip-body" style="margin-bottom:0;"><a href="https://delyce.gumroad.com/l/rsceh" target="_blank" rel="noopener" style="color:var(--teal); text-decoration:none;">Why High Earners Still Feel Broke and How to Fix It →</a></p>
     </div>
 
+    <!-- panel sits above the save button so its "save your results below" copy points the right way -->
+    <div class="ff-history-panel" id="ffHistoryPanel"></div>
     <div class="ff-save-wrap">
       <button class="ff-save-btn" id="ffSaveBtn" onclick="ffSaveResult()">💾 &nbsp; Save These Results</button>
       <p class="ff-save-desc">Saves right here in your browser — no login needed — so you can come back anytime and compare today's numbers to your last 25 saves.</p>
     </div>
-    <div class="ff-history-panel" id="ffHistoryPanel"></div>
 
     <div class="btn-row">
       <button class="btn btn-reset" onclick="resetAll()">↺ &nbsp; Start Over</button>
-      <button class="btn btn-print" onclick="window.print()">🖨️ &nbsp; Print / Save as PDF</button>
+      <button class="btn btn-print" onclick="window.print()">🖨️ &nbsp; Print / Get a PDF Copy</button>
     </div>
     <p class="print-note">Printing gives you a clean copy for vendor meetings or your own records.</p>
   </main>
@@ -759,8 +763,17 @@
 
     // ---- Budget starter ----
     function applyStarterSplit() {
+      const flash = document.getElementById('starterFlash');
       const target = parseFloat(document.getElementById('starterTarget').value) || 0;
-      if (target <= 0) return;
+      // no target budget means there's nothing to split — say so instead of doing nothing
+      if (target <= 0) {
+        flash.textContent = '↑ Enter your total target budget first — that\'s the number the split is built from.';
+        flash.classList.add('warn', 'show');
+        setTimeout(() => flash.classList.remove('show', 'warn'), 4200);
+        document.getElementById('starterTarget').focus();
+        return;
+      }
+      flash.classList.remove('warn');
       const guests = parseFloat(document.getElementById('starterGuests').value) || 0;
       const tier = guestTier(guests);
       document.querySelectorAll('.category-card').forEach(card => {
@@ -771,7 +784,6 @@
         const input = document.getElementById(`catbudget-${id}`);
         if (input) { input.value = Math.round(target * entry[tier.key]); calcCategory(id); }
       });
-      const flash = document.getElementById('starterFlash');
       flash.textContent = guests > 0
         ? `✓ Applied the ${tier.label} split below`
         : `✓ Applied the ${tier.label} split below — enter a guest count for a more precise tier`;
