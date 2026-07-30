@@ -695,12 +695,12 @@
     <button class="nav-tab active" onclick="showSection('overview')">Overview</button>
     <button class="nav-tab" onclick="showSection('calculator')">Weekly Calculator</button>
     <button class="nav-tab" onclick="showSection('migration')">Migration Steps</button>
-    <button class="nav-tab" onclick="showSection('vaults')">Vault Setup</button>
+    <button class="nav-tab" onclick="showSection('vaults')">Account Setup</button>
     <button class="nav-tab" onclick="showSection('checklist')">Activation</button>
   </nav>
 
   <div class="tool10-disclosure">
-    <p><strong>A word about SoFi.</strong> This guide walks through the exact bank setup I use myself, which is why it names SoFi specifically rather than staying general. I am not paid or sponsored by SoFi, I earn nothing if you open an account, and this is not financial advice &mdash; it is one worked example of putting the Jarring Framework into real accounts. Any bank that lets you hold several separate sub-accounts will work just as well. Compare your own options, read the current terms, and choose what fits your situation.</p>
+    <p><strong>Before you start.</strong> This guide deliberately doesn't tell you which bank to use. It grew out of my own household's move, but the framework works at any bank that lets you hold several named sub-accounts &mdash; and the one you already have may do it. <strong>None of this is financial advice</strong>, and no bank pays me anything for it. Your situation, income, and existing accounts are yours to weigh: check current terms yourself, and for anything involving taxes or closing accounts, talk to a professional who knows your circumstances.</p>
   </div>
 
   <!-- ═══════════════════════════════════════════
@@ -716,32 +716,32 @@
     <div class="before-after">
       <div class="ba-card before">
         <div class="ba-title">Before — The Old Way</div>
-        <div class="ba-item">All income hits one business checking account</div>
-        <div class="ba-item">Personal bills, business expenses, daily spending — all tangled together</div>
-        <div class="ba-item">Jar transfers happen manually from memory</div>
-        <div class="ba-item">Savings earn near 0% in Credit Union accounts</div>
-        <div class="ba-item">Three separate CU accounts to track and manage</div>
-        <div class="ba-item">No visual separation between business &amp; personal</div>
-        <div class="ba-item">Tax time is stressful — everything is mixed</div>
+        <div class="ba-item">All income lands in one account</div>
+        <div class="ba-item">Bills, spending, and savings — all tangled together</div>
+        <div class="ba-item">Jar amounts get moved from memory, when you remember</div>
+        <div class="ba-item">Savings sit in an account earning almost nothing</div>
+        <div class="ba-item">Several accounts across different banks to track</div>
+        <div class="ba-item">Nothing shows you what each dollar is actually for</div>
+        <div class="ba-item">Every month starts with guessing</div>
       </div>
       <div class="ba-card after">
         <div class="ba-title">After — The Firefly Way</div>
-        <div class="ba-item">Business income → dedicated business checking (Clear Cut)</div>
-        <div class="ba-item">Weekly "paycheck" transfer to your personal SoFi account</div>
-        <div class="ba-item">The Lamp™ (SoFi Checking) handles all bills &amp; daily spending</div>
-        <div class="ba-item">5 Vaults in SoFi — one per Jar — all earning their high savings rate</div>
-        <div class="ba-item">Weekly jar pour from one clear starting number</div>
-        <div class="ba-item">Business and personal completely separated</div>
-        <div class="ba-item">Up to 20 Vaults for sub-goals within each jar</div>
+        <div class="ba-item">One checking account is The Lamp&trade; — bills and daily spending</div>
+        <div class="ba-item">5 named sub-accounts — one per Jar — inside your savings</div>
+        <div class="ba-item">A weekly pour from one clear starting number</div>
+        <div class="ba-item">Every jar visible, named, and earning interest</div>
+        <div class="ba-item">Sub-accounts for specific goals inside each jar</div>
+        <div class="ba-item">Money for a purpose can't be spent by accident</div>
+        <div class="ba-item">You always know where you stand</div>
       </div>
     </div>
 
     <div class="apy-banner">
       <div class="apy-icon">💡</div>
       <div class="apy-text">
-        <h4>The Self-Employment APY Unlock</h4>
-        <p>If you are self-employed and paid irregularly, you don't have a payroll direct deposit &mdash; which is how most banks want you to qualify for their best savings rate. SoFi lets you qualify a second way: <strong>transfer a qualifying amount into the account every 31-day period, OR subscribe to SoFi Plus.</strong> When your income is variable, the qualifying-deposit route is usually the realistic path, so track your monthly total carefully. Fall below the threshold in any single period and the rate drops to their base tier until you qualify again.</p>
-        <p class="apy-asof"><strong>Rates and thresholds change.</strong> As of July 2026 the qualifying deposit was $5,000 per 31-day period, the high tier was about 3.80% APY, and the base tier roughly 1.0&ndash;1.2%. Check SoFi's current numbers before you open anything &mdash; treat the mechanism above as the durable part, not the figures.</p>
+        <h4>If You're Self-Employed, Read This First</h4>
+        <p>Most banks reserve their best savings rate for customers with a payroll direct deposit &mdash; which self-employed people don't have. Before you pick a bank, ask them directly: <strong>&ldquo;I have no payroll direct deposit. What else qualifies me for your highest rate?&rdquo;</strong> Many banks accept a minimum amount transferred in each period instead, and some offer a paid membership that unlocks the rate regardless. Both are workable; you just have to know to ask.</p>
+        <p class="apy-asof"><strong>Never take a rate from a page like this one.</strong> Savings rates and qualifying rules change constantly, including at whichever bank you choose. Get the current number from the bank itself before you open anything, and ask what happens to your rate in a month where you fall short.</p>
       </div>
     </div>
 
@@ -753,24 +753,24 @@
     <div class="card">
       <h3>🏗️ YOUR NEW BANKING ARCHITECTURE</h3>
       <div style="font-family: Georgia, serif; font-size: 13px; line-height: 2.2; color: var(--cream-dim); padding: 8px 0;">
-        <div style="color: var(--amber);">🪔 Clear Cut Window Tinting</div>
-        <div style="padding-left: 20px;">↓ Square Deposits</div>
-        <div style="color: var(--amber); padding-left: 0;">🏦 Business Checking Account (Relay / Current CU)</div>
-        <div style="padding-left: 20px;">↓ Weekly transfer — your "paycheck" to yourself</div>
-        <div style="color: var(--amber);">🪔 The Lamp™ — SoFi Checking (personal hub)</div>
+        <div style="color: var(--amber);">💵 Your income</div>
+        <div style="padding-left: 20px;">↓ paycheck, client payments, or a weekly transfer you pay yourself</div>
+        <div style="color: var(--amber);">🪔 The Lamp™ — your everyday checking account</div>
         <div style="padding-left: 20px;">↓ Bills autopay from here · Debit card for daily spending</div>
-        <div style="padding-left: 20px;">↓ Every week: pour 50% into the 5 Vaults</div>
-        <div style="color: var(--jar1); padding-left: 40px;">🌱 Genesis Vault — 10% → Investing</div>
-        <div style="color: var(--jar2); padding-left: 40px;">🚪 Exodus Vault — 10% → Playing &amp; Joy</div>
-        <div style="color: var(--jar3); padding-left: 40px;">📜 Leviticus Vault — 10% → Learning</div>
-        <div style="color: var(--jar4); padding-left: 40px;">🔢 Numbers Vault — 10% → Savings</div>
-        <div style="color: var(--jar5); padding-left: 40px;">📣 Deuteronomy Vault — 10% → Giving</div>
+        <div style="padding-left: 20px;">↓ Every week: pour the other 50% into the 5 named sub-accounts</div>
+        <div style="color: var(--jar1); padding-left: 40px;">🌱 Genesis — 10% → Investing</div>
+        <div style="color: var(--jar2); padding-left: 40px;">🚪 Exodus — 10% → Playing &amp; Joy</div>
+        <div style="color: var(--jar3); padding-left: 40px;">📜 Leviticus — 10% → Learning</div>
+        <div style="color: var(--jar4); padding-left: 40px;">🔢 Numbers — 10% → Savings</div>
+        <div style="color: var(--jar5); padding-left: 40px;">📣 Deuteronomy — 10% → Giving</div>
       </div>
+      <p style="margin-top: 14px; font-size: 14px; font-style: italic;">Run a business? Add one step at the top: business income goes to a <strong>separate business account</strong> first, and you transfer yourself a weekly paycheck from it into The Lamp. Never pour jars straight from business income &mdash; you'll spend money you owe in taxes.</p>
     </div>
 
     <div class="card">
-      <h3>📋 WHY SOFI IS THE RIGHT MOVE FOR YOU</h3>
-      <p>SoFi's Checking + Savings is a combined account. Your debit card pulls from the <em>checking side</em> — so daily purchases, bill pay, Zelle, everything — works exactly like your current account. The savings vaults sit on the <em>savings side</em>, earning interest, untouched until you intentionally move money. Up to 20 vaults under a single account. No extra logins. No extra transfers between banks. One app for your entire personal financial life.</p>
+      <h3>📋 WHAT TO LOOK FOR IN A BANK</h3>
+      <p>This system needs one thing your bank may or may not offer: <strong>the ability to hold several named sub-accounts inside one savings account.</strong> Different banks call them vaults, buckets, spaces, envelopes, or simply multiple savings accounts &mdash; the name doesn't matter, the separation does. Before you move anything, check that yours can do it. Many banks already can, and you may not need to switch at all.</p>
+      <p style="margin-top: 12px;">Worth confirming while you're asking: no monthly maintenance fee, no minimum balance, a debit card that pulls from checking rather than savings, and how many sub-accounts you're allowed. Five is the minimum this framework needs. More lets you break each jar into specific goals.</p>
     </div>
 
   </section>
@@ -872,19 +872,19 @@
 
     <div class="card">
       <h3>📋 YOUR WEEKLY POUR INSTRUCTIONS</h3>
-      <p style="margin-bottom: 10px;">Every Friday (or whatever day you designate as Pour Day), do this in order:</p>
+      <p style="margin-bottom: 10px;">Pick one day and keep it &mdash; Friday works well. Every Pour Day, do this in order:</p>
       <ol style="padding-left: 22px; color: var(--cream-dim); font-size: 16px; line-height: 2;">
-        <li>Add up all income received this week (both of you)</li>
+        <li>Add up all income received this week</li>
         <li>Enter the total above — your jar amounts populate instantly</li>
-        <li>Transfer <strong style="color: var(--amber);">Lamp amount</strong> (50%) — keep it in SoFi Checking for bills &amp; spending</li>
-        <li>Transfer <strong style="color: var(--jar1);">Genesis amount</strong> → SoFi Vault: "Genesis Jar™"</li>
-        <li>Transfer <strong style="color: var(--jar2);">Exodus amount</strong> → SoFi Vault: "Exodus Jar™"</li>
-        <li>Transfer <strong style="color: var(--jar3);">Leviticus amount</strong> → SoFi Vault: "Leviticus Jar™"</li>
-        <li>Transfer <strong style="color: var(--jar4);">Numbers amount</strong> → SoFi Vault: "Numbers Jar™"</li>
-        <li>Transfer <strong style="color: var(--jar5);">Deuteronomy amount</strong> → SoFi Vault: "Deuteronomy Jar™"</li>
+        <li>Leave the <strong style="color: var(--amber);">Lamp amount</strong> (50%) in checking for bills &amp; daily spending</li>
+        <li>Transfer <strong style="color: var(--jar1);">Genesis amount</strong> → your "Genesis Jar&trade;" sub-account</li>
+        <li>Transfer <strong style="color: var(--jar2);">Exodus amount</strong> → your "Exodus Jar&trade;" sub-account</li>
+        <li>Transfer <strong style="color: var(--jar3);">Leviticus amount</strong> → your "Leviticus Jar&trade;" sub-account</li>
+        <li>Transfer <strong style="color: var(--jar4);">Numbers amount</strong> → your "Numbers Jar&trade;" sub-account</li>
+        <li>Transfer <strong style="color: var(--jar5);">Deuteronomy amount</strong> → your "Deuteronomy Jar&trade;" sub-account</li>
       </ol>
       <div style="margin-top: 14px; padding: 12px 16px; background: var(--glass); border-left: 3px solid var(--gold-dim); border-radius: 0 4px 4px 0; font-style: italic; font-size: 15px; color: var(--cream-dim);">
-        In SoFi, vault transfers happen inside the app instantly — Savings → Vault. It takes about 2 minutes once the system is set up.
+        At most banks these transfers happen inside the app in about two minutes once the system is set up. If your bank offers scheduled or automatic transfers, set them up and it takes no minutes at all.
       </div>
     </div>
 
@@ -903,47 +903,45 @@
     <div class="apy-banner">
       <div class="apy-icon">⏱️</div>
       <div class="apy-text">
-        <h4>Timeline: 45–60 Days Total</h4>
-        <p>This is not a weekend project. Rushing a banking migration means broken autopays and missed payments. Follow the phases. Phase 1 and 2 happen in parallel. Phase 3 starts only after one full billing cycle on SoFi.</p>
+        <h4>Timeline: Give This 45–60 Days</h4>
+        <p>This is not a weekend project. Rushing a banking move is how autopays break and payments get missed &mdash; and a missed payment can cost you far more than the interest you were chasing. Work through the phases in order, and keep your existing account open and funded the entire time.</p>
       </div>
     </div>
 
     <div class="step">
       <div class="step-num">1</div>
       <div class="step-body">
-        <h3>PHASE 1 — Separate Business from Personal</h3>
-        <p>Before touching SoFi, get your business money completely separate from your personal money. This is the foundation everything else sits on.</p>
+        <h3>PHASE 1 — Know Your Starting Number</h3>
+        <p>Before you open anything, settle the one figure this whole system runs on: how much money arrives, and when.</p>
         <ul>
-          <li>Confirm your existing business checking is in the name of <em>Clear Cut Window Tinting</em> or your LLC — not your personal name</li>
-          <li>If it's commingled, open a free business checking account (Relay Bank is free, Colorado-based businesses use it widely)</li>
-          <li>Verify ALL Square deposits are routing to the business account only</li>
-          <li>Designate a "pay yourself" day (every Friday is common for self-employed couples)</li>
-          <li>Decide your weekly paycheck amount — this is what flows into The Lamp™ each week</li>
+          <li>Pick your <strong>Pour Day</strong> &mdash; one day each week, every week. Consistency matters more than which day</li>
+          <li>Work out your typical weekly income. If it varies, use a conservative recent average rather than your best week</li>
+          <li>Make a list of every bill on autopay and which account it currently pulls from. You'll need this list in Phase 2</li>
         </ul>
-        <div class="note">⚠️ Do not move on to Step 2 until Square is confirmed routing to the business account.</div>
+        <div class="note">🏢 <strong>If you run a business:</strong> keep business and personal money in separate accounts first, and pay yourself a set weekly amount from the business account. Pouring jars directly from business income means spending money you owe in taxes. If yours are currently mixed together, sort that out before anything else &mdash; and talk to a bookkeeper or accountant about the right structure for your situation.</div>
       </div>
     </div>
 
     <div class="step">
       <div class="step-num">2</div>
       <div class="step-body">
-        <h3>Open Your SoFi Checking + Savings Account</h3>
+        <h3>Set Up an Account That Can Hold Sub-Accounts</h3>
         <ul>
-          <li>Go to <strong>sofi.com/banking</strong> — opens in about 10 minutes</li>
-          <li>Open a single SoFi Checking + Savings account — this is both accounts in one</li>
-          <li>Fund it with a small initial transfer ($100–$500) from your current CU to activate it</li>
-          <li>You'll receive your SoFi debit card in 7–10 business days</li>
-          <li>If you have a partner, they should open their own SoFi account separately (or you can add them as a joint account holder)</li>
+          <li><strong>Check your current bank first.</strong> If it already supports named sub-accounts, buckets, or vaults, you may not need to move at all &mdash; skip to Step 3</li>
+          <li>If it doesn't, compare a few options on: number of sub-accounts allowed, monthly fees, minimum balance, and how you'd qualify for their best savings rate</li>
+          <li>Open the new account and fund it with a small transfer to activate it</li>
+          <li>Wait for the debit card to arrive before you move any bills &mdash; usually 7&ndash;10 business days</li>
+          <li>Sharing finances with someone? Decide deliberately between a joint account and separate accounts. Both work with this framework</li>
         </ul>
-        <div class="note">📝 SoFi requires no minimum balance to open and charges no monthly fees.</div>
+        <div class="note">📝 <strong>Leave your existing account open.</strong> You'll need it as a fallback for weeks, and closing it early is the single most common way a banking move goes wrong.</div>
       </div>
     </div>
 
     <div class="step">
       <div class="step-num">3</div>
       <div class="step-body">
-        <h3>Create Your 5 Vaults Inside SoFi</h3>
-        <p>In the SoFi app: Savings → Vaults → Create New Vault. Name each one exactly:</p>
+        <h3>Create Your 5 Named Sub-Accounts</h3>
+        <p>However your bank does this &mdash; vaults, buckets, spaces, or separate savings accounts &mdash; create five and name them exactly:</p>
         <ul>
           <li><span style="color: var(--jar1);">🌱</span> <strong>Genesis Jar™</strong> — Investing &amp; Multiplication</li>
           <li><span style="color: var(--jar2);">🚪</span> <strong>Exodus Jar™</strong> — Playing &amp; Joy</li>
@@ -951,23 +949,22 @@
           <li><span style="color: var(--jar4);">🔢</span> <strong>Numbers Jar™</strong> — Savings &amp; Discipline</li>
           <li><span style="color: var(--jar5);">📣</span> <strong>Deuteronomy Jar™</strong> — Giving &amp; Generosity</li>
         </ul>
-        <div class="note">All 5 vaults earn the same APY as your main savings balance. No extra accounts, no extra rates to track.</div>
+        <div class="note">📌 The exact names matter more than you'd think. A sub-account called "Savings" gets raided. One called <em>Deuteronomy Jar&trade; — Giving &amp; Generosity</em> does not. The name is the boundary.</div>
       </div>
     </div>
 
     <div class="step">
       <div class="step-num">4</div>
       <div class="step-body">
-        <h3>Move Your Monthly Bills to SoFi (One at a Time)</h3>
-        <p>Make a list of every bill on autopay. Move them to SoFi one by one over 2–3 weeks:</p>
+        <h3>Move Your Bills Over — One at a Time</h3>
+        <p>This is the step people rush and regret. Spread it across 2&ndash;3 weeks:</p>
         <ul>
-          <li>Log into each biller's website and update the payment method to your SoFi checking account/routing number</li>
-          <li>OR call the biller and provide SoFi routing + account number</li>
-          <li>Note: SoFi routing number is <strong>031101279</strong></li>
-          <li>Keep a spreadsheet: Bill name → Old account → Moved to SoFi → Date confirmed</li>
-          <li>Do NOT close CU accounts until every autopay has successfully processed through SoFi at least once</li>
+          <li>Update one biller at a time, either on their website or by phone. Get your new account and routing numbers from your bank's app or a statement &mdash; never from a page or email that "reminds" you what they are</li>
+          <li>Keep a simple list: bill name → old account → moved on → first successful payment confirmed</li>
+          <li><strong>Confirm each one actually processed</strong> before you move the next. "I updated it" is not the same as "it went through"</li>
+          <li>Keep enough money in your old account to cover anything you've missed</li>
         </ul>
-        <div class="note">🗂️ Common bills to migrate: utilities, subscriptions, insurance, phone, internet, streaming services, gym, any recurring payment.</div>
+        <div class="note">🗂️ Easy ones to forget: insurance, annual subscriptions, the gym, storage units, anything that bills quarterly, and any card saved with an online retailer.</div>
       </div>
     </div>
 
@@ -975,44 +972,44 @@
       <div class="step-num">5</div>
       <div class="step-body">
         <h3>Run Your First Weekly Pour</h3>
-        <p>Once SoFi is open and vaults are created — do your first manual jar pour:</p>
+        <p>Once the account is open and the five sub-accounts exist, do your first pour by hand:</p>
         <ul>
-          <li>Transfer your weekly "paycheck" from business checking into SoFi Checking</li>
-          <li>Use the Weekly Calculator (Tab 2) to calculate each vault amount</li>
-          <li>In SoFi app: tap each vault and transfer the calculated amount from your main savings balance</li>
-          <li>Watch the vaults fill — this is the system working</li>
+          <li>Make sure this week's income has landed in your checking account</li>
+          <li>Use the <strong>Weekly Calculator</strong> tab to work out each amount</li>
+          <li>Transfer each amount into its named sub-account, one at a time</li>
+          <li>Watch them fill. This is the whole system in one motion</li>
         </ul>
-        <div class="note">This is Pour Day. Every week, same day. It takes 5 minutes when the system is running.</div>
+        <div class="note">Do it manually for the first few weeks so you can feel the rhythm. Once it's routine, automate it if your bank allows scheduled transfers.</div>
       </div>
     </div>
 
     <div class="step">
       <div class="step-num">6</div>
       <div class="step-body">
-        <h3>Verify the $5,000/Month Qualifying Threshold</h3>
-        <p>To earn their high savings rate without a traditional direct deposit:</p>
+        <h3>Confirm You Actually Qualify for the Rate You Expected</h3>
+        <p>Advertised savings rates almost always come with conditions. Get yours confirmed in writing rather than assuming:</p>
         <ul>
-          <li>SoFi requires $5,000+ in qualifying deposits every 31 days</li>
-          <li>Your weekly paycheck transfers from your business account likely count — confirm with SoFi support when you open (ask: "Do incoming ACH transfers from my own business account count as qualifying deposits?")</li>
-          <li>If your combined income in any given month is under $5,000, the rate drops — plan accordingly</li>
-          <li>SoFi Plus subscription ($10/month) also unlocks the full APY regardless of deposit amount — worth it if your income varies significantly</li>
+          <li>Ask your bank exactly what qualifies you for the higher rate, and what the rate falls to if you don't qualify in a given period</li>
+          <li>If you're paid irregularly, ask specifically: <em>"Do incoming transfers from my own other account count as qualifying deposits?"</em> The answer varies by bank</li>
+          <li>Ask whether the rate applies to money sitting in sub-accounts, or only the main balance</li>
+          <li>If they offer a paid membership that unlocks the rate, do the arithmetic before subscribing &mdash; a monthly fee can easily cost more than the extra interest on a small balance</li>
         </ul>
+        <div class="note">🧮 Worth a sanity check: on a $2,000 balance, the difference between 1% and 4% is about $60 a year. Real, but not worth a $10/month membership to capture. The bigger your balance, the more the rate matters.</div>
       </div>
     </div>
 
     <div class="step">
       <div class="step-num">7</div>
       <div class="step-body">
-        <h3>PHASE 3 — Wind Down Credit Union Accounts</h3>
-        <p>Only do this after one full billing cycle (30–45 days) on SoFi with zero payment failures:</p>
+        <h3>PHASE 3 — Decide What Your Old Account Is For</h3>
+        <p>Notice this step is not called "close your old account." Once a full billing cycle has passed with every payment clearing successfully, you have a choice to make &mdash; and closing isn't automatically the right one.</p>
         <ul>
-          <li>Confirm all autopays have processed successfully through SoFi</li>
-          <li>Transfer remaining balances from CU accounts to SoFi</li>
-          <li>Request account closure in writing or in person at each Credit Union</li>
-          <li>Keep one CU account open for 30 additional days as a fallback (zero balance is fine)</li>
-          <li>Cancel any CU debit cards after the final account is closed</li>
+          <li><strong>Good reasons to keep it open:</strong> a relationship that gets you better loan or mortgage rates, a long account history, a local branch you actually use, or simply a fallback if something goes wrong</li>
+          <li><strong>Good reasons to close it:</strong> monthly fees you're paying for nothing, or so many accounts that you can't keep track</li>
+          <li>Either way, keep it open with a small balance for at least a month after your last bill moves. Stragglers surface late</li>
+          <li>If you do close one, do it deliberately &mdash; move the balance first, get confirmation in writing, and don't leave a card active on a closed account</li>
         </ul>
-        <div class="note">🎉 When the last CU account closes, the migration is complete. Your money is now lit.</div>
+        <div class="note">⚠️ Credit unions in particular often give members meaningfully better rates on car loans and mortgages. If that's true for you, closing the account to chase a savings rate can cost you far more than it earns. Think it through before you act.</div>
       </div>
     </div>
 
@@ -1024,29 +1021,29 @@
   <section class="section" id="vaults">
 
     <div class="section-header">
-      <h2>SoFi Vault Setup Guide</h2>
-      <p>Exact names, purposes, and rules for each vault — and how to use SoFi's 20-vault capacity for sub-goals.</p>
+      <h2>Sub-Account Setup Guide</h2>
+      <p>Exact names, purposes, and the rule for each jar — plus how to break a jar into specific goals.</p>
     </div>
 
     <div class="card" style="margin-bottom: 24px;">
-      <h3>🔧 HOW TO CREATE A VAULT IN SOFI</h3>
+      <h3>🔧 HOW TO CREATE THEM</h3>
+      <p style="margin-bottom: 12px;">Every bank words this differently, but the path is nearly always the same. In your banking app, look for:</p>
       <ol style="padding-left: 22px; color: var(--cream-dim); font-size: 16px; line-height: 2.2;">
-        <li>Open the SoFi app on your phone</li>
-        <li>Tap <strong>Banking</strong> at the bottom of the screen</li>
-        <li>Scroll to your Savings section → tap <strong>Vaults</strong></li>
-        <li>Tap <strong>+ Create a Vault</strong></li>
-        <li>Enter the vault name exactly as listed below</li>
-        <li>Optionally set a savings goal amount</li>
-        <li>Tap <strong>Save</strong></li>
-        <li>Repeat for all 5 primary jars</li>
+        <li>Your <strong>savings</strong> account</li>
+        <li>An option called <strong>Vaults</strong>, <strong>Buckets</strong>, <strong>Spaces</strong>, <strong>Envelopes</strong>, or <strong>Goals</strong></li>
+        <li>Something like <strong>+ Create</strong> or <strong>+ New</strong></li>
+        <li>Enter the name exactly as listed below &mdash; including the jar name, not just "savings"</li>
+        <li>Set a target amount if it offers one, then save</li>
+        <li>Repeat for all five jars</li>
       </ol>
+      <div class="note" style="margin-top: 14px;">Can't find the feature? Ask support: <em>"Can I create multiple named savings sub-accounts inside my account, and how many?"</em> If the answer is no, opening five separate savings accounts works too &mdash; it's just more logins.</div>
     </div>
 
     <table class="vault-table">
       <thead>
         <tr>
           <th></th>
-          <th>Vault Name</th>
+          <th>Sub-Account Name</th>
           <th>Allocation</th>
           <th>Rule &amp; Purpose</th>
         </tr>
@@ -1068,13 +1065,13 @@
           <td><span class="emoji">📜</span></td>
           <td><span class="vname">Leviticus Jar™</span><span style="font-size:12px; color: var(--jar3); display:block;">Learning &amp; Self-Development</span></td>
           <td><strong style="color: var(--jar3);">10%</strong></td>
-          <td>Books, courses, certifications, seminars. You are your greatest asset. This jar invests in the person running the business — both of you.</td>
+          <td>Books, courses, certifications, seminars. You are your greatest asset &mdash; this jar is the one that invests in you rather than in things.</td>
         </tr>
         <tr>
           <td><span class="emoji">🔢</span></td>
           <td><span class="vname">Numbers Jar™</span><span style="font-size:12px; color: var(--jar4); display:block;">Savings &amp; Discipline</span></td>
           <td><strong style="color: var(--jar4);">10%</strong></td>
-          <td>Builds your financial cushion and funds named future purchases. Create sub-vaults for specific goals: Emergency Fund, New Equipment, Vehicle, Vacation. Never touch it for impulse purchases.</td>
+          <td>Builds your financial cushion and funds named future purchases. Break it into specific goals: Emergency Fund, Vehicle, Home Repair, Vacation. Never touch it for impulse purchases.</td>
         </tr>
         <tr>
           <td><span class="emoji">📣</span></td>
@@ -1086,25 +1083,26 @@
     </table>
 
     <div class="section-header">
-      <h2>Using Your Remaining 15 Vaults</h2>
-      <p>SoFi allows up to 20 vaults. Here's how to use the other 15 for sub-goals within each jar.</p>
+      <h2>Breaking a Jar Into Specific Goals</h2>
+      <p>If your bank allows more than five sub-accounts, use the extras to name what you're actually saving for.</p>
     </div>
 
     <div class="card">
-      <h3>🌱 GENESIS SUB-VAULTS (examples)</h3>
-      <p>Genesis Jar — Investment Account Funding · Real Estate Down Payment Fund · Business Reinvestment Reserve · Retirement Seed Fund</p>
+      <h3>🌱 INSIDE GENESIS (examples)</h3>
+      <p>Investment Account Funding · House Down Payment · Retirement Seed Fund · Business Reinvestment</p>
     </div>
     <div class="card">
-      <h3>🔢 NUMBERS SUB-VAULTS (most common)</h3>
-      <p>Emergency Fund (3–6 months expenses) · Vehicle Replacement · Home Repair Reserve · Tax Reserve (critical for self-employed) · Equipment Fund for Clear Cut · Slow Season Buffer</p>
+      <h3>🔢 INSIDE NUMBERS (the most common ones)</h3>
+      <p>Emergency Fund (3&ndash;6 months of expenses) · Vehicle Replacement · Home Repair Reserve · Tax Reserve · Insurance Deductible · Irregular-Income Buffer</p>
     </div>
     <div class="card">
-      <h3>📜 LEVITICUS SUB-VAULTS (examples)</h3>
-      <p>Business Certification Fund · Coaching / Mentorship · Industry Conference · Online Course Library</p>
+      <h3>📜 INSIDE LEVITICUS (examples)</h3>
+      <p>Certification Fund · Coaching or Mentorship · Conference Travel · Course Library</p>
     </div>
     <div class="card">
-      <h3>💡 PRO TIP: The Tax Reserve Vault</h3>
-      <p>As self-employed business owners, you owe quarterly estimated taxes. Create a <strong>Tax Reserve</strong> vault inside Numbers and transfer approximately 25–30% of your net business profit each week into it. This is money that was never yours to spend. Having it in a named vault — earning interest — eliminates tax-time panic completely.</p>
+      <h3>💡 IF YOU'RE SELF-EMPLOYED: THE TAX RESERVE</h3>
+      <p>This is the sub-account that saves people the most grief. If you're self-employed, you likely owe quarterly estimated taxes, and that money was never yours to spend. Create a <strong>Tax Reserve</strong> inside Numbers and move a set percentage of every payment into it the moment it arrives &mdash; before it can feel like income.</p>
+      <p style="margin-top: 10px;">A common starting point is 25&ndash;30% of net profit, but <strong>your actual rate depends on your income, filing status, deductions, and state</strong> &mdash; so confirm your number with a tax professional rather than trusting a rule of thumb. Whatever the figure, having it sitting in a named account earning interest is what turns tax season from a crisis into a transfer.</p>
     </div>
 
   </section>
@@ -1134,49 +1132,49 @@
       <!-- PHASE 1: SEPARATE -->
       <li class="check-item" onclick="toggleCheck(this)">
         <div class="check-box"></div>
-        <div class="check-text"><strong>Business account confirmed</strong> — Clear Cut income routes to a dedicated business checking, not personal <span class="check-phase">Phase 1</span></div>
+        <div class="check-text"><strong>Starting number set</strong> — You know your typical weekly income and have picked your Pour Day <span class="check-phase">Phase 1</span></div>
       </li>
       <li class="check-item" onclick="toggleCheck(this)">
         <div class="check-box"></div>
-        <div class="check-text"><strong>Square deposits verified</strong> — All Square payments routing to business account only <span class="check-phase">Phase 1</span></div>
+        <div class="check-text"><strong>Bill inventory started</strong> — Every autopay and recurring payment written down with the account it pulls from <span class="check-phase">Phase 1</span></div>
       </li>
       <li class="check-item" onclick="toggleCheck(this)">
         <div class="check-box"></div>
         <div class="check-text"><strong>Pour Day designated</strong> — You (and your partner, if you have one) have agreed on a weekly pay-yourself day (e.g., every Friday) <span class="check-phase">Phase 1</span></div>
       </li>
 
-      <!-- PHASE 2: SOFI SETUP -->
+      <!-- PHASE 2: ACCOUNT SETUP -->
       <li class="check-item" onclick="toggleCheck(this)">
         <div class="check-box"></div>
-        <div class="check-text"><strong>SoFi account opened</strong> — SoFi Checking + Savings activated at sofi.com <span class="check-phase">Phase 2</span></div>
+        <div class="check-text"><strong>Account confirmed or opened</strong> — Your bank supports named sub-accounts, or you have opened one that does <span class="check-phase">Phase 2</span></div>
       </li>
       <li class="check-item" onclick="toggleCheck(this)">
         <div class="check-box"></div>
-        <div class="check-text"><strong>SoFi debit card received</strong> — Physical card arrived and activated <span class="check-phase">Phase 2</span></div>
+        <div class="check-text"><strong>Debit card received</strong> — Physical card arrived and activated <span class="check-phase">Phase 2</span></div>
       </li>
       <li class="check-item" onclick="toggleCheck(this)">
         <div class="check-box"></div>
-        <div class="check-text"><strong>Genesis Jar™ vault created</strong> — Named exactly: "Genesis Jar™" in SoFi Vaults <span class="check-phase">Phase 2</span></div>
+        <div class="check-text"><strong>Genesis Jar™ vault created</strong> — Named exactly: "Genesis Jar™" <span class="check-phase">Phase 2</span></div>
       </li>
       <li class="check-item" onclick="toggleCheck(this)">
         <div class="check-box"></div>
-        <div class="check-text"><strong>Exodus Jar™ vault created</strong> — Named exactly: "Exodus Jar™" in SoFi Vaults <span class="check-phase">Phase 2</span></div>
+        <div class="check-text"><strong>Exodus Jar™ vault created</strong> — Named exactly: "Exodus Jar™" <span class="check-phase">Phase 2</span></div>
       </li>
       <li class="check-item" onclick="toggleCheck(this)">
         <div class="check-box"></div>
-        <div class="check-text"><strong>Leviticus Jar™ vault created</strong> — Named exactly: "Leviticus Jar™" in SoFi Vaults <span class="check-phase">Phase 2</span></div>
+        <div class="check-text"><strong>Leviticus Jar™ vault created</strong> — Named exactly: "Leviticus Jar™" <span class="check-phase">Phase 2</span></div>
       </li>
       <li class="check-item" onclick="toggleCheck(this)">
         <div class="check-box"></div>
-        <div class="check-text"><strong>Numbers Jar™ vault created</strong> — Named exactly: "Numbers Jar™" in SoFi Vaults <span class="check-phase">Phase 2</span></div>
+        <div class="check-text"><strong>Numbers Jar™ vault created</strong> — Named exactly: "Numbers Jar™" <span class="check-phase">Phase 2</span></div>
       </li>
       <li class="check-item" onclick="toggleCheck(this)">
         <div class="check-box"></div>
-        <div class="check-text"><strong>Deuteronomy Jar™ vault created</strong> — Named exactly: "Deuteronomy Jar™" in SoFi Vaults <span class="check-phase">Phase 2</span></div>
+        <div class="check-text"><strong>Deuteronomy Jar™ vault created</strong> — Named exactly: "Deuteronomy Jar™" <span class="check-phase">Phase 2</span></div>
       </li>
       <li class="check-item" onclick="toggleCheck(this)">
         <div class="check-box"></div>
-        <div class="check-text"><strong>APY path confirmed</strong> — Verified with SoFi whether your weekly transfers qualify for their high savings rate <span class="check-phase">Phase 2</span></div>
+        <div class="check-text"><strong>Rate conditions confirmed</strong> — You have asked your bank what qualifies you for their best rate, and what it drops to if you miss <span class="check-phase">Phase 2</span></div>
       </li>
 
       <!-- PHASE 2: BILLS -->
@@ -1186,29 +1184,29 @@
       </li>
       <li class="check-item" onclick="toggleCheck(this)">
         <div class="check-box"></div>
-        <div class="check-text"><strong>Bills migrated to SoFi</strong> — All autopays updated with SoFi routing/account number (Routing: 031101279) <span class="check-phase">Phase 2</span></div>
+        <div class="check-text"><strong>Bills migrated</strong> — Every autopay updated with the new account details, one at a time <span class="check-phase">Phase 2</span></div>
       </li>
       <li class="check-item" onclick="toggleCheck(this)">
         <div class="check-box"></div>
-        <div class="check-text"><strong>First Pour Day completed</strong> — First weekly jar pour done successfully through all 5 vaults <span class="check-phase">Phase 2</span></div>
+        <div class="check-text"><strong>First Pour Day completed</strong> — First weekly jar pour done successfully across all 5 sub-accounts <span class="check-phase">Phase 2</span></div>
       </li>
       <li class="check-item" onclick="toggleCheck(this)">
         <div class="check-box"></div>
-        <div class="check-text"><strong>One full billing cycle completed</strong> — 30–45 days of all bills processing through SoFi with no failures <span class="check-phase">Phase 2</span></div>
+        <div class="check-text"><strong>One full billing cycle completed</strong> — 30–45 days of every bill processing through the new account with no failures <span class="check-phase">Phase 2</span></div>
       </li>
 
       <!-- PHASE 3: WIND DOWN -->
       <li class="check-item" onclick="toggleCheck(this)">
         <div class="check-box"></div>
-        <div class="check-text"><strong>Credit Union balances transferred</strong> — Remaining funds moved from all 3 CU accounts to SoFi <span class="check-phase">Phase 3</span></div>
+        <div class="check-text"><strong>Old account reviewed</strong> — You have decided deliberately whether to keep it open, and why <span class="check-phase">Phase 3</span></div>
       </li>
       <li class="check-item" onclick="toggleCheck(this)">
         <div class="check-box"></div>
-        <div class="check-text"><strong>Credit Union accounts closed</strong> — All 3 CU accounts formally closed in writing <span class="check-phase">Phase 3</span></div>
+        <div class="check-text"><strong>Stragglers caught</strong> — Old account kept funded at least a month past the final bill move <span class="check-phase">Phase 3</span></div>
       </li>
       <li class="check-item" onclick="toggleCheck(this)">
         <div class="check-box"></div>
-        <div class="check-text"><strong>Old debit cards cancelled</strong> — All CU debit cards cut and account access removed <span class="check-phase">Phase 3</span></div>
+        <div class="check-text"><strong>Cards tidied up</strong> — Any card on an account you chose to close has been cancelled <span class="check-phase">Phase 3</span></div>
       </li>
 
       <!-- COMPLETE -->

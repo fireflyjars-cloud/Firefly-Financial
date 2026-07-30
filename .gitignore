@@ -141,3 +141,7 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# Delyce's personal-only tools — local operating manuals, never published.
+# The leading underscore also makes GitHub Pages/Jekyll skip them as a second guard.
+tools/_personal-*.html
