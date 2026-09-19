@@ -83,8 +83,8 @@ body {
 /* ── Hero Section ── */
 .hero {
   position: relative;
-  height: 100vh;
-  min-height: 620px;
+  height: auto;
+  min-height: 100vh;
   background-image: url('../assets/images/firefly-hero.png');
   background-size: cover;
   background-position: center;
@@ -94,6 +94,7 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  padding: 200px 20px 90px;
 }
 
 .hero-overlay {
@@ -116,6 +117,58 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 20px;
+}
+
+.hero-headline {
+  font-family: 'Georgia', serif;
+  font-size: 2.35rem;
+  font-weight: 400;
+  color: var(--gold);
+  max-width: 720px;
+  line-height: 1.25;
+  margin: 0;
+  text-shadow: 0 0 24px rgba(255, 215, 0, 0.35);
+}
+
+.hero-subhead {
+  font-size: 1.05rem;
+  color: var(--light-gray);
+  max-width: 640px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.hero-cta-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.hero-content .hero-cta {
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+
+.hero-cta-secondary {
+  color: var(--teal);
+  text-decoration: none;
+  font-size: 0.95rem;
+  border-bottom: 1px solid rgba(0, 180, 166, 0.45);
+  padding-bottom: 2px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.hero-cta-secondary:hover {
+  color: var(--gold);
+  border-bottom-color: rgba(255, 215, 0, 0.6);
+}
+
+.hero-micro {
+  font-size: 0.78rem;
+  color: rgba(229, 231, 235, 0.7);
+  letter-spacing: 0.02em;
+  margin: 0;
 }
 
 .hero-top {
@@ -641,6 +694,8 @@ footer {
 
 @media (max-width: 600px) {
   .hero-tagline  { font-size: 1rem; }
+  .hero-headline { font-size: 1.7rem; }
+  .hero-subhead  { font-size: 0.98rem; }
   .hero-cta      { padding: 14px 36px; }
   main h2        { font-size: 1.5rem; }
   .jar-card      { width: 140px; }
