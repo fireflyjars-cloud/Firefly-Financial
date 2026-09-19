@@ -262,6 +262,138 @@ main h2 {
   line-height: 1.8;
 }
 
+/* ── Two Doors: Separate and Jar ── */
+.doors-section {
+  margin: 0 auto 70px;
+  max-width: 860px;
+}
+
+.doors-section h3 {
+  font-size: 1.7rem;
+  color: var(--gold);
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.35);
+}
+
+.doors-intro {
+  font-size: 1.05rem;
+  color: var(--light-gray);
+  max-width: 620px;
+  margin: 0 auto 36px;
+  line-height: 1.8;
+}
+
+.doors-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.door-card {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border-radius: 16px;
+  padding: 32px 26px 28px;
+  min-width: 0;
+}
+
+.door-separate {
+  background: rgba(0, 180, 166, 0.05);
+  border: 1px solid rgba(0, 180, 166, 0.3);
+  box-shadow: 0 0 30px rgba(0, 180, 166, 0.1);
+}
+
+.door-jar {
+  background: rgba(255, 165, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 0 0 20px rgba(255, 165, 0, 0.05);
+}
+
+.door-card h4 {
+  font-size: 1.35rem;
+  margin-bottom: 14px;
+  letter-spacing: 2px;
+}
+
+.door-separate h4 {
+  color: var(--teal);
+  text-shadow: 0 0 10px rgba(0, 180, 166, 0.6);
+}
+
+.door-jar h4 {
+  color: var(--gold);
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.45);
+}
+
+.door-card p {
+  color: var(--light-gray);
+  font-size: 0.98rem;
+  line-height: 1.75;
+  margin-bottom: 16px;
+}
+
+.door-who {
+  font-style: italic;
+  color: #c5c9d1;
+  font-size: 0.92rem;
+  margin-bottom: 24px;
+}
+
+.door-cta {
+  display: inline-block;
+  margin-top: auto;
+  align-self: center;
+  padding: 13px 22px;
+  border: 2px solid currentColor;
+  text-decoration: none;
+  font-family: 'Georgia', serif;
+  font-size: 0.86rem;
+  letter-spacing: 1px;
+  border-radius: 2px;
+  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.door-separate .door-cta {
+  color: var(--teal);
+}
+
+.door-jar .door-cta {
+  color: var(--gold);
+}
+
+.door-cta:hover,
+.door-cta:focus-visible {
+  color: var(--dark);
+}
+
+.door-separate .door-cta:hover,
+.door-separate .door-cta:focus-visible {
+  background: var(--teal);
+  box-shadow: 0 0 28px rgba(0, 180, 166, 0.4);
+}
+
+.door-jar .door-cta:hover,
+.door-jar .door-cta:focus-visible {
+  background: var(--gold);
+  box-shadow: 0 0 28px rgba(255, 215, 0, 0.45);
+}
+
+.door-cta:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 3px;
+}
+
+.doors-note {
+  margin-top: 28px;
+  font-style: italic;
+  color: var(--teal);
+  font-size: 1.02rem;
+  text-shadow: 0 0 14px rgba(0, 180, 166, 0.35);
+}
+
 /* ── Jars Section ── */
 .jars-section {
   margin-bottom: 60px;
@@ -474,11 +606,18 @@ footer {
 }
 
 /* ── Mobile ── */
+@media (max-width: 700px) {
+  .doors-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 600px) {
   .hero-tagline  { font-size: 1rem; }
   .hero-cta      { padding: 14px 36px; }
   main h2        { font-size: 1.5rem; }
   .jar-card      { width: 140px; }
+  .doors-section h3 { font-size: 1.4rem; }
 }
 
 /* Bottom Call To Action Section */
