@@ -468,7 +468,6 @@ main h2 {
 }
 
 .lamp-card {
-  display: block;
   background: rgba(0, 180, 166, 0.05);
   border: 1px solid rgba(0, 180, 166, 0.3);
   border-radius: 16px;
@@ -476,35 +475,20 @@ main h2 {
   max-width: 600px;
   margin: 0 auto;
   box-shadow: 0 0 30px rgba(0, 180, 166, 0.1);
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.3s ease;
 }
 
-.lamp-card:hover,
-.lamp-card:focus-visible {
+.lamp-card[data-modal]:hover,
+.lamp-card[data-modal]:focus-visible {
   background: rgba(0, 180, 166, 0.1);
   border-color: var(--teal);
   box-shadow: 0 0 40px rgba(0, 180, 166, 0.18);
   transform: translateY(-3px);
+  transition: all 0.3s ease;
 }
 
-.lamp-card:focus-visible {
+.lamp-card[data-modal]:focus-visible {
   outline: 2px solid var(--teal);
   outline-offset: 4px;
-}
-
-.lamp-card-cta {
-  display: inline-block;
-  margin-top: 18px;
-  color: var(--teal);
-  font-size: 0.95rem;
-  letter-spacing: 0.4px;
-}
-
-.lamp-card:hover .lamp-card-cta,
-.lamp-card:focus-visible .lamp-card-cta {
-  text-decoration: underline;
 }
 
 .lamp-card h3 {
@@ -609,6 +593,27 @@ main h2 {
   margin-top: 20px;
   padding-top: 16px;
   border-top: 1px solid rgba(255, 215, 0, 0.15);
+}
+
+.modal-cta {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 13px 22px;
+  border: 2px solid var(--gold);
+  color: var(--gold);
+  text-decoration: none;
+  font-family: Georgia, serif;
+  font-size: 0.88rem;
+  letter-spacing: 0.5px;
+  border-radius: 2px;
+  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modal-cta:hover,
+.modal-cta:focus-visible {
+  background: var(--gold);
+  color: var(--dark);
+  box-shadow: 0 0 28px rgba(255, 215, 0, 0.45);
 }
 
 [data-modal] {

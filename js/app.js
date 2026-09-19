@@ -308,7 +308,7 @@ animate();
 const clickAudio = new window.Audio('https://assets.mixkit.co/active_storage/sfx/2073/2073-preview.mp3');
 clickAudio.volume = 0.6;
 
-document.querySelectorAll('.jar-card').forEach(card => {
+document.querySelectorAll('.jar-card, .lamp-card').forEach(card => {
   card.addEventListener('click', () => {
     clickAudio.currentTime = 0;
     clickAudio.play().catch(() => {});
