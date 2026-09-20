@@ -94,7 +94,7 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 200px 20px 90px;
+  padding: 280px 20px 90px;
 }
 
 .hero-overlay {
@@ -196,8 +196,9 @@ body {
   text-shadow: 0 0 14px rgba(0, 180, 166, 0.7);
   max-width: 460px;
   text-align: center;
-  padding: 20px 0 28px;
-  margin-top: 4px;
+  padding: 0 12px 8px;
+  margin-top: -18px;
+  line-height: 1.35;
   transition: opacity 0.8s ease;
 }
 
@@ -693,7 +694,17 @@ footer {
 }
 
 @media (max-width: 600px) {
-  .hero-tagline  { font-size: 1rem; }
+  .hero {
+    padding: 210px 16px 72px;
+  }
+  .hero-logo {
+    width: 200px;
+  }
+  .hero-tagline  {
+    font-size: 1rem;
+    margin-top: -14px;
+    padding: 0 12px 6px;
+  }
   .hero-headline { font-size: 1.7rem; }
   .hero-subhead  { font-size: 0.98rem; }
   .hero-cta      { padding: 14px 36px; }
