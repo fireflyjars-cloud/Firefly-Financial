@@ -112,3 +112,9 @@
 @media print {
   .ff-save-wrap, .ff-history-panel { display: none; }
 }
+
+/* PDF backup button beside the save button */
+.ff-pdf-btn { margin-left: 10px; }
+@media (max-width: 520px) {
+  .ff-pdf-btn { margin-left: 0; margin-top: 10px; }
+}
