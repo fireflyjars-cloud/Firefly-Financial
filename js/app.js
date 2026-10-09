@@ -200,7 +200,7 @@ animate();
 
   const lines = [
     'Light your money on fire. In the best way.',
-    'The small steady glow of every disciplined decision.',
+    'The glow of compounding decisions',
   ];
   let i = 0;
 
